@@ -21,10 +21,10 @@ echo *** ... Pushing to remote gh-pages branch ***
 git --work-tree dist commit -m "new deployment"
 git push  origin HEAD:gh-pages --force
 
+
 rm -r dist
-git branch -D gh-pages
 
 echo *** checking out Master branch ***
 
 git checkout -f master
-
+git branch -D gh-pages
