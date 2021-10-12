@@ -1,0 +1,34 @@
+<template>
+  <div id="app">
+    <img class="resize" alt="Phenorob logo" src="./assets/phenorob.png">
+    <keep-alive>
+    <survey/>
+    </keep-alive>
+  </div>
+</template>
+
+<script>
+import survey from './components/survey.vue'
+
+export default {
+  name: 'App',
+  components: {survey}
+}
+</script>
+<style>
+/* this is called a style reset as browser has a default one */
+/* * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+} */
+img.resize {
+ width:700px;
+  height:140px;
+}
+</style>
+
+// !!! added keep alive and type = method to the script
