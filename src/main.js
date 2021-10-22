@@ -12,6 +12,8 @@ Vue.use(VueGoogleMaps, {
     region: 'DE',
     language: 'de',
     key: "AIzaSyDf7WjX0VyTmL9c7j33kYka7z7pR1yoTBg",
+    v: "weekly",
+    libraries: ['places', 'visualization']
   },
   autobindAllEvents: true,
   installComponents: true
