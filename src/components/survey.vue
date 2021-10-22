@@ -875,7 +875,7 @@ export default {
   },    
   data () {
     return {
-      step: 0,
+      step: 1,
       pageNumber: 1,
       isHidden: false,
       errors: [],
