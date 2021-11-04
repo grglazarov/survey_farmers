@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/zuckerrueben_umfrage/'
+  publicPath: '/survey_farmers/'
 }
