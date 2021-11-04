@@ -1,22 +1,17 @@
 <template>
   <div id="map">
-
     <vue-gmap
       :center="markerCenter"
       map-type-id="roadmap"
       :zoom="5.8"
-      @click="onMapClick"
       v-bind:options="options"
-      style="height: 500px; width:700px; margin: auto; align: center; border: 20px solid grey; border-style: inset"
+      style="position: absolute; width: 480px; height: 550px; border: 10px solid black; border-style: inset"
       > 
     <gmap-heatmap-layer
       :data = "markers"
       :options="{opacity: 0.6, gradient: colors, radius: 10, maxIntensity: 20, dissipating: true}"
     />
     </vue-gmap>
-    <div>
-    <span>{{ heatmapData }}</span>
-    </div>
   </div>
 </template>
 
@@ -26,17 +21,17 @@
   export default {
     computed: {
       colors() {
-    if (this.selectedTechnique === 'alle Techniken') return [
-        'rgba(204, 203, 245, 0)',
-        'rgba(204, 203, 245, 1)',// 1
-        'rgba(198, 197, 237, 1)',// 2 
-        'rgba(198, 188, 253, 1)',// 3
-        'rgba(176, 167, 235, 1)',// 4
-        'rgba(168, 152, 249, 1)',// 5
-        'rgba(125, 132, 224, 1)',// 6
-        'rgba(101, 100, 222, 1)',// 7
-        'rgba(62, 67, 181, 1)'   // 8
-]
+//     if (this.selectedTechnique === 'alle Techniken') return [
+//         'rgba(204, 203, 245, 0)',
+//         'rgba(204, 203, 245, 1)',// 1
+//         'rgba(198, 197, 237, 1)',// 2 
+//         'rgba(198, 188, 253, 1)',// 3
+//         'rgba(176, 167, 235, 1)',// 4
+//         'rgba(168, 152, 249, 1)',// 5
+//         'rgba(125, 132, 224, 1)',// 6
+//         'rgba(101, 100, 222, 1)',// 7
+//         'rgba(62, 67, 181, 1)'   // 8
+// ]
     if (this.selectedTechnique === 'Striegel') return [
         "rgba(0, 255, 255, 0)",
         "rgba(0, 255, 255, 1)",
@@ -66,10 +61,9 @@
 
               for (var j = 0; j < coords.length; j++) {
                 var single_coords = coords[j].geoloc
-                console.log(single_coords) 
-                locations_all.push({location: new this.google.maps.LatLng(single_coords), weight: 30})   
+                locations_all.push({location: new this.google.maps.LatLng(single_coords), weight: 60})   
                 if (technique.includes(this.selectedTechnique)){
-                    locations_selected.push({location: new this.google.maps.LatLng(single_coords), weight: 30})   
+                    locations_selected.push({location: new this.google.maps.LatLng(single_coords), weight: 60})   
                 }
           } 
           }
@@ -92,67 +86,27 @@
     data () {
       return {
         markerCenter: {
-          lat: 50.8882527,
+          lat: 51.20,
           lng: 10.3254293
         },
-        // addMode: false,
-        tools: true,
-        addmode: false,
-        technique_colors: {"alle Techniken" : "#9B29F8"}[
-                          {"Striegel" : ['white', 'blue']}, 
-                          {"Scharhacke" : "#EAB90C"},  
-                          {"Hackbürste" : "#06498B"}, 
-                          {"Trennhacke" : "#909085"},  
-                          {"Hackfräse" : "green"},
-                          {"Rollhacke" : "#EAB90C"},  
-                          {"Hackstriegelcolor" : "#06498B"}, 
-                          {"Fingerhacke" : "#909085"},  
-                          {"Häufelgerät" : "green"},
-                          {"Reihenstriegel" : "#909085"},  
-                          {"Rotorstriegel" : "green"}],
         options: {
-          zoomControl: true,
+          zoomControl: false,
           mapTypeControl: true,
           scaleControl: false,
           streetViewControl: false,
           rotateControl: false,
           fullscreenControl: false,
           disableDefaultUi: false,
- 
+          keyboardShortcuts: false,
+          gestureHandling: "none"
      },
     
       };
     },
-    methods: {
-      displayTools (value) {
-        this.tools = value
-      },
-      deleteMarker (index) {
-        this.markers.splice(index, 1);
-      },
-      onMapClick (event) {
-        if (this.addmode) {
-          this.markers.push({
-            color: this.circleColor,
-            position: {
-            lat: event.latLng.lat(),
-            lng: event.latLng.lng()
-            }
-          });
-          this.$emit('map_clicked', this.markers)
-          this.addmode = false
-        } 
-      },
-      setMode: function(value){
-        this.addmode = value
-      }
-    }
   };
 </script>
 
 <style>
-@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css";
-
 .vue-map-container, .vue-map{
   height: 100%;  
 }
@@ -164,9 +118,4 @@
   padding: 0px;
   margin: 0px;
 }
-.add-marker {
-  padding: 8px;
-  font-size: 1.3em;
-}
-
 </style>

@@ -1,13 +1,55 @@
 <template>
     <div>
     <div v-if="step === 0" class = heatMap>
-      <button @click.prevent="getGeolocation()">calculate heatmap</button>
-      <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-      <section>
+      <div style="position:relative; text-align: center; left:-150px;width: 1200px; border:4px solid black;">
+          <h2>“Was uns beim Einsatz des Unkrautroboters gefehlt hat, ist ein anderer Landwirt aus der Region mit Erfahrung”</h2>
+      </div> 
+        <!-- <div style="width: 400px">   
+        <multiselect v-model="surveyData.questionFive.landwirte" 
+                    :multiple="true"
+                    :options="this.landwirte"
+                    label="name" 
+                    track-by="name" 
+                    :preselect-first="true"
+                    :close-on-select="true"
+                    :clear-on-select="false"
+                    placeholder="Auswahl"
+                    selectLabel="drücke Enter"
+                    :preserve-search="false"
+                    :max-height="300"
+                    :searchable="false">
+          </multiselect> 
+          {{this.surveyData.questionFive.landwirte}} 
+        </div> -->
+        <div style="border: 4px solid black; padding: 5px">
+            <ul>
+              <li>Zuckerrüben sind immer mehr von Wirkstoffverboten in Pflanzenschutzmitteln betroffen und Landwirte und Landwirtinnen brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
+              <br>
+              <li>Wir möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskolegen und -kolleginnen austauschen. </li>
+               <ul>
+                  <li>Wie wird Unkraut in Zuckerrüben aktuell bekämpft?</li>
+                  <li>Welche Rolle spielen neue Techniken wie kameragesteuerter Hacken?</li>
+                  <li>Nutzen Landwirte und Landwirtinnen in räumlicher Nähe zueinander die gleichen Techniken?</li>
+                  <li><b>Egal wie Sie Ihr Unkraut bekämpfen – es interessiert uns!</b></li>
+               </ul>
+              <br>
+              <li>Als Landwirt/in haben Sie online die Möglichkeit, <b>anonym und unverbindlich</b> Angaben zur Unkrautbekämpfung und ihrem räumlichen Umfeld in eine Datenbank einzutragen, um so Ihre eigenen Werte mit denen Ihrer Berufskollegen und -kolleginnen in ganz Deutschland zu vergleichen. Damit tragen Sie aktiv dazu bei, praxistaugliche Alternativen für die Bekämpfung von Unkräutern in Zuckerrüben zu entwickeln, die den Ansprüchen der Landwirte und Landwirtinnen entsprechen.</li>
+              <br>
+              <li>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</li>
+            </ul>  
+        </div>
+         <div style="margin: 0px; padding: 5px; border:4px solid black">
+           <h2 style="text-align: center">Karte</h2>
+          <p>Klicken Sie auf die jeweilige Rubrik um zu sehen, wie die Verteilung in Deutschland ist.
+          Ihre Daten werden so zusammengefasst auch für andere Teilnehmer der Umfrage zu sehen sein. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</p>
+        </div>
+        <div style="display: flex">
+         <div style="border:4px solid black; width: 300px;">
+           <section>
             <legend> 
               Bitte wählen sie eine mechanische Unkrautbekämpfungmethode?
             </legend>
-            <select class = "dropdown-menu-general" style="width: 15em; border: 2px black solid"
+            <select class="bootstrap-select" style="width: 15em; border: 2px black solid"
               v-model="chosen_technique">
               <option value="alle Techniken">alle Techniken</option>
               <option value="Striegel">Striegel</option>
@@ -22,41 +64,67 @@
               <option value="Reihenstriegel">Reihenstriegel</option>
               <option value="Rotorstriegel">Rotorstriegel</option>
             </select>
+            <div>
+              In diesen Regionen:
+                <ul>
+                  <li> … wird besonders viel mechanische Unkrautbekämpfung eingesetzt</li>
+                  <br/>
+                  <li>… nutzen Landwirte die an der Umfrage teilgenommen haben die gleiche Technik wie Ihre Kollegen und Kolleginnen andere Techniken</li>
+              </ul>
+            </div>
           </section>
-      <div>
+        </div>
+      <div style="position: relative; width: 500px;border: 4px solid black;">
         <heatmap 
             v-bind:heatmap-data=heatmap_coords :selected-technique=chosen_technique>
         </heatmap>
       </div>
+      </div>
+      <button style="background-color: #4CAF50;
+                        color: white;
+                        left: 200px;
+                        height:100px;
+                        width:290px;
+                        padding: 15px 32px;
+                        text-align: center;
+                        text-decoration: none;
+                        display: inline-block;
+                        font-size: 22px;
+                        margin: 4px 2px;" @click.prevent="next()">zur Umfrage</button>
     </div>
     <div v-if="step === 1" class = firstPage>
-          <h1>Willkommen zu unserer Umfrage für mechanische Unkrautbekämpfung in Zuckerrüben!</h1>
             <section>
-                <legend for="consent">
-                    <p>
-                    In dieser Umfrage möchten wir herausfinden inwiefern das soziale Netzwerk einen Einfluss auf eigene Entscheidungen hat, insbesondere auf die Nutzung von mechanischer Unkrautbekämpfung. Dazu stellen wir Ihnen im Folgenden einige Fragen anhand einer interaktiven Karte.
-                    </p>
-                    <p>
-                    Die Umfrage wird ca. 10 - 12 Minuten in Anspruch nehmen. Alle Ergebnisse werden anonymisiert analysiert. Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. Dazu können Sie im Anschluss an die Studie Ihre persönlichen Daten angeben.
-                    </p>
-                    <p>
-                    Bei Fragen wenden Sie sich bitte an:
-                    <br/>
-                    <br/>
-                    Anna Massfeller
-                    <br>
-                    Doktorandin bei PhenoRob, Institut für Lebensmittel- und Ressourcenöknomik, Universität Bonn
-                    <br />
-                    E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a> 
-                    <p>
-                    Die in der Umfrage gewählte männliche Form bezieht sich immer zugleich auf weibliche, diverse und männliche Personen.
-                    Vielen Dank, dass Sie sich die Zeit nehmen, an der Umfrage teilzunehmen.
-                    Unter allen Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.
-                    </p>
-                    <p>
-                    Um die Umfrage zu öffnen, akzeptieren Sie bitten unsere Datensicherheitserklärung. Danke!
-                    </p>
-                  </legend>
+                    <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+                        <p>
+                        Die Umfrage wird ca. 10 - 12 Minuten in Anspruch nehmen. 
+                        Alle Ergebnisse werden anonymisiert analysiert. 
+                        Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. 
+                        Dazu können Sie im Anschluss an die Studie Ihre persönlichen Daten angeben.
+                        </p>
+                        <p>
+                        Bei Fragen wenden Sie sich bitte an:
+                        <br>
+                        <br>
+                        Anna Massfeller
+                        <br/>
+                        Doktorandin bei PhenoRob, Institut für Lebensmittel- und Ressourcenöknomik, Universität Bonn
+                        <br />
+                        E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a> 
+                      </p>
+                   </div>
+                   <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+                      <ul style="position: relative; margin: 2px; padding: 10px">
+                        <li>
+                        Um an der Umfrage teilnehmen zu können, müssen Sie im vergangenen Wirtschaftsjahr Zuckerrüben angebaut haben.
+                        </li>
+                        <li>
+                        Die in der Umfrage gewählte männliche Form bezieht sich immer zugleich auf weibliche, diverse und männliche Personen.
+                        </li>
+                        <li>
+                        Um die Umfrage zu öffnen, akzeptieren Sie bitte unsere Datensicherheitserklärung.
+                        </li>
+                      </ul>
+                  </div>
                     <button v-on:click="isHidden = !isHidden" class="link">Datensicherheitserklärung anzeigen</button>
                       <div v-if="isHidden">
                       <div style="border:3px solid black; margin:10px; padding:10px" lang="de-DE" >
@@ -173,7 +241,7 @@
         <div v-if="step === 2">
             <h1>Frage {{ pageNumber }}</h1>
               <modal 
-              helpText="Bitte beantworten Sie die Frage"
+              helpText="Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung."
               >
               </modal>
               <section>
@@ -198,102 +266,106 @@
                 <label for="one">Nein</label>
                 <br />
                 <br />
+                
               </section>
           <button @click.prevent="prev()">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
 
-     <div v-show="step === 3 || step === 7">
-       <div v-if="step === 3">
+    <div v-if="step === 3 && surveyData.questionOne ==='Nein'">
+          {{ surveyData.questionOne}}
           <modal 
-              helpText="Bitte markieren Sie die entsprechende Lage auf der Karte. 
-              Sie können die Karte verschieben, indem Sie die rechte Maustaste gedrückt halten. 
-              Genauigkeit verändern durch Kreis größer-kleiner - für uns gut möglichst genau">
+          helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
           </modal>
           <h1>Frage {{ pageNumber }}</h1>
-            <section>
-              <legend for="questionTwo">
-                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr Zuckerrüben angebaut?
-                <br/>
-                <br/>
-              </legend>
-            </section>
-                 <div id="app" class="bubble-wrapper">
-                    <button
-                      class="bubble" @click="currentColor ='red'; setMode(true)"
-                      :style="{ backgroundColor: 'red', border: '3px solid black'}"
-                    />
-                </div>
-                <!-- <span style="color:white;margin-left: 1%;margin-top:0%;vertical-align: text-top;text-align:right">{{"Eigene Felder"}}</span> -->
-           <div v-if="surveyData.questionOne == 'Ja'">
-              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-            <button @click.prevent="next({questionOne: 'questionOne'})" @click="pageNumber+=1">Weiter</button>
-          </div>        
-          <div v-if="surveyData.questionOne == 'Nein'">
-              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="step = 5" @click="pageNumber+=1">Weiter</button>
-          </div>
-      </div>
-
-      <div v-if="step === 7">
-           <modal 
-            helpText="Markieren Sie die Felder in der entsprechenden Farbe. 
-            Wählen Sie die Farbe aus der Legende unter der Karte durch anklicken aus. 
-            Bewegen Sie die Karte in dem Sie den rechten Mauszeiger gedrückt halten.">
-            </modal>
-          <h1>Frage {{ pageNumber }}</h1>
-          <section>
-            <legend for="questionSix">
-              Bitte markieren Sie mind.1 Feld (gerne auch mehr) der oben genannten Landwirte in der jeweiligen Farbe. 
-              Wenn Sie nicht wissen, wo die Felder der Landwirte liegen, können Sie diese Frage auch überspringen.
+          <div>
+            <legend for="questionThree"> 
+              a)  Warum nutzen Sie keine mechanische Unkrautbekämpfung? 
             </legend>
-          </section>
-             <div id="app" class="bubble-wrapper">
-                  <div v-for="(landwirt, index) in surveyData.questionFive.landwirte" :key="index" class="crop">
-                    <button
-                      class="bubble" @click="setColor(index); setMode(true)"
-                      :style="{ backgroundColor: landwirt.color, border: '3px solid black'}"
-                    />
-                    <span style="color:white; align-items:center">{{ landwirt.name }}</span>
-                  </div>
-                </div>
+              <br>
+              <input
+              type="singleLine"
+              v-model="surveyData.questionTwoAlternative.reason"
+              placeholder="Kommentare hier hinfügen"
+              required
+              />
+              <br>
+          </div>
+
+          <div>
+            <legend for="questionThree"> 
+              b)Wie bekämpfen Sie Ihr Unkraut stattdessen?
+              <br>
+            </legend>
+             <input
+              type="singleLine"
+              v-model="surveyData.questionTwoAlternative.method"
+              placeholder="Kommentare hier hinfügen"
+              required
+              />
+              <br>
+          </div>
+
+           <div>
+            <legend for="questionThree"> 
+             c)  Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
+           </legend>
+            <br>
+            <input
+                  type="radio"
+                  name="questionOne"
+                  id="questionOne"
+                  value="Ja"
+                  v-model="surveyData.questionTwoAlternative.future.radio"
+                />
+                <label for="one">Ja</label>
+                <br />
+                <input 
+                type="radio" 
+                value="Nein" 
+                v-model="surveyData.questionTwoAlternative.future.radio" 
+                />
+                <label for="one">Nein</label>
+                <br />
+                .. weil: 
+                 <input
+                  type="singleLine"
+                  v-model="surveyData.questionTwoAlternative.future.reason"
+                  placeholder="Kommentare hier hinfügen"
+                  required
+                  />
+              <br>
+          </div>
+
           <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
       </div>
-        <div>
-          <!-- Maps component embedding -->
-              <keep-alive>
-                <gmaps ref="gmaps" :circleColor = currentColor @map_clicked="setGeolocation"/>
-             </keep-alive>
-        </div>
-      </div>
 
-       <div v-if="step === 4">
+    <div v-if="step === 3 && surveyData.questionOne ==='Ja'">
           <modal 
-          helpText="Bitte geben Sie auch an, ob Sie die Technik bis heute nutzen oder mittlerweile nicht mehr nutzen.">
+          helpText="Bitte geben Sie auch an, ob Sie die Technik bis heute nutzen oder mittlerweile nicht mehr nutzen. 
+                    Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
           </modal>
           <h1>Frage {{ pageNumber }}</h1>
           <section>
             <legend for="questionThree"> 
-              Wann haben Sie die folgenden Techniken zum ersten Mal genutzt? 
-              Bitte geben Sie auch an, ob Sie die Technik bis heute nutzen oder mittlerweile nicht mehr nutzen.
+              Seit wann nutzen Sie die folgenden Techniken? 
             </legend>
-            <select class = "dropdown-menu-general" style="width: 15em"
-              id="questionThree"
-              name="questionThree"
-              v-model="surveyData.questionThree.technique" multiple>
-              <option value="Striegel">Striegel</option>
-              <option value="Scharhacke">Scharhacke</option>
-              <option value="Hackbürste">Hackbürste</option>
-              <option value="Trennhacke">Trennhacke</option>
-              <option value="Hackfräse">Hackfräse</option>
-              <option value="Rollhacke">Rollhacke</option>
-              <option value="Hackstriegel">Hackstriegel</option>
-              <option value="Fingerhacke">Fingerhacke</option>
-              <option value="Häufelgerät">Häufelgerät</option>
-              <option value="Reihenstriegel">Reihenstriegel</option>
-              <option value="Rotorstriegel">Rotorstriegel</option>
-            </select>
+              <br>
+                <div style="width: 400px">   
+                  <multiselect v-model="surveyData.questionThree.technique" 
+                              :multiple="true"
+                              :options="options"
+                              :close-on-select="true"
+                              :clear-on-select="false"
+                              placeholder="Auswahl"  
+                              :selectLabel="false"                            
+                              :preserve-search="false"
+                              :max-height="300"
+                              :searchable="false">
+                              //selectLabel="false" -->
+                    </multiselect> 
+                </div>
           </section>
 
           <section>
@@ -303,9 +375,11 @@
             <input
               id="questionThreeAdditional"
               name="questionThreeAdditional"
-              type="questionThreeAdditional"
+              type="text"
+              required
               v-model="surveyData.questionThreeAdditional"
               placeholder="andere Technicken hier hinfügen"
+              pattern="[aA-Zz]" 
             />
             <button @click.prevent="surveyData.questionThree.technique.push(surveyData.questionThreeAdditional)">
                 Hinfügen
@@ -317,7 +391,7 @@
             <thead>
               <tr>
                 <th scope="col">Technik</th>
-                <th scope="col">Zeitraum (1900 – heute)</th>
+                <th scope="col">Zeitraum (1900 – 2021/22)</th>
                 <th scope="col">Zusätzliche Ausstattung/ Neuinvestition/ Kommentar
                   <i class="fa fa-question-circle" aria-hidden="true" 
                   data-toggle="tooltip" data-placement="bottom" 
@@ -330,8 +404,7 @@
             <tbody>
                 <tr v-for="(method, index) in surveyData.questionThree.technique" :key="index">
                   <td>{{method}}<button @click.prevent="deleteEntryTechnique(index)">X</button></td>  
-                  <td>
-                    
+                  <td>          
                     <vue-range-slider 
                     v-model="surveyData.questionThree.timeframe[index]"
                     :bg-style="bgStyle" 
@@ -341,38 +414,57 @@
                     :step=5 
                     :min="min"
                     :max="max">
-                  </vue-range-slider>
-                  
+                  </vue-range-slider>        
                   </td> 
-                  <td>
-                      Mit Kamera seit:<input
-                      id="camera"
-                      name="camera"
-                      type="singleLine"
-                      v-model="surveyData.questionThree.camera[index]"
-                      placeholder="Jahr?"
-                      />
-                      Mit GPS seit:<input
-                      id="gps"
-                      name="gps"
-                      type="singleLine"
-                      v-model="surveyData.questionThree.gps[index]"
-                      placeholder="Jahr?"
-                      />
-                      Neuinvestition in Jahr:<input
-                      id="newInvest"
-                      name="newInvest"
-                      type="singleLine"
-                      v-model="surveyData.questionThree.newInvest[index]"
-                      placeholder="Jahr?"
-                      />
-                      Kommentar (Freitext):<input
-                      id="comment"
-                      name="comment"
-                      type="singleLine"
-                      v-model="surveyData.questionThree.comment[index]"
-                      placeholder="Kommentare hier hinfügen"
-                      />
+                 <td>
+                     <div style="display: flex">
+                        <div style="position: relative">
+                          <label>Mit Kamera seit: </label>
+                        </div>
+                        <div style="position: relative">
+                          <input style="height:20px; width: 60px"
+                          type="text"
+                          v-model="surveyData.questionThree.camera[index]"
+                          placeholder="Jahr?"
+                          required> 
+                        </div>
+                      </div>
+                      <div style="display: flex">
+                        <div style="position: relative">
+                          <label>Mit GPS seit: </label>
+                        </div>
+                        <div style="position: relative">
+                          <input style="height:20px; width: 60px"
+                          type="text"
+                          v-model="surveyData.questionThree.gps[index]"
+                          placeholder="Jahr?"
+                          required> 
+                        </div>
+                      </div>
+                      <div style="display: flex">
+                        <div style="position: relative">
+                          <label>Neuinvestition in Jahr: </label>
+                        </div>
+                        <div style="position: relative">
+                          <input style="height:20px; width: 60px"
+                          type="text"
+                          v-model="surveyData.questionThree.newInvest[index]"
+                          placeholder="Jahr?"
+                          required> 
+                        </div>
+                      </div>
+                      <div style="display: flex">
+                        <div style="position: relative">
+                          <label>Kommentar: </label>
+                        </div>
+                        <div style="position: relative">
+                          <input style="height:20px; width: 160px"
+                          type="text"
+                          v-model="surveyData.questionThree.comment[index]"
+                          placeholder="Freitext"
+                          required>
+                        </div>
+                      </div>
                   </td>
               </tr>   
             </tbody>
@@ -382,15 +474,16 @@
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
 
-
-        <div v-if="step === 5">
+      
+       <div v-if="step === 4">
             <modal 
-            helpText="Hierbei sind nicht nur Zuckerrübenbauern gemeint.">
+            helpText="Hierbei sind nicht nur Zuckerrübenbauern gemeint. 
+            Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
             </modal>
             <h1>Frage {{ pageNumber }}</h1>
             <section>
               <legend for="questionFour">
-                Gibt es Landwirte in Ihrer Umgebung, die Unkraut mechanisch bekämpfen (nicht nur ZR)?
+                Kennen Sie andere Landwirte in Ihrer Umgebung, die Unkraut mechanisch bekämpfen?
               </legend>
                 <br />
                 <input
@@ -413,22 +506,17 @@
             </section>
 
           <div v-if="surveyData.questionFour == 'Ja'">
-              <button v-if="surveyData.questionOne == 'Ja'" @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button v-else @click.prevent="step = 3" @click="pageNumber-=1">Zurück</button>
-            <button @click.prevent="next({questionFour: 'questionFour'})" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+              <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
           </div>
         
           <div v-if="surveyData.questionFour == 'Nein'">
-              <button v-if="surveyData.questionOne == 'Ja'" @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button v-else @click.prevent="step = 3" @click="pageNumber-=1">Zurück</button>
-            <button @click.prevent="step = 8" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+             <button @click.prevent="step = 6" @click="pageNumber+=1">Weiter</button>
           </div>
         </div>
 
-
-
-
-        <div v-if="step === 6">
+      <div v-if="step === 5 && surveyData.questionFour == 'Ja'">
             <modal
             helpText="Legen Sie für jeden Landwirt, der mechanische Unkrautbekämpfung durchführt, eine Zeile an. Wählen Sie aus dem Drop-down Menu aus, 
             ob der jeweilige Landwirt die entsprechende Technik nutzt und ob er oder Sie damit zuerst angefangen haben.">
@@ -438,19 +526,30 @@
               <legend for="questionFive">
                 Bitte geben Sie an, welche Art von mechanischer Unkrautbekämpfung der/die Landwirte durchführen und ob Sie oder der andere Landwirt diese Technik zuerst genutzt haben.
               </legend>
-                  <select class = "dropdown-menu-general"
-                    id="questionFive"
-                    name="questionFive"
-                    v-model="surveyData.questionFive.landwirte" multiple>
-                    <option v-for="(farmer, index) in landwirte" v-bind:key="index" :value="{name: farmer.name, color: farmer.color}">{{farmer.name}}</option>
-                  </select>
+                <br>
+                <div style="width: 400px">   
+                  <multiselect v-model="surveyData.questionFive.landwirte" 
+                              :multiple="true"
+                              :options="this.landwirte"
+                              label="name" 
+                              track-by="name" 
+                              :preselect-first="true"
+                              :close-on-select="true"
+                              :clear-on-select="false"
+                              placeholder="Auswahl"
+                              selectLabel="drücke Enter"
+                              :preserve-search="false"
+                              :max-height="300"
+                              :searchable="false">
+                    </multiselect> 
+                    {{this.surveyData.questionFive.landwirte}} 
+                  </div>
             </section>
       
                 <table align="center" style="border:1px solid black; border-style: solid">
                   <thead>
                     <tr>
                       <th scope="col">Landwirt</th>
-                      <!-- <th scope="col">Technik</th> -->
                       <th scope="col">Vorauflauf
                         <i class="fa fa-question-circle" aria-hidden="true" 
                         data-toggle="tooltip" data-placement="bottom" 
@@ -470,24 +569,6 @@
                   <tbody>
                       <tr v-for="(landwirt, index) in surveyData.questionFive.landwirte" :key="index">
                         <td class="bubble-wrapper" :style="{backgroundColor: landwirt.color}">{{landwirt.name}}<button @click.prevent="deleteEntryLandwirt(index)">X</button></td>  
-                        <!-- <td>
-                            <select class = "dropdown-menu"
-                            id="questionFiveTechnik"
-                            name="questionFiveTechnik"
-                            v-model="surveyData.questionFive.technique[index]">
-                            <option value="Striegel">Striegel</option>
-                            <option value="Scharhacke">Scharhacke</option>
-                            <option value="Hackbürste">Hackbürste</option>
-                            <option value="Trennhacke">Trennhacke</option>
-                            <option value="Hackfräse">Hackfräse</option>
-                            <option value="Rollhacke">Rollhacke</option>
-                            <option value="Hackstriegel">Hackstriegel</option>
-                            <option value="Fingerhacke">Fingerhacke</option>
-                            <option value="Häufelgerät">Häufelgerät</option>
-                            <option value="Reihenstriegel">Reihenstriegel</option>
-                            <option value="Rotorstriegel">Rotorstriegel</option>
-                          </select>                        
-                        </td> -->
                         <td> 
                             <input
                             type="radio"
@@ -556,11 +637,128 @@
                 <button @click.prevent="deleteRowLandwirt()">Löschen</button>
                 <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
                 <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-  
       </div>
 
+    <div v-if="step === 6">
+          <modal 
+              helpText="Hilfe?">
+          </modal>
+          <h1>Frage {{ pageNumber }}</h1>
+            <section>
+              <legend for="questionTwo">
+                Bitte geben Sie Ihre Postleitzahl an
+                <br/>
+              </legend>
+              <div>
+                    <label for="zip">Postcode</label>
+                    <input 
+                    id="zip"
+                    name="zip" 
+                    minlength="5" 
+                    v-model="zip"
+                    maxlength="5" 
+                    size="5" 
+                    type="text" 
+                    inputmode="numeric" 
+                    required>
+                </div>
+          </section>
+          <div v-if="surveyData.questionFour == 'Ja'">
+              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+              <button @click.prevent="next(); loadZip()" @click="pageNumber+=1">Weiter</button>
+          </div>
+        
+          <div v-if="surveyData.questionFour == 'Nein'">
+             <button @click.prevent="step = 4" @click="pageNumber-=1">Zurück</button>
+             <button @click.prevent="next(); loadZip()" @click="pageNumber+=1">Weiter</button>
+          </div>
+    </div>
 
-    <div v-if="step === 8">
+     <div v-show="step === 7 || step === 8">
+       <div v-if="step === 7">
+          <modal 
+              helpText="Bitte markieren Sie die entsprechende Lage auf der Karte. 
+              Sie können die Karte verschieben, indem Sie die rechte Maustaste gedrückt halten. 
+              Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich.">
+          </modal>
+          <h1>Frage {{ pageNumber }}</h1>
+            <section>
+              <legend for="questionTwo">
+                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr Zuckerrüben angebaut?
+                <br/>
+              </legend>
+            </section>
+                  <p style="position: relative;left: 10px; top: 30px;">Eigene Schläge</p>
+                 <div id="app" class="bubble-wrapper">
+                    <button
+                      class="bubble" @click="currentColor ='red'; setMode(true)"
+                      :style="{ backgroundColor: 'red', border: '3px solid black'}"
+                    />
+                </div>
+                <!-- <span style="color:white;margin-left: 1%;margin-top:0%;vertical-align: text-top;text-align:right">{{"Eigene Felder"}}</span> -->
+          <div v-if="surveyData.questionFour == 'Ja'">
+              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+              <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="next()" @click="pageNumber+=1">Überspringen</button>
+          </div>
+        
+          <div v-if="surveyData.questionFour == 'Nein'">
+              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+              <button @click.prevent="step = 9" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="step = 9" @click="pageNumber+=1">Überspringen</button>
+          </div>
+      </div>
+
+      <div v-if="step === 8">
+           <modal 
+            helpText="Markieren Sie die Felder in der entsprechenden Farbe. 
+            Wählen Sie die Farbe aus der Legende unter der Karte durch anklicken aus. 
+            Bewegen Sie die Karte in dem Sie den rechten Mauszeiger gedrückt halten.">
+            </modal>
+          <h1>Frage {{ pageNumber }}</h1>
+          <section>
+            <legend for="questionSix">
+              Bitte markieren Sie mind.1 Feld (gerne auch mehr) der oben genannten Landwirte in der jeweiligen Farbe. 
+              </legend>
+          </section>
+             <div id="app" class="bubble-wrapper">
+                  <div v-for="(landwirt, index) in surveyData.questionFive.landwirte" :key="index" class="crop">
+                    <p style="position: relative; top: 15px; font-size: 10px; color:white; align-items:center">{{ landwirt.name }}</p>
+                    <button
+                      class="bubble" @click="setColor(index); setMode(true)"
+                      :style="{ backgroundColor: landwirt.color, border: '3px solid black'}"
+                    />
+                  </div>
+                </div>
+          <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+          <button @click.prevent="next(); skip_map = true" @click="pageNumber+=1">Ich weiß nicht</button>
+          <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+      </div>
+        <div>
+          <!-- Maps component embedding -->
+              <keep-alive>
+                <gmaps ref="gmaps" :markerCenter = zip_to_geo :circleColor = currentColor @map_clicked="setGeolocation"/>
+             </keep-alive>
+        </div>
+      </div>
+
+    <div v-if="step === 9 && skip_map == true">
+      <modal 
+      helpText="Teilen Sie uns Ihre Gedanken zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
+      </modal>
+      <h1>Frage {{ pageNumber }}</h1>
+      <section>
+        <legend for="questionSeven">
+            Liegen die Felder Ihrer Berufskollegen, die ihr Unkraut mechanisch bekämpfen in Ihrer direkten Umgebung ?
+              Ja, die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen im Umkreis von __ km.  
+              Nein, die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen weiter weg als __ km.
+        </legend>
+      </section>
+        <br />
+    <button @click.prevent="prev(); skip_map = false" @click="pageNumber-=1">Zurück</button>
+    <button @click.prevent="step = 9; skip_map = false" @click="pageNumber+=1">Weiter</button>
+ </div>
+    <div v-if="step === 9 && skip_map == false">
         <modal 
         helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
         und werden wie die gesamte Umfrage anonymisiert erfasst.">
@@ -605,19 +803,19 @@
         </section>
 
         <div v-if="surveyData.questionFour == 'Ja'">
-            <button @click.prevent="step = 7" @click="pageNumber-=1">Zurück</button>
+            <button @click.prevent="step = 8" @click="pageNumber-=1">Zurück</button>
             <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
       
         <div v-if="surveyData.questionFour == 'Nein'">
-            <button @click.prevent="step = 5" @click="pageNumber-=1">Zurück</button>
+            <button @click.prevent="step = 7" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
     </div>
 
 
 
-    <div v-if="step === 9">
+    <div v-if="step === 10">
         <modal 
         helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
         und werden wie die gesamte Umfrage anonymisiert erfasst.">
@@ -680,7 +878,7 @@
     </div>
 
 
-    <div v-if="step === 10">
+    <div v-if="step === 11">
         <modal 
         helpText="Teilen Sie uns Ihre Gedanken
          zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
@@ -697,6 +895,7 @@
             type="singleLine"
             v-model="surveyData.questionNine"
             placeholder="Fragen oder Kommentare hier hinfügen"
+            required
             />
           <br />
           <br />
@@ -707,10 +906,9 @@
     </div>
 
 
-    <div v-if="step === 11">
+    <div v-if="step === 12">
       <h1>Ende</h1>
       <section>
-        <legend>
             <p>
             Vielen Dank, dass Sie sich die Zeit genommen haben, an der Umfrage teilzunehmen.
             </p>
@@ -722,7 +920,6 @@
             <p>
             Wenn Sie möchten, senden wir Ihnen auch die zusammengefassten Ergebnisse der Studie zu.
             </p>
-        </legend>
       </section>
 
       <section>
@@ -770,35 +967,33 @@
           <br />
           <br />
       </section>   
-        <div v-if="surveyData.questionTen=='Ja' || surveyData.questionEleven=='Ja'">  
+        <div style="border: 2px black solid" v-if="surveyData.questionTen=='Ja' || surveyData.questionEleven=='Ja'">  
             <legend>
             Bitte geben Sie hier Ihren Namen und Ihre eMail-Adresse an. Diese Daten werden gesondert gespeichert und es besteht keine Verbindung zu Ihren Antworten in der Umfrage.
             </legend>           
             <br />
             <div class="mb-3">
                 <label for="farmerName" class="form-label"><b>Name:</b></label>
-                <input v-model="surveyData.farmerName" class="form-control" id="farmerName" placeholder="Thomas Müller">
+                <input v-model="surveyData.farmerName" class="form-control" id="farmerName" placeholder="Thomas Müller" required>
             </div>
             <div class="mb-3">
                 <label for="farmerEmail" class="form-label"><b>eMail-Adresse:</b></label>
-                <input v-model="surveyData.farmerEmail" type="email" class="form-control" aria-describedby="emailHelp" id="farmerEmail" placeholder="name@example.com">
+                <input v-model="surveyData.farmerEmail" type="email" class="form-control" aria-describedby="emailHelp" id="farmerEmail" placeholder="name@example.com" required>
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
         </div>
+        <br>
       <section>
         <legend>
-          <p>
           Bei Fragen melden Sie sich bitte bei:
+        </legend>
           <br />
-          <br />
-          <i><b>Anna Massfeller, Doktorandin bei PhenoRob 
+          <i><b>Anna Massfeller, Doktorandin bei PhenoRob</b> 
           <br />
           Institut für Lebensmittel- und Ressourcenöknomik, Universität Bonn
           <br />
           E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a>
-          </b></i>
-          </p>
-        </legend>
+          </i>
       </section>
   <button @click.prevent="prev()">Zurück</button>
   <button @click.prevent="submit()">Abgeben</button>
@@ -834,6 +1029,8 @@ import 'vue-range-component/dist/vue-range-slider.css'
 import gmaps from '@/components/gmaps.vue'
 import modal from './modal.vue'
 import heatmap from './heatmap.vue'
+import multiselect from 'vue-multiselect'
+import {gmapApi} from "gmap-vue";
 
 var PouchDB = require('pouchdb');
 let pouchDb = PouchDB.default.defaults();
@@ -842,8 +1039,11 @@ db.info().then(info => console.log(info));
 
 
 export default {
+    computed: {
+    google: gmapApi
+    },
     name: 'survey',
-    components: {gmaps, modal, VueRangeSlider, heatmap},
+    components: {gmaps, modal, VueRangeSlider, heatmap, multiselect},
     watch: {
     surveyData: {
       deep: true,
@@ -854,7 +1054,7 @@ export default {
             // check if the timeframe and comment arrays
             // have a non-null value. If so -> replace with default
             if (!this.surveyData.questionThree.timeframe[i]) {
-              this.surveyData.questionThree.timeframe[i] = [1900, 2020]
+              this.surveyData.questionThree.timeframe[i] = [1900, 2022]
             }
             if (!this.surveyData.questionThree.camera[i]) {
               this.surveyData.questionThree.camera[i] = ''
@@ -875,28 +1075,34 @@ export default {
   },    
   data () {
     return {
-      step: 1,
+      step: 0,
       pageNumber: 1,
       isHidden: false,
       errors: [],
+      zip: null,
+      skip_map: false,
+      zip_to_geo: {},
+      selected: null,
+      options: ['Striegel', 'Scharhacke', 'Hackbürste', 'Trennhacke', 'Hackfräse', 'Rollhacke', 'Hackstriegel', 'Fingerhacke', 'Häufelgerät', 'Reihenstriegel', 'Rotorstriegel'],
       heatmap_coords: [],
-      chosen_technique: null,
+      chosen_technique: "alle Techniken",
       min: 1900,
-      max: 2020,
+      max: 2022,
       currentColor: '',
-      land_own: null,
-      land_neighbor: null,
-      landwirte: {landwirt_1: {name: "Landwirt 1", color: "#9B29F8"}, 
-                  landwirt_2: {name: "Landwirt 2", color: "#EAB90C"},  
-                  landwirt_3: {name: "Landwirt 3", color: "#06498B"}, 
-                  landwirt_4: {name: "Landwirt 4", color: "#909085"},  
-                  landwirt_5: {name: "Landwirt 5", color: "green"}
-      },
-      selectedLandwirt: null,
+      landwirte: [{name: "Landwirt 1", color: "#9B29F8"}, 
+                  {name: "Landwirt 2", color: "#EAB90C"},  
+                  {name: "Landwirt 3", color: "#06498B"}, 
+                  {name: "Landwirt 4", color: "#909085"},  
+                  {name: "Landwirt 5", color: "green"}],
       surveyData: {
         _id: new Date().toISOString(),
         consent: null,
         questionOne: 'Ja',
+        questionTwoAlternative: {
+        reason: null,
+        method: null,
+        future: {radio: 'Ja', reason: null}
+        },
         questionTwoAndSix: [], //here the farmer + neighbor coordinates are saved
         questionThree: {
           technique: [],
@@ -942,45 +1148,33 @@ export default {
     this.tooltipMerge = false
   },
   methods: {
-
-    //-- Pouch DB methods
-
-    /* 
-    addFarmer: function(farmer_response){
-          db.put(farmer_response, function callback(err) {
-            if (!err) {
-              console.log('Successfully posted a farmer feedback!');
+    async loadZip() {
+            console.log("Hello")
+            var zipcode = this.zip.toString()
+            var geocoder = new this.google.maps.Geocoder();
+            var abs = await geocoder.geocode({ 'address': 'zipcode ' + zipcode,
+            componentRestrictions: {
+            country: 'DE'
             }})
-          db.changes({
-          since: 'now',
-          live: true
-          }).on('change', this.showResults());
-          },  */ 
+            var lat = abs.results[0].geometry.location.lat();
+            var lng = abs.results[0].geometry.location.lng();
+            console.log("IN", {lat: lat, lng: lng})
+            this.zip_to_geo = {lat: lat, lng: lng}
+            
+        },
+     
+    //-- PouchDB methods
 
-    setColor: function(index){
-         if (this.step === 3) {
-              this.currentColor = 'red'
-              console.log(this.currentColor)
-          }
-          if (this.step === 7) {
-              this.currentColor = this.surveyData.questionFive.landwirte[index].color}
-              console.log(this.currentColor)
-          },
-          
     setGeolocation: function(location){
       for (var i = 0; i < location.length; i++) { 
           console.log("start" + i +location[i].color);
       }
       this.surveyData.questionTwoAndSix = location
       this.$refs.gmaps.setMode(false);
-      },
-    setMode: function(value){
-              this.$refs.gmaps.setMode(value);
     },
+    
     getGeolocation: function(){
-
       var heatmap_data = []
-
       db.allDocs({
           include_docs: true,
           descending: true
@@ -1002,9 +1196,9 @@ export default {
             }                 
           }).catch(function (err) {
           console.log("error" + err)
-          })
-          console.log(heatmap_data)
-          this.heatmap_coords = heatmap_data
+        })
+      console.log(heatmap_data)
+      this.heatmap_coords = heatmap_data
     },
     deleteDB: function(){
        db.allDocs().then(function (result) {
@@ -1015,8 +1209,20 @@ export default {
             console.log("done");
         }).catch(function (err) {
           console.log("error" + err);
-        });
+      });
     },
+    setMode: function(value){
+              this.$refs.gmaps.setMode(value);
+    },
+    setColor: function(index){
+      if (this.step === 7) {
+          this.currentColor = 'red'
+          console.log(this.currentColor)
+      }
+      if (this.step === 8) {
+          this.currentColor = this.surveyData.questionFive.landwirte[index].color}
+          console.log(this.currentColor)
+      },
     deleteEntryTechnique: function (index) {
       this.surveyData.questionThree.technique.splice(index, 1)
       this.surveyData.questionThree.timeframe.splice(index, 1)
@@ -1082,21 +1288,6 @@ export default {
       })
       return response.json()
     },
-
-    /* showResults: function(){
-          db.allDocs({
-          include_docs: true,
-          attachments: false, //no attachments are needed       
-          descending: true
-          }).then(function (result) {
-          console.log("showing all docs:" + result);
-          console.log("rows" + result.rows[0]);
-          console.log("total rows " + result.total_rows);
-          console.log("json" + result.json);
-          }).catch(function (err) {
-          console.log("error" + err);
-          })}  */ 
-
     async submit () {
       try {
 
@@ -1132,13 +1323,21 @@ export default {
         console.error(e)
       }
     }
-      }
+      },
+        // calculates the heatmap on page load
+        beforeMount(){
+    this.getGeolocation()
+    }
     }
 </script>   
 <style>
 
 legend{
  font-size: 15px; 
+}
+
+ table, th, td {
+  border: 2px solid black;
 }
 
 .crop {
@@ -1153,9 +1352,145 @@ legend{
 
 .bubble {
   width: 60px;
-  height: 40px;
+  height: 60px;
   background: grey;
   border-radius: 50%;
+}
+
+
+.multiselect {
+  box-sizing: content-box;
+  display: block;
+  position: relative;
+  width: 100%;
+  min-height: 40px;
+  text-align: left;
+  color: #35495E;
+}
+
+.multiselect__tags {
+  min-height: 40px;
+  display: block;
+  padding: 8px 40px 0 8px;
+  border-radius: 5px;
+  border: 1px solid #E8E8E8;
+  background: rgb(46, 65, 88);
+}
+.multiselect__tag {
+  position: relative;
+  display: inline-block;
+  padding: 4px 26px 4px 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+  color: #fff;
+  line-height: 1;
+  background: #5b6661;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  text-overflow: ellipsis;
+}
+
+.multiselect__tag-icon:after {
+  content: "×";
+  color: #216dcf;
+  font-size: 14px;
+}
+
+
+.multiselect__content-wrapper {
+  position: absolute;
+  display: block;
+  background: rgb(186, 185, 194);
+  width: 100%;
+  max-height: 240px;
+  overflow: auto;
+  border: 1px solid #E8E8E8;
+  border-top: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  z-index: 50;
+  -webkit-overflow-scrolling: touch;
+}
+
+.multiselect__option--highlight {
+  background: #5c615f;
+  outline: none;
+  color: white;
+}
+.multiselect__option--highlight:after {
+  content: attr(data-select);
+  background: #02113a;
+  color: rgb(61, 66, 133);
+}
+.multiselect__option--selected {
+  background: #F3F3F3;
+  color: #35495E;
+  font-weight: bold;
+}
+.multiselect__option--selected:after {
+  content: attr(data-selected);
+  color: silver;
+}
+.multiselect__option--selected.multiselect__option--highlight {
+  background: #6a79ff;
+  color: rgb(7, 15, 54);
+}
+.multiselect__option--selected.multiselect__option--highlight:after {
+  background: #4d77ad;
+  content: attr(data-deselect);
+  color: rgb(49, 139, 190);
+}
+
+.multiselect__placeholder {
+  display: inline-block !important;
+  margin-bottom: 0px !important;
+  padding-top: 0px !important;
+}
+
+.multiselect.invalid .multiselect__tags {
+  border: 1px solid #f86c6b !important;
+}
+
+.multiselect__option--highlight {
+  background: #405568 !important;
+}
+
+.multiselect__option--highlight:after {
+  background: #233647 !important;
+}
+
+.multiselect__tags {
+  padding: 5px !important;
+  min-height: 10px;
+}
+
+.multiselect__placeholder{
+  margin-left: 10px;
+  margin-top: 2px;
+}
+
+.multiselect__tag {
+  background: #f0f0f0 !important;
+  border: 1px solid rgba(60, 60, 60, 0.26) !important;
+  color: black !important;
+  margin-bottom: 0px !important;
+  margin-right: 5px !important;
+}
+
+.multiselect__tag-icon:after {
+  color: rgba(60, 60, 60, 0.5) !important;
+}
+
+.multiselect__tag-icon:focus,
+.multiselect__tag-icon:hover {
+  background: #f0f0f0 !important;
+}
+
+.multiselect__tag-icon:focus:after,
+.multiselect__tag-icon:hover:after {
+  color: red !important;
 }
 
 .bubble-wrapper {
@@ -1165,4 +1500,22 @@ legend{
   flex-wrap: nowrap;
 }
 
+* {
+  box-sizing: border-box;
+}
+
+/* Create three equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 10px;
+  height: 300px; /* Should be removed. Only for demonstration */
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 </style>

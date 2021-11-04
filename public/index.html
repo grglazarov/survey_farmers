@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Umfrage</title>
+    <title>Zuckerrüben Umfrage</title>
     <base href=".">
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="data:,"> 
+    <link rel="icon" type="image/png" href="./img.png"> 
+    <!-- <link rel="icon" href="data:,">  -->
     <!-- to avoid favicon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.css">
     <link rel="stylesheet" type="text/css" src="./src/styles.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Palette+Mosaic" rel="stylesheet"> 
+    <link rel="stylesheet" href="https://unpkg.com/vue-multiselect@2.1.0/dist/vue-multiselect.min.css">
   </head>
   <body>
     <noscript>
@@ -24,11 +26,18 @@
     integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" 
     crossorigin="anonymous"></script>  
     <script type="text/javascript" href="./src/main.js"></script>
-    <script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script>
+    <!-- <script type="text/javascript" href ="./src/PouchDB-7.2.1.js"></script> -->
+    <!-- <script src="//cdn.jsdelivr.net/npm/pouchdb@7.2.1/dist/pouchdb.min.js"></script> -->
     <script src="https://use.fontawesome.com/65b78dd887.js"></script>
   </body>
 </html>
 <style>
+
+/* html * - overrides font everywhere, but makes problems with the icons
+{
+   font-family: Arial, Helvetica, sans-serif !important;
+} */
+
   :root {
     --links: blue; /* Always applied */
   }

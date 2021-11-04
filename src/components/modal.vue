@@ -1,10 +1,8 @@
 <template>
   <div id="app">
-    
     <div
       class="card-tools"
       v-if="tools">
-   
       <center>
     <p style="text-align: justify-all; font-family:sans-serif;font-size:12px; color: white">
         {{helpText}}
@@ -63,12 +61,13 @@ button {
 
 
 .card-tools {
-  right: 5px;
+  left: 5px;
   top: 5px;
   padding: 8px;
-  background-color: #4c5777;
+  background-color: #2c4566;
   border: 1px solid #bbb;
   width: 270px;
+  height: 270px;
   z-index: 100;
   position: absolute;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
@@ -77,9 +76,11 @@ button {
   background-color: #fafafa;
   border: 1px solid #bbb;
   font-size: 1.3em;
+  left: 5px;
 }
 
 .show-tool {
+  left: 5px;
   position: absolute;
   top: 5px;
   right: 5px;
