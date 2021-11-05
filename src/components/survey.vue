@@ -650,7 +650,6 @@
                 <br/>
               </legend>
               <div>
-                    <label for="zip">Postcode</label>
                     <input 
                     id="zip"
                     name="zip" 
@@ -1333,7 +1332,7 @@ export default {
 <style>
 
 legend{
- font-size: 15px; 
+ font-size: 18px; font-family: Arial, Helvetica, sans-serif ; 
 }
 
  table, th, td {
