@@ -368,28 +368,23 @@
                     </multiselect> 
                 </div>
           </section>
-              <br/>
+          <br/>
           <section>
-            <div style="display: flex">
-              <div style="position: relative">
-                <label style="font-size: 16px" for="questionThreeAdditional">Andere Techniken:&nbsp;&nbsp;</label>
-              </div>
-              <div style="position: relative">
-                <input style="height:30px;"
-                id="questionThreeAdditional"
+            <div style="display:flex; flex-direction: row; justify-content: left  ; align-items: center">
+            <label style="font-size: 14px"  for="questionThreeAdditional">Andere Techniken:&nbsp;&nbsp;</label>
+            <input id="questionThreeAdditional"
                 name="questionThreeAdditional"
                 type="text"
                 required
                 v-model="surveyData.questionThreeAdditional"
                 placeholder="andere Technicken hier hinfügen"
-                pattern="[aA-Zz]"> 
-              </div>
-            </div>
+                pattern="[aA-Zz]">
             <button @click.prevent="surveyData.questionThree.technique.push(surveyData.questionThreeAdditional)">
-                Hinfügen
-              </button>
+            Hinfügen
+            </button>
+            </div>
           </section>
-
+          <br/>
           <table class="table table-success table-striped table-bordered" id="techniqueTable" 
           align="center" style="border:2px solid black; border-style: solid">
             <thead>
