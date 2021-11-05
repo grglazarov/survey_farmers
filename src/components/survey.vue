@@ -548,7 +548,7 @@
                     </multiselect> 
                   </div>
             </section>
-      
+              <br/>
                 <table align="center" style="border:1px solid black; border-style: solid">
                   <thead>
                     <tr>
@@ -649,7 +649,7 @@
           <h1>Frage {{ pageNumber }}</h1>
             <section>
               <legend for="questionTwo">
-                Bitte geben Sie Ihre Postleitzahl an
+                Bitte geben Sie Ihre Postleitzahl an:
                 <br/>
               </legend>
               <div>

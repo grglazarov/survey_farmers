@@ -67,7 +67,6 @@ button {
   background-color: #2c4566;
   border: 1px solid #bbb;
   width: 270px;
-  height: 270px;
   z-index: 100;
   position: absolute;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
