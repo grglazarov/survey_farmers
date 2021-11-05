@@ -295,8 +295,8 @@
           <div>
             <legend for="questionThree"> 
               b)Wie bekämpfen Sie Ihr Unkraut stattdessen?
-              <br>
             </legend>
+              <br>
              <input
               type="singleLine"
               v-model="surveyData.questionTwoAlternative.method"
@@ -328,6 +328,7 @@
                 <label for="one">Nein</label>
                 <br />
                 .. weil: 
+                  <br>
                  <input
                   type="singleLine"
                   v-model="surveyData.questionTwoAlternative.future.reason"
@@ -367,20 +368,23 @@
                     </multiselect> 
                 </div>
           </section>
-
+              <br/>
           <section>
-            <legend for="questionThreeAdditional">
-              Andere Techniken:
-            </legend>
-            <input
-              id="questionThreeAdditional"
-              name="questionThreeAdditional"
-              type="text"
-              required
-              v-model="surveyData.questionThreeAdditional"
-              placeholder="andere Technicken hier hinfügen"
-              pattern="[aA-Zz]" 
-            />
+            <div style="display: flex">
+              <div style="position: relative">
+                <label style="font-size: 16px" for="questionThreeAdditional">Andere Techniken:&nbsp;&nbsp;</label>
+              </div>
+              <div style="position: relative">
+                <input style="height:30px;"
+                id="questionThreeAdditional"
+                name="questionThreeAdditional"
+                type="text"
+                required
+                v-model="surveyData.questionThreeAdditional"
+                placeholder="andere Technicken hier hinfügen"
+                pattern="[aA-Zz]"> 
+              </div>
+            </div>
             <button @click.prevent="surveyData.questionThree.technique.push(surveyData.questionThreeAdditional)">
                 Hinfügen
               </button>
@@ -542,7 +546,6 @@
                               :max-height="300"
                               :searchable="false">
                     </multiselect> 
-                    {{this.surveyData.questionFive.landwirte}} 
                   </div>
             </section>
       

@@ -11,7 +11,7 @@ Vue.use(VueGoogleMaps, {
   load: {
     region: 'DE',
     language: 'de',
-    key: "AIzaSyAJXOJCVK3MFOPhYhYzB9TafyO3C-3i2eA",
+    key: "AIzaSyA_H30k_MpygcGR9YiBJBGQ568AQwSgBYk",
     v: "weekly",
     libraries: ['places', 'visualization']
   },
