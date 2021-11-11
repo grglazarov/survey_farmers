@@ -279,35 +279,33 @@
             <legend for="questionThree"> 
               a)  Warum nutzen Sie keine mechanische Unkrautbekämpfung? 
             </legend>
-              <br>
-              <input
-              type="singleLine"
-              v-model="surveyData.questionTwoAlternative.reason"
-              placeholder="Kommentare hier hinfügen"
-              required
-              />
-              <br>
+              <div>
+               <div v-for="(category, index) in categories" :key="index">
+                    <input type="checkbox" v-model="surveyData.questionTwoAlternative.reason" :value="category"  />
+                    <label>{{category}}</label>
+                  </div>
+                </div>
           </div>
-
+            <br>
+            <br>
           <div>
             <legend for="questionThree"> 
-              b)Wie bekämpfen Sie Ihr Unkraut stattdessen?
+              b) Wie bekämpfen Sie Ihr Unkraut stattdessen?
             </legend>
-              <br>
              <input
               type="singleLine"
               v-model="surveyData.questionTwoAlternative.method"
               placeholder="Kommentare hier hinfügen"
               required
               />
-              <br>
+            <br>
+            <br>
           </div>
 
            <div>
             <legend for="questionThree"> 
              c)  Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
            </legend>
-            <br>
             <input
                   type="radio"
                   name="questionOne"
@@ -357,7 +355,7 @@
                               :close-on-select="true"
                               :clear-on-select="false"
                               placeholder="Auswahl"  
-                              :selectLabel="false"                            
+                              selectLabel= "faslse"                           
                               :preserve-search="false"
                               :max-height="300"
                               :searchable="false">
@@ -367,8 +365,8 @@
           </section>
           <br/>
           <section>
+             <label style="font-size: 14px"  for="questionThreeAdditional">Andere Techniken:&nbsp;&nbsp;</label>
             <div style="display:flex; flex-direction: row; justify-content: left  ; align-items: center">
-            <label style="font-size: 14px"  for="questionThreeAdditional">Andere Techniken:&nbsp;&nbsp;</label>
             <input id="questionThreeAdditional"
                 name="questionThreeAdditional"
                 type="text"
@@ -1116,6 +1114,7 @@ export default {
       skip_map: false,
       zip_to_geo: {},
       selected: null,
+      categories: ['Zu hohe Kosten','Geringe Zuverlässigkeit','Hohes Risiko','Technik nicht vorhanden','Zeitaufwand zu hoch','nicht möglich auf meinem Betrieb'],
       options: ['Striegel', 'Scharhacke', 'Hackbürste', 'Trennhacke', 'Hackfräse', 'Rollhacke', 'Hackstriegel', 'Fingerhacke', 'Häufelgerät', 'Reihenstriegel', 'Rotorstriegel'],
       heatmap_coords: [],
       chosen_technique: "alle Techniken",
@@ -1132,7 +1131,7 @@ export default {
         consent: null,
         questionOne: 'Ja',
         questionTwoAlternative: {
-        reason: null,
+        reason: [],
         method: null,
         future: {radio: 'Ja', reason: null}
         },
