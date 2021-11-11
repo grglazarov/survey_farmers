@@ -35,7 +35,7 @@
               <br>
               <li>Als Landwirt/in haben Sie online die Möglichkeit, <b>anonym und unverbindlich</b> Angaben zur Unkrautbekämpfung und ihrem räumlichen Umfeld in eine Datenbank einzutragen, um so Ihre eigenen Werte mit denen Ihrer Berufskollegen und -kolleginnen in ganz Deutschland zu vergleichen. Damit tragen Sie aktiv dazu bei, praxistaugliche Alternativen für die Bekämpfung von Unkräutern in Zuckerrüben zu entwickeln, die den Ansprüchen der Landwirte und Landwirtinnen entsprechen.</li>
               <br>
-              <li>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</li>
+              <li style="font-size: 16px"><b><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></b></li>
             </ul>  
         </div>
          <div style="margin: 0px; padding: 5px; border:4px solid black">
@@ -107,16 +107,13 @@
                         <br>
                         Anna Massfeller
                         <br/>
-                        Doktorandin bei PhenoRob, Institut für Lebensmittel- und Ressourcenöknomik, Universität Bonn
+                        Doktorandin bei PhenoRob, Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
                         <br />
                         E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a> 
                       </p>
                    </div>
                    <div style="margin: 5px; padding: 5px; border: 4px solid black;">
                       <ul style="position: relative; margin: 2px; padding: 10px">
-                        <li>
-                        Um an der Umfrage teilnehmen zu können, müssen Sie im vergangenen Wirtschaftsjahr Zuckerrüben angebaut haben.
-                        </li>
                         <li>
                         Die in der Umfrage gewählte männliche Form bezieht sich immer zugleich auf weibliche, diverse und männliche Personen.
                         </li>
@@ -523,7 +520,7 @@
             <h1>Frage {{ pageNumber }}</h1>
             <section>
               <legend for="questionFive">
-                Bitte geben Sie an, welche Art von mechanischer Unkrautbekämpfung der/die Landwirte durchführen und ob Sie oder der andere Landwirt diese Technik zuerst genutzt haben.
+                Bitte geben Sie an, welche Art von mechanischer Unkrautbekämpfung der/die Landwirte durchführen und ob Sie oder der/die andere Landwirt/in diese Technik zuerst genutzt haben.
               </legend>
                 <br>
                 <div style="width: 400px">   
@@ -582,7 +579,7 @@
                             value="Er erst" 
                             v-model="surveyData.questionFive.vorauflauf[index]" 
                             />
-                            <label for="one">Er erst</label>
+                            <label for="one">Er/sie erst</label>
                             <br />
                             <input 
                             type="radio" 
@@ -613,7 +610,7 @@
                             value="Er erst" 
                             v-model="surveyData.questionFive.nachauflauf[index]" 
                             />
-                            <label for="one">Er erst</label>
+                            <label for="one">Er/sie erst</label>
                             <br />
                             <input 
                             type="radio" 
@@ -675,13 +672,15 @@
        <div v-if="step === 7">
           <modal 
               helpText="Bitte markieren Sie die entsprechende Lage auf der Karte. 
-              Sie können die Karte verschieben, indem Sie die rechte Maustaste gedrückt halten. 
-              Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich.">
+              Sie können die Karte verschieben, indem Sie die linke Maustaste gedrückt halten. 
+              Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich. 
+              Durch erneutes Klicken auf den Kreis können Sie diesen wieder verschwinden lassen. 
+              Durch erneutes Klicken auf den Button über der Karte können sie einen weiteren Kreis hinzufügen">
           </modal>
           <h1>Frage {{ pageNumber }}</h1>
             <section>
               <legend for="questionTwo">
-                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr Zuckerrüben angebaut?
+                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut?
                 <br/>
               </legend>
             </section>
@@ -709,13 +708,13 @@
       <div v-if="step === 8">
            <modal 
             helpText="Markieren Sie die Felder in der entsprechenden Farbe. 
-            Wählen Sie die Farbe aus der Legende unter der Karte durch anklicken aus. 
-            Bewegen Sie die Karte in dem Sie den rechten Mauszeiger gedrückt halten.">
+            Wählen Sie die Farbe aus der Legende über der Karte durch Anklicken aus. 
+            Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
             </modal>
           <h1>Frage {{ pageNumber }}</h1>
           <section>
             <legend for="questionSix">
-              Bitte markieren Sie mind.1 Feld (gerne auch mehr) der oben genannten Landwirte in der jeweiligen Farbe. 
+              Bitte markieren Sie mind.1 Feld (gerne auch mehr) der eben genannten Landwirte in der jeweiligen Farbe. 
               </legend>
           </section>
              <div id="app" class="bubble-wrapper">
@@ -728,8 +727,8 @@
                   </div>
                 </div>
           <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-          <button @click.prevent="next(); skip_map = true" @click="pageNumber+=1">Ich weiß nicht</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+          <button @click.prevent="next(); skip_map = true" @click="pageNumber+=1">Ich weiß nicht</button>
       </div>
         <div>
           <!-- Maps component embedding -->
@@ -747,9 +746,35 @@
       <section>
         <legend for="questionSeven">
             Liegen die Felder Ihrer Berufskollegen, die ihr Unkraut mechanisch bekämpfen in Ihrer direkten Umgebung ?
-              Ja, die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen im Umkreis von __ km.  
-              Nein, die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen weiter weg als __ km.
         </legend>
+            <br/>
+            <div>
+              <label>
+                a) Ja, die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen im Umkreis von:                
+              </label>
+              <br>
+              <input style="width: 90px"
+              type="singleLine"
+              v-model="surveyData.questionSevenAlternative"
+              placeholder="Kilometer"
+              required
+              />
+              <br>
+          </div>
+          <div>
+              <label>
+                b) Nein, die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen weiter weg als:
+              </label>
+              <input style="width: 90px"
+              type="singleLine"
+              v-model="surveyData.questionSevenAlternative"
+              placeholder="Kilometer"
+              required
+              />
+              <br>
+          </div>
+              
+     
       </section>
         <br />
     <button @click.prevent="prev(); skip_map = false" @click="pageNumber-=1">Zurück</button>
@@ -795,6 +820,11 @@
               <input class="form-check-input" type="radio" name="inlineRadioOptions" 
               id="questionSevenRadio6" value="65 und mehr" v-model="surveyData.questionSeven">
               <label class="form-check-label" for="questionSevenRadio6">65 und mehr</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
+              id="questionSevenRadio6" value="65 und mehr" v-model="surveyData.questionSeven">
+              <label class="form-check-label" for="questionSevenRadio6">keine Angabe</label>
           </div>
           <br />
         </section>
@@ -868,6 +898,11 @@
               id="questionEightRadio9" value="1000 und mehr" v-model="surveyData.questionEight">
               <label style="display:inline-block" class="form-check-label" for="questionEightRadio9">1000 und mehr</label>
           </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
+              id="questionEightRadio9" value="1000 und mehr" v-model="surveyData.questionEight">
+              <label style="display:inline-block" class="form-check-label" for="questionEightRadio9">keine Angabe</label>
+          </div>
           <br />
         </section>
     <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
@@ -886,15 +921,16 @@
             Haben Sie Fragen oder Kommentare? Hier ist Platz dafür:
           </legend>
           <br />
-          <input
-            id="questionNine"
-            name="questionNine"
-            type="singleLine"
-            v-model="surveyData.questionNine"
-            placeholder="Fragen oder Kommentare hier hinfügen"
-            required
-            />
-          <br />
+          <div class="form-group">
+            <textarea class="form-control"
+                      style="width: 500px"
+                      v-model="surveyData.questionNine"
+                      placeholder="Fragen oder Kommentare hier hinfügen"
+                      required
+                      id="questionNine"
+                      rows="3">
+            </textarea>
+          </div>
           <br />
         </section>
 
@@ -912,7 +948,7 @@
             <p>
             Sie haben nun die Möglichkeit bei unserem Gewinnspiel mitzumachen.
             Unter je 100 Teilnehmern verlosen wir drei Gutscheine für Engelbert Strauss im Wert von 50 €.
-            Dazu können Sie auf der folgenden Seite Ihre eMail-Adresse angeben. Diese wird getrennt von Ihren Angaben gespeichert und es kann keine Verbindung zu Ihren Antworten hergestellt werden.
+            Dazu können Sie unten Ihre E-Mail-Adresse angeben. Diese wird getrennt von Ihren Angaben gespeichert und es kann keine Verbindung zu Ihren Antworten hergestellt werden.
             </p>
             <p>
             Wenn Sie möchten, senden wir Ihnen auch die zusammengefassten Ergebnisse der Studie zu.
@@ -966,7 +1002,7 @@
       </section>   
         <div style="border: 2px black solid" v-if="surveyData.questionTen=='Ja' || surveyData.questionEleven=='Ja'">  
             <legend>
-            Bitte geben Sie hier Ihren Namen und Ihre eMail-Adresse an. Diese Daten werden gesondert gespeichert und es besteht keine Verbindung zu Ihren Antworten in der Umfrage.
+            Bitte geben Sie hier Ihren Namen und Ihre E-Mail-Adresse an. Diese Daten werden gesondert gespeichert und es besteht keine Verbindung zu Ihren Antworten in der Umfrage.
             </legend>           
             <br />
             <div class="mb-3">
@@ -987,7 +1023,7 @@
           <br />
           <i><b>Anna Massfeller, Doktorandin bei PhenoRob</b> 
           <br />
-          Institut für Lebensmittel- und Ressourcenöknomik, Universität Bonn
+          Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
           <br />
           E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a>
           </i>
@@ -1117,6 +1153,7 @@ export default {
           nachauflauf: []
         },
         questionSeven: null,
+        questionSevenAlternative: null,
         questionEight: null,
         questionNine: null,
         questionTen: null,
