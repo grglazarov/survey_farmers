@@ -1,8 +1,8 @@
 <template>
     <div>
     <div v-if="step === 0" class = heatMap>
-      <div style="position:relative; text-align: center; left:-150px;width: 1200px; border:4px solid black;">
-          <h2>“Was uns beim Einsatz des Unkrautroboters gefehlt hat, ist ein anderer Landwirt aus der Region mit Erfahrung”</h2>
+      <div style="text-align: center; border:4px solid black;">
+          <h2>“Was uns beim Einsatz des Unkrautroboters gefehlt hat, <br> ist ein anderer Landwirt aus der Region mit Erfahrung”</h2>
       </div> 
         <!-- <div style="width: 400px">   
         <multiselect v-model="surveyData.questionFive.landwirte" 
@@ -270,7 +270,6 @@
         </div>
 
     <div v-if="step === 3 && surveyData.questionOne ==='Nein'">
-          {{ surveyData.questionOne}}
           <modal 
           helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
           </modal>
@@ -501,12 +500,12 @@
 
           <div v-if="surveyData.questionFour == 'Ja'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="next(); sameTechnique()" @click="pageNumber+=1">Weiter</button>
           </div>
         
           <div v-if="surveyData.questionFour == 'Nein'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-             <button @click.prevent="step = 6" @click="pageNumber+=1">Weiter</button>
+             <button @click.prevent="step = 6; sameTechnique()" @click="pageNumber+=1">Weiter</button>
           </div>
         </div>
 
@@ -1256,6 +1255,16 @@ export default {
           this.currentColor = this.surveyData.questionFive.landwirte[index].color}
           console.log(this.currentColor)
       },
+
+    // heatmap same technique used between farmers and neighbours
+    sameTechnique: function(){
+      if (this.surveyData.questionOne == "Ja" && this.surveyData.questionFour == "Ja"){
+        console.log("fulfilled")
+      }
+      else{
+        console.log("not fulfilled")
+      }
+    },
     deleteEntryTechnique: function (index) {
       this.surveyData.questionThree.technique.splice(index, 1)
       this.surveyData.questionThree.timeframe.splice(index, 1)
