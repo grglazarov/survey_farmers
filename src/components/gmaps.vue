@@ -39,14 +39,14 @@
     },
     computed: {
       center () {
-        console.log(this.markerCenter)
-        if (typeof this.markerCenter[0] === 'undefined'){
+        if (typeof this.markerCenter["lat"] === 'undefined'){
           return {  
           lat: 50.8882527,
           lng: 7.3254293
            }
         }
         else {
+          console.log('here')
           return this.markerCenter
         }
       }
@@ -96,6 +96,7 @@
         this.markers.splice(index, 1);
       },
       onMapClick (event) {
+
         if (this.addmode) {
           this.markers.push({
             color: this.circleColor,
