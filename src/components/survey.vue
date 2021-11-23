@@ -662,10 +662,7 @@
                 <br/>
               </p>
                 <div>
-                    <input 
-                    id="zip"
-                    name="zip"                     
-                    v-model="zip"                 
+                    <input                 
                     type="text" 
                     required>
                 </div>
