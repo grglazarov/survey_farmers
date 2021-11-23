@@ -664,6 +664,7 @@
                 <div>
                     <input                 
                     type="text" 
+                    v-model="zip" 
                     required>
                 </div>
                  <button @click.prevent="loadZip()">Standort Anzeigen</button>
@@ -709,7 +710,6 @@
                     minlength="5" 
                     maxlength="5"  
                     size="5"                
-                    v-model="zip" 
                     inputmode="numeric"                 
                     type="text" 
                     required>
