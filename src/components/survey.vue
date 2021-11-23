@@ -749,13 +749,7 @@
                 </div>
           <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-          <button @click.prevent="skip_map2 = true" @click="pageNumber+=1">Ich weiß nicht</button>
-        <div>
-          <!-- Maps component embedding -->
-              <keep-alive>
-                <gmaps ref="gmaps" :markerCenter = zip_to_geo :circleColor = currentColor @map_clicked="setGeolocation"/>
-             </keep-alive>
-        </div>
+          <button @click.prevent="skip_map2 = true" @click="pageNumber+=1">Ich weiß nicht</button>   
       </div>
       <div v-if="step === 7 && skip_map2 == true">
       <modal 
@@ -808,6 +802,12 @@
         <button @click.prevent="skip_map2 = false" @click="pageNumber-=1">Zurück</button>
         <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
     </div>  
+     <div>
+          <!-- Maps component embedding -->
+              <keep-alive>
+                <gmaps ref="gmaps" :markerCenter = zip_to_geo :circleColor = currentColor @map_clicked="setGeolocation"/>
+             </keep-alive>
+        </div>
   </div>
     
     <div v-if="step === 8">
@@ -1281,11 +1281,11 @@ export default {
               this.$refs.gmaps.setMode(value);
     },
     setColor: function(index){
-      if (this.step === 7) {
+      if (this.step === 6) {
           this.currentColor = 'red'
           console.log(this.currentColor)
       }
-      if (this.step === 8) {
+      if (this.step === 7) {
           this.currentColor = this.surveyData.questionFive.landwirte[index].color}
           console.log(this.currentColor)
       },
