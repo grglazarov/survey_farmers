@@ -653,13 +653,14 @@
                 Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte wählen Sie Ihre Region und  klicken Sie die Schläge an. 
                 Wenn Sie keine Felder auswählen möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben. 
                 Für die Auswertung ist eine möglichst genaue Angabe hilfreich.
-                <br/>
               </legend>    
-             <section>
-              <legend for="questionTwo">
+              <br/>
+            <div>
+             <div>
+              <p style="font-size: 18px;">
                 Bitte geben Sie Ihren Standort ein:
                 <br/>
-              </legend>
+              </p>
                 <div>
                     <input 
                     id="zip"
@@ -669,8 +670,8 @@
                     required>
                 </div>
                  <button @click.prevent="loadZip()">Standort Anzeigen</button>
-              </section>
-                  <section>
+              </div>
+                  <div>
                   <p style="position: relative;left: 10px; top: 30px;">Eigene Schläge</p>
                  <div id="app" class="bubble-wrapper">
                     <button
@@ -678,7 +679,8 @@
                       :style="{ backgroundColor: 'red', border: '3px solid black'}"
                     />
                 </div>
-              </section>
+              </div>
+            </div>
                 <!-- <span style="color:white;margin-left: 1%;margin-top:0%;vertical-align: text-top;text-align:right">{{"Eigene Felder"}}</span> -->
           <div v-if="surveyData.questionFour == 'Ja'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>

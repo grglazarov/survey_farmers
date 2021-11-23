@@ -2,7 +2,7 @@
   <div id="map">
      <!-- the map component -->
     <vue-gmap
-      :center="markerCenter"
+      :center="center"
       map-type-id="hybrid"
       :zoom="15"
       style="width: 100%; height: 100%"
@@ -37,6 +37,11 @@
     components: {
     "vue-gmap": Map
     },
+    computed: {
+      center () {
+        return this.markerCenter
+      }
+  },
      props: {
       circleColor: {
         type: String},
