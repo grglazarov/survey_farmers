@@ -107,7 +107,7 @@
                         <br>
                         Anna Massfeller
                         <br/>
-                        Doktorandin bei PhenoRob, Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
+                        Doktorandin am Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
                         <br />
                         E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a> 
                       </p>
@@ -627,60 +627,50 @@
                   </tbody>
                 </table>
                 <button @click.prevent="deleteRowLandwirt()">Löschen</button>
+              <div v-if="surveyData.questionFour == 'Ja'">
                 <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
                 <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+              </div>        
+              <div v-if="surveyData.questionFour == 'Nein'">
+                <button @click.prevent="step = 4" @click="pageNumber-=1">Zurück</button>
+                <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+              </div>
       </div>
 
-    <div v-if="step === 6">
-          <modal 
-              helpText="Hilfe?">
-          </modal>
-          <h1>Frage {{ pageNumber }}</h1>
-            <section>
-              <legend for="questionTwo">
-                Bitte geben Sie Ihre Postleitzahl an:
-                <br/>
-              </legend>
-              <div>
-                    <input 
-                    id="zip"
-                    name="zip" 
-                    minlength="5" 
-                    v-model="zip"
-                    maxlength="5" 
-                    size="5" 
-                    type="text" 
-                    inputmode="numeric" 
-                    required>
-                </div>
-          </section>
-          <div v-if="surveyData.questionFour == 'Ja'">
-              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="next(); loadZip()" @click="pageNumber+=1">Weiter</button>
-          </div>
-        
-          <div v-if="surveyData.questionFour == 'Nein'">
-             <button @click.prevent="step = 4" @click="pageNumber-=1">Zurück</button>
-             <button @click.prevent="next(); loadZip()" @click="pageNumber+=1">Weiter</button>
-          </div>
-    </div>
-
-     <div v-show="step === 7 || step === 8">
-       <div v-if="step === 7">
+     <div v-show="step === 6 || step === 7">
+       <div v-if="step === 6 && skip_map == false">
           <modal 
               helpText="Bitte markieren Sie die entsprechende Lage auf der Karte. 
               Sie können die Karte verschieben, indem Sie die linke Maustaste gedrückt halten. 
+              Sie können den Kreis größer und kleiner ziehen.
               Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich. 
               Durch erneutes Klicken auf den Kreis können Sie diesen wieder verschwinden lassen. 
               Durch erneutes Klicken auf den Button über der Karte können sie einen weiteren Kreis hinzufügen">
           </modal>
           <h1>Frage {{ pageNumber }}</h1>
-            <section>
+            
               <legend for="questionTwo">
-                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut?
+                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte wählen Sie Ihre Region und  klicken Sie die Schläge an. 
+                Wenn Sie keine Felder auswählen möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben. 
+                Für die Auswertung ist eine möglichst genaue Angabe hilfreich.
+                <br/>
+              </legend>    
+             <section>
+              <legend for="questionTwo">
+                Bitte geben Sie Ihren Standort ein:
                 <br/>
               </legend>
-            </section>
+                <div>
+                    <input 
+                    id="zip"
+                    name="zip"                     
+                    v-model="zip"                 
+                    type="text" 
+                    required>
+                </div>
+                 <button @click.prevent="loadZip()">Standort Anzeigen</button>
+              </section>
+                  <section>
                   <p style="position: relative;left: 10px; top: 30px;">Eigene Schläge</p>
                  <div id="app" class="bubble-wrapper">
                     <button
@@ -688,21 +678,54 @@
                       :style="{ backgroundColor: 'red', border: '3px solid black'}"
                     />
                 </div>
+              </section>
                 <!-- <span style="color:white;margin-left: 1%;margin-top:0%;vertical-align: text-top;text-align:right">{{"Eigene Felder"}}</span> -->
           <div v-if="surveyData.questionFour == 'Ja'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
               <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-              <button @click.prevent="next()" @click="pageNumber+=1">Überspringen</button>
+              <button @click.prevent="skip_map = true" @click="pageNumber+=1">Überspringen</button>
           </div>
         
           <div v-if="surveyData.questionFour == 'Nein'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="step = 9" @click="pageNumber+=1">Weiter</button>
-              <button @click.prevent="step = 9" @click="pageNumber+=1">Überspringen</button>
+              <button @click.prevent="step = 8" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="step = 8; skip_map = true" @click="pageNumber+=1">Überspringen</button>
           </div>
       </div>
 
-      <div v-if="step === 8">
+      <div v-if="step === 6 && skip_map == true">
+          <modal 
+              helpText="Hilfe?">
+          </modal>
+          <h1>Frage {{ pageNumber }}</h1>
+          <legend for="questionTwo">
+               Bitte geben Sie Ihre Postleitzahl an: 
+                <br/>
+              </legend>
+              <div> 
+                    <input 
+                    id="zip"
+                    name="zip"  
+                    minlength="5" 
+                    maxlength="5"  
+                    size="5"                
+                    v-model="zip" 
+                    inputmode="numeric"                 
+                    type="text" 
+                    required>
+                </div>
+           <div v-if="surveyData.questionFour == 'Ja'">
+              <button @click.prevent="skip_map = false" @click="pageNumber-=1">Zurück</button>
+              <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+          </div>
+        
+          <div v-if="surveyData.questionFour == 'Nein'">
+              <button @click.prevent="skip_map = false" @click="pageNumber-=1">Zurück</button>
+              <button @click.prevent="step = 8" @click="pageNumber+=1">Weiter</button>
+          </div>
+      </div>
+
+      <div v-if="step === 7 && skip_map2 == false">
            <modal 
             helpText="Markieren Sie die Felder in der entsprechenden Farbe. 
             Wählen Sie die Farbe aus der Legende über der Karte durch Anklicken aus. 
@@ -712,6 +735,7 @@
           <section>
             <legend for="questionSix">
               Bitte markieren Sie mind.1 Feld (gerne auch mehr) der eben genannten Landwirte in der jeweiligen Farbe. 
+              Wenn Sie nicht genau wissen, wo die Felder der Landwirte liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Entfernung zu Ihren Kollegen angeben.
               </legend>
           </section>
              <div id="app" class="bubble-wrapper">
@@ -725,8 +749,7 @@
                 </div>
           <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-          <button @click.prevent="next(); skip_map = true" @click="pageNumber+=1">Ich weiß nicht</button>
-      </div>
+          <button @click.prevent="skip_map2 = true" @click="pageNumber+=1">Ich weiß nicht</button>
         <div>
           <!-- Maps component embedding -->
               <keep-alive>
@@ -734,8 +757,7 @@
              </keep-alive>
         </div>
       </div>
-
-    <div v-if="step === 9 && skip_map == true">
+      <div v-if="step === 7 && skip_map2 == true">
       <modal 
       helpText="Teilen Sie uns Ihre Gedanken zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
       </modal>
@@ -747,37 +769,48 @@
             <br/>
             <div>
               <label>
-                a) Ja, die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen im Umkreis von:                
+              Die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen im Umkreis von:                
               </label>
               <br>
-              <input style="width: 90px"
-              type="singleLine"
-              v-model="surveyData.questionSevenAlternative"
-              placeholder="Kilometer"
-              required
-              />
-              <br>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
+              id="questionSevenAltRadio1" value="0-5 km" v-model="surveyData.questionSevenAlternative">
+              <label class="form-check-label" for="questionSevenAltRadio1">0-5 km</label>
           </div>
-          <div>
-              <label>
-                b) Nein, die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen weiter weg als:
-              </label>
-              <input style="width: 90px"
-              type="singleLine"
-              v-model="surveyData.questionSevenAlternative"
-              placeholder="Kilometer"
-              required
-              />
-              <br>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
+              id="questionSevenAltRadio2" value="5-10 km" v-model="surveyData.questionSevenAlternative">
+              <label class="form-check-label" for="questionSevenAltRadio2">5-10 km</label>
           </div>
-              
-     
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
+              id="questionSevenAltRadio3" value="10-15 km" v-model="surveyData.questionSevenAlternative">
+              <label class="form-check-label" for="questionSevenAltRadio3">10-15 km</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
+              id="questionSevenAltRadio4" value="15-20 km" v-model="surveyData.questionSevenAlternative">
+              <label class="form-check-label" for="questionSevenAltRadio4">15-20 km</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
+              id="questionSevenAltRadio5" value="20-30 km" v-model="surveyData.questionSevenAlternative">
+              <label class="form-check-label" for="questionSevenAltRadio5">20-30 km</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
+              id="questionSevenAltRadio6" value="mehr als 30 km" v-model="surveyData.questionSevenAlternative">
+              <label class="form-check-label" for="questionSevenAltRadio6">mehr als 30 km</label>
+          </div>
+        </div>              
       </section>
         <br />
-    <button @click.prevent="prev(); skip_map = false" @click="pageNumber-=1">Zurück</button>
-    <button @click.prevent="step = 9; skip_map = false" @click="pageNumber+=1">Weiter</button>
- </div>
-    <div v-if="step === 9 && skip_map == false">
+        <button @click.prevent="skip_map2 = false" @click="pageNumber-=1">Zurück</button>
+        <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+    </div>  
+  </div>
+    
+    <div v-if="step === 8">
         <modal 
         helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
         und werden wie die gesamte Umfrage anonymisiert erfasst.">
@@ -827,19 +860,19 @@
         </section>
 
         <div v-if="surveyData.questionFour == 'Ja'">
-            <button @click.prevent="step = 8" @click="pageNumber-=1">Zurück</button>
+            <button @click.prevent="step = 7" @click="pageNumber-=1">Zurück</button>
             <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
       
         <div v-if="surveyData.questionFour == 'Nein'">
-            <button @click.prevent="step = 7" @click="pageNumber-=1">Zurück</button>
+          <button @click.prevent="step = 6" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
     </div>
 
 
 
-    <div v-if="step === 10">
+    <div v-if="step === 9">
         <modal 
         helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
         und werden wie die gesamte Umfrage anonymisiert erfasst.">
@@ -907,7 +940,7 @@
     </div>
 
 
-    <div v-if="step === 11">
+    <div v-if="step === 10">
         <modal 
         helpText="Teilen Sie uns Ihre Gedanken
          zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
@@ -936,7 +969,7 @@
     </div>
 
 
-    <div v-if="step === 12">
+    <div v-if="step === 11">
       <h1>Ende</h1>
       <section>
             <p>
@@ -1111,6 +1144,7 @@ export default {
       errors: [],
       zip: null,
       skip_map: false,
+      skip_map2: false,
       zip_to_geo: {},
       selected: null,
       categories: ['Zu hohe Kosten','Geringe Zuverlässigkeit','Hohes Risiko','Technik nicht vorhanden','Zeitaufwand zu hoch','nicht möglich auf meinem Betrieb'],
