@@ -701,6 +701,7 @@
           </modal>
           <h1>Frage {{ pageNumber }}</h1>
           <legend for="questionTwo">
+               <br/>
                Bitte geben Sie Ihre Postleitzahl an: 
                 <br/>
               </legend>
@@ -716,6 +717,8 @@
                     type="text" 
                     required>
                 </div>
+                <br/>
+                <br/>
            <div v-if="surveyData.questionFour == 'Ja'">
               <button @click.prevent="skip_map = false" @click="pageNumber-=1">Zurück</button>
               <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>

@@ -4,7 +4,7 @@
     <vue-gmap
       :center="center"
       map-type-id="hybrid"
-      :zoom="15"
+      :zoom="13"
       style="width: 100%; height: 100%"
       @click="onMapClick"
       v-bind:options="options"
@@ -39,7 +39,16 @@
     },
     computed: {
       center () {
-        return this.markerCenter
+        console.log(this.markerCenter)
+        if (typeof this.markerCenter[0] === 'undefined'){
+          return {  
+          lat: 50.8882527,
+          lng: 7.3254293
+           }
+        }
+        else {
+          return this.markerCenter
+        }
       }
   },
      props: {
