@@ -50,7 +50,7 @@
           return this.markerCenter
         }
       }
-  },
+     },
      props: {
       circleColor: {
         type: String},

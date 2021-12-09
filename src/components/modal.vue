@@ -68,7 +68,7 @@ button {
   border: 1px solid #bbb;
   width: 270px;
   z-index: 100;
-  position: absolute;
+  position: fixed;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
 }
 .hide-tool {

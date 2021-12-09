@@ -243,7 +243,7 @@
               </modal>
               <section>
                 <legend for="questionOne">
-                  Betreiben Sie mechanische Unkrautbekämpfung in Ihren Zuckerrüben?
+                  Betreiben Sie mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung in Ihren Zuckerrüben?
                 </legend>
                 <br />
                 <input
@@ -270,9 +270,11 @@
         </div>
 
     <div v-if="step === 3 && surveyData.questionOne ==='Nein'">
+        <div style="position: absolute">
           <modal 
           helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
           </modal>
+        </div>
           <h1>Frage {{ pageNumber }}</h1>
           <div>
             <legend for="questionThree"> 
@@ -384,7 +386,7 @@
             <thead>
               <tr>
                 <th scope="col">Technik</th>
-                <th scope="col">Zeitraum (1900 – 2021/22)</th>
+                <th scope="col">Zeitraum (2010 – 2022)</th>
                 <th scope="col">Zusätzliche Ausstattung/ Neuinvestition/ Kommentar
                   <i class="fa fa-question-circle" aria-hidden="true" 
                   data-toggle="tooltip" data-placement="bottom" 
@@ -404,7 +406,7 @@
                     :tooltip-style="tooltipStyle" 
                     :enable-cross="enableCross"
                     :process-style="processStyle"
-                    :step=5 
+                    :step=1 
                     :min="min"
                     :max="max">
                   </vue-range-slider>        
@@ -1119,7 +1121,7 @@ export default {
             // check if the timeframe and comment arrays
             // have a non-null value. If so -> replace with default
             if (!this.surveyData.questionThree.timeframe[i]) {
-              this.surveyData.questionThree.timeframe[i] = [1900, 2022]
+              this.surveyData.questionThree.timeframe[i] = ["vor 2010", 2022]
             }
             if (!this.surveyData.questionThree.camera[i]) {
               this.surveyData.questionThree.camera[i] = ''
@@ -1153,7 +1155,7 @@ export default {
       options: ['Striegel', 'Scharhacke', 'Hackbürste', 'Trennhacke', 'Hackfräse', 'Rollhacke', 'Hackstriegel', 'Fingerhacke', 'Häufelgerät', 'Reihenstriegel', 'Rotorstriegel'],
       heatmap_coords: [],
       chosen_technique: "alle Techniken",
-      min: 1900,
+      min: 2010,
       max: 2022,
       currentColor: '',
       landwirte: [{name: "Landwirt 1", color: "#9B29F8"}, 
@@ -1200,7 +1202,7 @@ export default {
   created () {
     VueRangeSlider.methods.handleKeyup = () => console.log
     VueRangeSlider.methods.handleKeydown = () => console.log
-
+  
     this.bgStyle = {
       backgroundColor: '#fff',
       boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
