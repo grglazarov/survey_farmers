@@ -4,26 +4,9 @@
       <div style="text-align: center; border:4px solid black;">
           <h2>“Was uns beim Einsatz des Unkrautroboters gefehlt hat, <br> ist ein anderer Landwirt aus der Region mit Erfahrung”</h2>
       </div> 
-        <!-- <div style="width: 400px">   
-        <multiselect v-model="surveyData.questionFive.landwirte" 
-                    :multiple="true"
-                    :options="this.landwirte"
-                    label="name" 
-                    track-by="name" 
-                    :preselect-first="true"
-                    :close-on-select="true"
-                    :clear-on-select="false"
-                    placeholder="Auswahl"
-                    selectLabel="drücke Enter"
-                    :preserve-search="false"
-                    :max-height="300"
-                    :searchable="false">
-          </multiselect> 
-          {{this.surveyData.questionFive.landwirte}} 
-        </div> -->
         <div style="border: 4px solid black; padding: 5px">
             <ul>
-              <li>Zuckerrüben sind immer mehr von Wirkstoffverboten in Pflanzenschutzmitteln betroffen und Landwirte und Landwirtinnen brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
+              <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirte und Landwirtinnen brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
               <br>
               <li>Wir möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskolegen und -kolleginnen austauschen. </li>
                <ul>
@@ -43,15 +26,16 @@
           <p>Klicken Sie auf die jeweilige Rubrik um zu sehen, wie die Verteilung in Deutschland ist.
           Ihre Daten werden so zusammengefasst auch für andere Teilnehmer der Umfrage zu sehen sein. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</p>
         </div>
-        <div style="display: flex">
+       <div style="display: flex">
          <div style="border:4px solid black; width: 300px;">
            <section>
-            <legend> 
+              <legend style="font-size: 15px">
               Bitte wählen sie eine mechanische Unkrautbekämpfungmethode?
-            </legend>
+              </legend>
             <select class="bootstrap-select" style="width: 15em; border: 2px black solid"
               v-model="chosen_technique">
-              <option value="alle Techniken">alle Techniken</option>
+              <option value="choose">Bitte auswählen</option>
+              <option value="Alle Techniken">Alle Techniken</option>
               <option value="Striegel">Striegel</option>
               <option value="Scharhacke">Scharhacke</option>
               <option value="Hackbürste">Hackbürste</option>
@@ -65,21 +49,27 @@
               <option value="Rotorstriegel">Rotorstriegel</option>
             </select>
             <div>
-              In diesen Regionen:
-                <ul>
-                  <li> … wird besonders viel mechanische Unkrautbekämpfung eingesetzt</li>
-                  <br/>
-                  <li>… nutzen Landwirte die an der Umfrage teilgenommen haben die gleiche Technik wie Ihre Kollegen und Kolleginnen andere Techniken</li>
-              </ul>
+              <br>
+              <br>
+              <legend style="font-size: 15px">
+              Um Unkraut in Zuckerrüben zu entfernen, nutzen Landwirte und Ihre Kollegen in diesen Regionen:
+              </legend>              
+              <select class="bootstrap-select" style="width: 17em; border: 2px black solid"
+                v-model="compare_data">
+                <option value="choose">Bitte auswählen</option>
+                <option value="same">die gleichen Techniken</option>
+                <option value="different">nicht die gleichen Techniken</option>
+              </select>
             </div>
-          </section>
+            </section>
         </div>
       <div style="position: relative; width: 500px;border: 4px solid black;">
-        <heatmap 
-            v-bind:heatmap-data=heatmap_coords :selected-technique=chosen_technique>
-        </heatmap>
+      <keep-alive>
+            <heatmapbox v-bind:heatmap-data=heatmap_coords :selected-technique=chosen_technique :compare-techniques=compare_data>
+            </heatmapbox>
+      </keep-alive>
       </div>
-      </div>
+    </div>
       <button style="background-color: #4CAF50;
                         color: white;
                         left: 200px;
@@ -385,31 +375,34 @@
           align="center" style="border:2px solid black; border-style: solid">
             <thead>
               <tr>
-                <th scope="col">Technik</th>
-                <th scope="col">Zeitraum (2010 – 2022)</th>
-                <th scope="col">Zusätzliche Ausstattung/ Neuinvestition/ Kommentar
+                <th scope="col">Gerät</th>
+                <th scope="col">Seit</th>
+                <th scope="col">Zusatzausstattung/ Investition/ Kommentare 
                   <i class="fa fa-question-circle" aria-hidden="true" 
                   data-toggle="tooltip" data-placement="bottom" 
                   title="Hat die Maschine eine besondere Ausstattung? Haben Sie im Laufe der Zeit die Maschine durch eine neuere ersetzt? Wenn ja, wann?"
                   style="font-size:22px;color:red;">
                   </i>
                 </th>
+                 <th scope="col">Wessen Maschine wird genutzt?</th>
               </tr>
             </thead>
             <tbody>
                 <tr v-for="(method, index) in surveyData.questionThree.technique" :key="index">
                   <td>{{method}}<button @click.prevent="deleteEntryTechnique(index)">X</button></td>  
                   <td>          
-                    <vue-range-slider 
-                    v-model="surveyData.questionThree.timeframe[index]"
-                    :bg-style="bgStyle" 
-                    :tooltip-style="tooltipStyle" 
-                    :enable-cross="enableCross"
-                    :process-style="processStyle"
-                    :step=1 
-                    :min="min"
-                    :max="max">
-                  </vue-range-slider>        
+                      <div style="display: flex">
+                        <div style="position: relative">
+                          <label>Jahr: </label>
+                        </div>
+                        <div style="position: relative">
+                          <input style="height:20px; width: 60px"
+                          type="text"
+                          v-model="surveyData.questionThree.timeframe[index]"
+                          placeholder=""
+                          required> 
+                        </div>
+                      </div> 
                   </td> 
                  <td>
                      <div style="display: flex">
@@ -438,7 +431,7 @@
                       </div>
                       <div style="display: flex">
                         <div style="position: relative">
-                          <label>Neuinvestition in Jahr: </label>
+                          <label>Neuinvestition in: </label>
                         </div>
                         <div style="position: relative">
                           <input style="height:20px; width: 60px"
@@ -448,19 +441,71 @@
                           required> 
                         </div>
                       </div>
+                      <div>
+                      <label for="one">Autonom fahrend</label>
+                      <input
+                      id="one"
+                      type="checkbox"
+                      true-value="yes"
+                      false-value="no"
+                      v-model="surveyData.questionThree.autonom[index]"
+                      />
+                      </div>
                       <div style="display: flex">
                         <div style="position: relative">
                           <label>Kommentar: </label>
                         </div>
                         <div style="position: relative">
-                          <input style="height:20px; width: 160px"
+                          <input style="height:20px; width: 110px"
                           type="text"
                           v-model="surveyData.questionThree.comment[index]"
-                          placeholder="Freitext"
+                          placeholder="hier einfügen"
                           required>
                         </div>
                       </div>
                   </td>
+                  <td>
+                    <input
+                      type="radio"
+                      value="own"
+                      v-model="surveyData.questionThree.mashine[index]"
+                      />
+                      <label>Eigene Maschine</label>
+                      <br />
+                      <input 
+                      type="radio" 
+                      value="shared"
+                      v-model="surveyData.questionThree.mashine[index]" 
+                      />
+                      <label>Teile mit Nachbarn</label>
+                      <br />
+                      <input 
+                      type="radio" 
+                      value="maschinenring"
+                      v-model="surveyData.questionThree.mashine[index]" 
+                      />
+                      <label>Maschinenring</label>
+                      <br />
+                      <input 
+                      type="radio" 
+                      value="lohnunternehmer"
+                      v-model="surveyData.questionThree.mashine[index]" 
+                      />
+                      <label>Lohnunternehmer</label>
+                      <br />
+                      <div style="display: flex">
+                        <div style="position: relative">
+                          <label>Andere: </label>
+                        </div>
+                        <div style="position: relative">
+                          <input style="height:20px; width: 110px"
+                          type="text"
+                          v-model="surveyData.questionThree.other_machine[index]"
+                          placeholder="hier einfügen"
+                          required>
+                        </div>
+                      </div>
+                </td>
               </tr>   
             </tbody>
           </table>
@@ -1091,11 +1136,9 @@
 
 <script>
 
-import VueRangeSlider from 'vue-range-component'
-import 'vue-range-component/dist/vue-range-slider.css'
 import gmaps from '@/components/gmaps.vue'
 import modal from './modal.vue'
-import heatmap from './heatmap.vue'
+import heatmapbox from './heatmapbox.vue'
 import multiselect from 'vue-multiselect'
 import {gmapApi} from "gmap-vue";
 
@@ -1110,36 +1153,7 @@ export default {
     google: gmapApi
     },
     name: 'survey',
-    components: {gmaps, modal, VueRangeSlider, heatmap, multiselect},
-    watch: {
-    surveyData: {
-      deep: true,
-      handler (prop) {
-        if (prop.questionThree.technique) {
-          // for each technology selected
-          prop.questionThree.technique.forEach((name, i) => {
-            // check if the timeframe and comment arrays
-            // have a non-null value. If so -> replace with default
-            if (!this.surveyData.questionThree.timeframe[i]) {
-              this.surveyData.questionThree.timeframe[i] = ["vor 2010", 2022]
-            }
-            if (!this.surveyData.questionThree.camera[i]) {
-              this.surveyData.questionThree.camera[i] = ''
-            }
-            if (!this.surveyData.questionThree.gps[i]) {
-              this.surveyData.questionThree.gps[i] = ''
-            }
-            if (!this.surveyData.questionThree.newInvest[i]) {
-              this.surveyData.questionThree.newInvest[i] = ''
-            }
-            if (!this.surveyData.questionThree.comment[i]) {
-              this.surveyData.questionThree.comment[i] = ''
-            }
-          })
-        }
-      }
-    }
-  },    
+    components: {gmaps, modal, heatmapbox, multiselect},   
   data () {
     return {
       step: 0,
@@ -1152,9 +1166,10 @@ export default {
       zip_to_geo: {},
       selected: null,
       categories: ['Zu hohe Kosten','Geringe Zuverlässigkeit','Hohes Risiko','Technik nicht vorhanden','Zeitaufwand zu hoch','nicht möglich auf meinem Betrieb'],
-      options: ['Striegel', 'Scharhacke', 'Hackbürste', 'Trennhacke', 'Hackfräse', 'Rollhacke', 'Hackstriegel', 'Fingerhacke', 'Häufelgerät', 'Reihenstriegel', 'Rotorstriegel'],
+      options: ['Striegel', 'Hackstriegel', 'Reihenstriegel',  'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
       heatmap_coords: [],
-      chosen_technique: "alle Techniken",
+      chosen_technique: "choose",
+      compare_data: "choose",
       min: 2010,
       max: 2022,
       currentColor: '',
@@ -1179,7 +1194,11 @@ export default {
           camera: [],
           gps: [],
           newInvest: [],
-          comment: []
+          autonom: [],
+          comment: [],
+          mashine: [],
+          other_machine: []
+
         },
         questionThreeAdditional: null,
         questionFour: 'Ja',
@@ -1198,24 +1217,6 @@ export default {
         farmerEmail: null
       }
     }
-  },
-  created () {
-    VueRangeSlider.methods.handleKeyup = () => console.log
-    VueRangeSlider.methods.handleKeydown = () => console.log
-  
-    this.bgStyle = {
-      backgroundColor: '#fff',
-      boxShadow: 'inset 0.5px 0.5px 3px 1px rgba(0,0,0,.36)'
-    }
-    this.tooltipStyle = {
-      backgroundColor: '#666',
-      borderColor: '#666'
-    }
-    this.processStyle = {
-      backgroundColor: '#999'
-    }
-    this.enableCross = false
-    this.tooltipMerge = false
   },
   methods: {
     async loadZip() {

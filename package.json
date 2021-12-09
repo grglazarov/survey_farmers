@@ -13,6 +13,7 @@
     "bindings": "^1.5.0",
     "core-js": "^3.9.1",
     "gmap-vue": "^1.5.0",
+    "mapbox-gl": "^2.6.1",
     "pouchdb": "^7.2.1",
     "vue": "^2.6.12",
     "vue-multiselect": "^2.1.6",
