@@ -4,7 +4,7 @@
       <div class="loading" />
       <span style="position: absolute;margin-left: -10px">Lädt...</span>
     </div>
-    <div id="map" />
+    <div id="plot-map" />
     <div class="footer">
       <div class="bubble-wrapper">
         {{this.featureCollection}}
@@ -102,7 +102,7 @@ export default {
       mapboxgl.accessToken = 'pk.eyJ1IjoidG9mZmkiLCJhIjoiY2t3ejJwN3R4MHR2MzJvbGF4bHljejNhdCJ9.uKgZYyMZoCjn2wQSD_vaUw'
 
       this.map = new mapboxgl.Map({
-        container: 'map',
+        container: 'plot-map',
         style: 'mapbox://styles/toffi/ckwz25stp0usy15k59cckn2sf',
         center: [8.3502733, 52.0887843],
         zoom: 13
@@ -140,6 +140,8 @@ export default {
         "fill-opacity": 0.4
       }
     });
+    
+    this.map.resize()
   })
 
     this.map.on("click", (event) => {
@@ -247,7 +249,7 @@ body {
   margin: 0;
   padding: 0;
 }
-#map {
+#plot-map {
   position: absolute;
   top: 100px;
   bottom: 84px;
@@ -308,12 +310,20 @@ body {
   align-items: center;
 }
 .container {
+  position: absolute;
+  width:100%;
+  height:60%;
+  left: 0;
+  padding: 0px;
+  margin: 0px;
+  /*
   margin: 0 auto;
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
+  */
 }
 .input {
   width: 150px !important;
