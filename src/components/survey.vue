@@ -50,7 +50,7 @@
         </div>
        <div style="border: 4px solid black; padding: 5px">
       <keep-alive>
-            <heatmapbox v-bind:heatmap-data=heatmap_coords :selected-technique=chosen_technique>
+            <heatmapbox v-bind:heatmap-data="heatmap_coords" :selected-technique="chosen_technique">
             </heatmapbox>
       </keep-alive>
      </div>
@@ -779,7 +779,8 @@
      <div>
           <!-- Maps component embedding -->
               <keep-alive>
-                <gmaps ref="gmaps" :markerCenter = zip_to_geo :circleColor = currentColor @map_clicked="setGeolocation"/>
+                <markermapbox/>
+                <!-- <gmaps ref="gmaps" :markerCenter = zip_to_geo :circleColor = currentColor @map_clicked="setGeolocation"/> -->
              </keep-alive>
         </div>
   </div>
@@ -1099,26 +1100,36 @@
     </template>
 
 <script>
-
 import gmaps from '@/components/gmaps.vue'
 import modal from './modal.vue'
 import heatmapbox from './heatmapbox.vue'
+import markermapbox from './markermapbox.vue'
 import multiselect from 'vue-multiselect'
-import {gmapApi} from "gmap-vue";
+import {
+  gmapApi
+} from "gmap-vue";
 
 var PouchDB = require('pouchdb');
 let pouchDb = PouchDB.default.defaults();
-let db = new pouchDb('https://fruchtfolge.agp.uni-bonn.de/db/survey_anna/', { skip_setup: true })
+let db = new pouchDb('https://fruchtfolge.agp.uni-bonn.de/db/survey_anna/', {
+  skip_setup: true
+})
 db.info().then(info => console.log(info));
 
 
 export default {
-    computed: {
+  computed: {
     google: gmapApi
-    },
-    name: 'survey',
-    components: {gmaps, modal, heatmapbox, multiselect},   
-  data () {
+  },
+  name: 'survey',
+  components: {
+    gmaps,
+    modal,
+    heatmapbox,
+    markermapbox,
+    multiselect
+  },
+  data() {
     return {
       step: 0,
       pageNumber: 1,
@@ -1129,8 +1140,8 @@ export default {
       skip_map2: false,
       zip_to_geo: {},
       selected: null,
-      categories: ['Zu hohe Kosten','Geringe Zuverlässigkeit','Hohes Risiko','Technik nicht vorhanden','Zeitaufwand zu hoch','nicht möglich auf meinem Betrieb'],
-      options: ['Striegel', 'Hackstriegel', 'Reihenstriegel',  'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
+      categories: ['Zu hohe Kosten', 'Geringe Zuverlässigkeit', 'Hohes Risiko', 'Technik nicht vorhanden', 'Zeitaufwand zu hoch', 'nicht möglich auf meinem Betrieb'],
+      options: ['Striegel', 'Hackstriegel', 'Reihenstriegel', 'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
       heatmap_coords: [],
       chosen_technique: "choose",
       currentColor: '',
@@ -1151,16 +1162,20 @@ export default {
         },
         questionTwoAdditional: null,
         questionTwoAlternative: {
-        reason: [],
-        method: null,
-        future: {radio: 'Ja', reason: null}
+          reason: [],
+          method: null,
+          future: {
+            radio: 'Ja',
+            reason: null
+          }
         },
-        questionThree:[],
+        questionThree: [],
         questionFourAndFive: [], //here the farmer + neighbor coordinates are saved
         questionFourAlternative: [],
         questionFiveAlternative: {
-        distance: [],
-        fields: []},
+          distance: [],
+          fields: []
+        },
         questionSix: null,
         questionSeven: null,
         questionEight: null,
@@ -1174,81 +1189,94 @@ export default {
   },
   methods: {
     async loadZip() {
-            console.log("Hello")
-            var zipcode = this.zip.toString()
-            var geocoder = new this.google.maps.Geocoder();
-            var abs = await geocoder.geocode({ 'address': 'zipcode ' + zipcode,
-            componentRestrictions: {
-            country: 'DE'
-            }})
-            var lat = abs.results[0].geometry.location.lat();
-            var lng = abs.results[0].geometry.location.lng();
-            console.log("IN", {lat: lat, lng: lng})
-            this.zip_to_geo = {lat: lat, lng: lng}
-            
-        },
-     
+      console.log("Hello")
+      var zipcode = this.zip.toString()
+      var geocoder = new this.google.maps.Geocoder();
+      var abs = await geocoder.geocode({
+        'address': 'zipcode ' + zipcode,
+        componentRestrictions: {
+          country: 'DE'
+        }
+      })
+      var lat = abs.results[0].geometry.location.lat();
+      var lng = abs.results[0].geometry.location.lng();
+      console.log("IN", {
+        lat: lat,
+        lng: lng
+      })
+      this.zip_to_geo = {
+        lat: lat,
+        lng: lng
+      }
+
+    },
+
     //-- PouchDB methods
 
-    setGeolocation: function(location){
-      for (var i = 0; i < location.length; i++) { 
-          console.log("start" + i +location[i].color);
+    setGeolocation: function(location) {
+      for (var i = 0; i < location.length; i++) {
+        console.log("start" + i + location[i].color);
       }
       this.surveyData.questionFourAndFive = location
       this.$refs.gmaps.setMode(false);
     },
-    
-    getGeolocation: function(){
+
+    getGeolocation: function() {
       var heatmap_data = []
       db.allDocs({
-          include_docs: true,
-          descending: true
-          }).then(function (result) {
-            var jsonData = (result.rows)
+        include_docs: true,
+        descending: true
+      }).then(function(result) {
+        var jsonData = (result.rows)
 
-            for (var i = 0; i < jsonData.length; i++) {
-                var entries = jsonData[i].doc.questionFourAndFive
-                var techniques = jsonData[i].doc.questionTwo.technique
-                heatmap_data.push([{technique: techniques}])
+        for (var i = 0; i < jsonData.length; i++) {
+          var entries = jsonData[i].doc.questionFourAndFive
+          var techniques = jsonData[i].doc.questionTwo.technique
+          heatmap_data.push([{
+            technique: techniques
+          }])
 
-                for (var j = 0; j < entries.length; j++) {
-                    var geoloc = entries[j].position
-                    var color = entries[j].color
-                      if (color == "red") {
-                        heatmap_data[i].push({geoloc})
-                      }
-                }
-            }                 
-          }).catch(function (err) {
-          console.log("error" + err)
-        })
+          for (var j = 0; j < entries.length; j++) {
+            var geoloc = entries[j].position
+            var color = entries[j].color
+            if (color == "red") {
+              heatmap_data[i].push({
+                geoloc
+              })
+            }
+          }
+        }
+      }).catch(function(err) {
+        console.log("error" + err)
+      })
       console.log(heatmap_data)
       this.heatmap_coords = heatmap_data
     },
-    deleteDB: function(){
-       db.allDocs().then(function (result) {
-         return Promise.all( result.rows.map(function (row) {
-            return db.remove(row.id, row.value.rev); 
-            })); 
-          }).then(function () {
-            console.log("done");
-        }).catch(function (err) {
-          console.log("error" + err);
+    deleteDB: function() {
+      db.allDocs().then(function(result) {
+        return Promise.all(result.rows.map(function(row) {
+          return db.remove(row.id, row.value.rev);
+        }));
+      }).then(function() {
+        console.log("done");
+      }).catch(function(err) {
+        console.log("error" + err);
       });
     },
-    setMode: function(value){
-              this.$refs.gmaps.setMode(value);
+    setMode: function(value) {
+      this.$refs.gmaps.setMode(value);
     },
-    setColor: function(){
+    setColor: function() {
       if (this.step === 5) {
-          this.currentColor = 'red'
-          console.log(this.currentColor)
+        this.currentColor = 'red'
+        console.log(this.currentColor)
       }
       if (this.step === 6) {
-          this.currentColor = "blue"}
-          console.log(this.currentColor)
-      },
-    deleteEntryTechnique: function (index) {
+        this.currentColor = "blue"
+      }
+      console.log(this.currentColor)
+    },
+    deleteEntryTechnique: function(index) {
       this.surveyData.questionTwo.technique.splice(index, 1)
       this.surveyData.questionTwo.timeframe.splice(index, 1)
       this.surveyData.questionTwo.camera.splice(index, 1)
@@ -1259,7 +1287,7 @@ export default {
       this.surveyData.questionTwo.mashine.splice(index, 1)
       this.surveyData.questionTwo.other_machine.splice(index, 1)
     },
-    deleteRowTechnique () {
+    deleteRowTechnique() {
       // delete row (index-0).
       this.surveyData.questionTwo.technique = []
       this.surveyData.questionTwo.timeframe = []
@@ -1271,11 +1299,11 @@ export default {
       this.surveyData.questionTwo.mashine = []
       this.surveyData.questionTwo.other_machine = []
     },
-    prev () {
+    prev() {
       this.step--
     },
     // those are question fields in the form, each of which is check if filled
-    next (formFieldsToCheck) {
+    next(formFieldsToCheck) {
       if (formFieldsToCheck) {
         this.errors = []
         for (const field in formFieldsToCheck) {
@@ -1290,8 +1318,8 @@ export default {
         this.step++
       }
     },
-    
-    async postData (url = '', data = {}) {
+
+    async postData(url = '', data = {}) {
       const response = await fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -1306,52 +1334,56 @@ export default {
       })
       return response.json()
     },
-    async submit () {
+    async submit() {
       try {
 
         // send data to the backend, for testing use: "https://httpbin.org/post"
 
-        this.backendResponse = await db.put(this.surveyData,function callback(err) {
-            if (!err) {
-              console.log('Successfully posted a farmer feedback!');
-            }})
+        this.backendResponse = await db.put(this.surveyData, function callback(err) {
+          if (!err) {
+            console.log('Successfully posted a farmer feedback!');
+          }
+        })
 
         db.changes({
-            since: 'now',
-            live: true
-            }) // .on('change', this.showDocs());
+          since: 'now',
+          live: true
+        }) // .on('change', this.showDocs());
 
         console.log(this.backendResponse)
         this.step = 'done'
         this.showDocs()
-        } 
-      
-        catch (e) {
+      } catch (e) {
         // ToDo: Handle errors
         console.error(e)
         this.step = 'error'
       }
     },
-      async showDocs() {
+    async showDocs() {
       try {
-        const {rows} = await db.allDocs({include_docs: true, descending: true})
+        const {
+          rows
+        } = await db.allDocs({
+          include_docs: true,
+          descending: true
+        })
         console.log(rows)
         //console.log("total rows " + rows.total_rows);
       } catch (e) {
         console.error(e)
       }
     }
-      },
-        // calculates the heatmap on page load
-        beforeMount(){
+  },
+  // calculates the heatmap on page load
+  beforeMount() {
     this.getGeolocation()
-    }
-    }
+  }
+}
 </script>   
 <style>
-
-legend{
- font-size: 18px; font-family: Arial, Helvetica, sans-serif ; 
+legend {
+  font-size: 18px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 #techniqueTable {
@@ -1361,14 +1393,23 @@ legend{
   width: 100%;
 }
 
-#techniqueTable td, #techniqueTable th {
+#techniqueTable td,
+#techniqueTable th {
   border: 3px solid rgb(43, 70, 77);
   padding: 8px;
 }
 
-#techniqueTable tr:nth-child(even){background-color: #48696e;}
-#techniqueTable tr:nth-child(odd){background-color: #48696e;}
-#techniqueTable tr:hover {background-color: rgb(85, 112, 128);}
+#techniqueTable tr:nth-child(even) {
+  background-color: #48696e;
+}
+
+#techniqueTable tr:nth-child(odd) {
+  background-color: #48696e;
+}
+
+#techniqueTable tr:hover {
+  background-color: rgb(85, 112, 128);
+}
 
 #techniqueTable th {
   padding-top: 12px;
@@ -1378,7 +1419,9 @@ legend{
   color: white;
 }
 
- table, th, td {
+table,
+th,
+td {
   border: 2px solid black;
 }
 
@@ -1399,15 +1442,16 @@ button {
   font-weight: bold;
 
 }
+
 legend {
   font-weight: normal;
-  text-align: justify; 
+  text-align: justify;
   word-wrap: break-word;
   text-justify: inter-word;
   text-justify: distribute;
   text-align-last: left;
-  font-size:18px; 
-  word-spacing:-2px;
+  font-size: 18px;
+  word-spacing: -2px;
   color: #dbdbdb;
 }
 
@@ -1447,6 +1491,7 @@ legend {
   border: 1px solid #E8E8E8;
   background: rgb(46, 65, 88);
 }
+
 .multiselect__tag {
   position: relative;
   display: inline-block;
@@ -1490,24 +1535,29 @@ legend {
   outline: none;
   color: white;
 }
+
 .multiselect__option--highlight:after {
   content: attr(data-select);
   background: #02113a;
   color: rgb(61, 66, 133);
 }
+
 .multiselect__option--selected {
   background: #F3F3F3;
   color: #35495E;
   font-weight: bold;
 }
+
 .multiselect__option--selected:after {
   content: attr(data-selected);
   color: silver;
 }
+
 .multiselect__option--selected.multiselect__option--highlight {
   background: #6a79ff;
   color: rgb(7, 15, 54);
 }
+
 .multiselect__option--selected.multiselect__option--highlight:after {
   background: #4d77ad;
   content: attr(data-deselect);
@@ -1537,7 +1587,7 @@ legend {
   min-height: 10px;
 }
 
-.multiselect__placeholder{
+.multiselect__placeholder {
   margin-left: 10px;
   margin-top: 2px;
 }
@@ -1580,7 +1630,8 @@ legend {
   float: left;
   width: 33.33%;
   padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
+  height: 300px;
+  /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
@@ -1590,17 +1641,16 @@ legend {
   clear: both;
 }
 
-.close-icon
-{
-  box-sizing:border-box;
-  width:20px;
-  height:20px;
-  border-width:3px;
+.close-icon {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
   border-style: solid;
-  border-color:red;
-  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
-  background-color:rgb(173, 132, 132);
-  box-shadow:0px 0px 5px 2px rgba(5, 5, 5, 0.5);
+  border-color: red;
+  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%, white 56%, transparent 56%, transparent 100%);
+  background-color: rgb(173, 132, 132);
+  box-shadow: 0px 0px 5px 2px rgba(5, 5, 5, 0.5);
   transition: all 0.3s ease;
 }
 </style>
