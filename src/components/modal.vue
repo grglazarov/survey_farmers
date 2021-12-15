@@ -2,26 +2,25 @@
   <div id="app">
     <div
       class="card-tools"
-      v-if="tools">
+      v-if="!isHidden">
       <center>
     <p style="text-align: justify-all; font-family:sans-serif;font-size:12px; color: white">
         {{helpText}}
     </p>
       </center>
       <hr />
-      <center>
-        <button style="font-size:12px; color:black; align-items:center"
+      <!-- <center>
+        <button style="font-size:14px; color:#696969; align-items:center"
           class="hide-tool"
-          @click="displayTools(false)"
+          v-on:click="isHidden = !isHidden"
         >Ausblenden</button>
-      </center>
+      </center> -->
     </div>
     <button
-      style="font-size:12px; color:black; align-items:center"
-      v-else
+      v-on:click="isHidden = !isHidden"
+      style="font-size:20px; position: fixed; color:#696969; align-items:center"
       class="show-tool"
-      @click="displayTools(true)"
-    >Hilfemodal Anzeigen</button>  
+    >Hilfe</button>  
  </div>
 </template>
 
@@ -31,8 +30,7 @@
     props: ['helpText'],
     data () {
       return {
-        tools: true,
-        addMode: false
+        isHidden: true,
       }
     },
     methods: {
@@ -61,31 +59,32 @@ button {
 
 
 .card-tools {
-  left: 5px;
   top: 5px;
   padding: 8px;
   background-color: #2c4566;
   border: 1px solid #bbb;
-  width: 270px;
+  width: 100%;
   z-index: 100;
-  position: fixed;
+  position: relative;
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
 }
 .hide-tool {
   background-color: #fafafa;
   border: 1px solid #bbb;
-  font-size: 1.3em;
+  width: 120px;
+  height: 40px;
   left: 5px;
 }
 
 .show-tool {
   left: 5px;
-  position: absolute;
+  position: relative;
   top: 5px;
+  width: 140px;
+  height: 140px;
   right: 5px;
   background-color: #fafafa;
   border: 1px solid #bbb;
-  font-size: 1.3em;
   z-index: 100;
 }
 </style>

@@ -9,15 +9,16 @@
     "deploy": "sh deploy.sh"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-geocoder": "^4.7.4",
     "axios": "^0.21.1",
     "bindings": "^1.5.0",
     "core-js": "^3.9.1",
     "gmap-vue": "^1.5.0",
     "mapbox-gl": "^2.6.1",
+    "polygon-clipping": "^0.15.3",
     "pouchdb": "^7.2.1",
     "vue": "^2.6.12",
-    "vue-multiselect": "^2.1.6",
-    "vue-range-component": "^1.0.3"
+    "vue-multiselect": "^2.1.6"
   },
   "devDependencies": {
     "@vue/cli-service": "~4.5.0",

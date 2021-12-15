@@ -25,55 +25,41 @@
            <h2 style="text-align: center">Karte</h2>
           <p>Klicken Sie auf die jeweilige Rubrik um zu sehen, wie die Verteilung in Deutschland ist.
           Ihre Daten werden so zusammengefasst auch für andere Teilnehmer der Umfrage zu sehen sein. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</p>
-        </div>
-       <div style="display: flex">
-         <div style="border:4px solid black; width: 300px;">
-           <section>
+         <section>
               <legend style="font-size: 15px">
               Bitte wählen sie eine mechanische Unkrautbekämpfungmethode?
               </legend>
             <select class="bootstrap-select" style="width: 15em; border: 2px black solid"
-              v-model="chosen_technique">
+              v-model="chosen_technique">             
               <option value="choose">Bitte auswählen</option>
               <option value="Alle Techniken">Alle Techniken</option>
               <option value="Striegel">Striegel</option>
-              <option value="Scharhacke">Scharhacke</option>
-              <option value="Hackbürste">Hackbürste</option>
-              <option value="Trennhacke">Trennhacke</option>
-              <option value="Hackfräse">Hackfräse</option>
-              <option value="Rollhacke">Rollhacke</option>
               <option value="Hackstriegel">Hackstriegel</option>
-              <option value="Fingerhacke">Fingerhacke</option>
-              <option value="Häufelgerät">Häufelgerät</option>
               <option value="Reihenstriegel">Reihenstriegel</option>
               <option value="Rotorstriegel">Rotorstriegel</option>
+              <option value="Scharhacke">Scharhacke</option>
+              <option value="Trennhacke">Trennhacke</option>
+              <option value="Rollhacke">Rollhacke</option>
+              <option value="Fingerhacke">Fingerhacke</option>
+              <option value="Kombination Hacke-Bandspritze">Kombination Hacke-Bandspritze</option>
+              <option value="Häufelgerät">Häufelgerät</option>
+              <option value="Hackbürste">Hackbürste</option>
+              <option value="Hackfräse">Hackfräse</option>
             </select>
-            <div>
-              <br>
-              <br>
-              <legend style="font-size: 15px">
-              Um Unkraut in Zuckerrüben zu entfernen, nutzen Landwirte und Ihre Kollegen in diesen Regionen:
-              </legend>              
-              <select class="bootstrap-select" style="width: 17em; border: 2px black solid"
-                v-model="compare_data">
-                <option value="choose">Bitte auswählen</option>
-                <option value="same">die gleichen Techniken</option>
-                <option value="different">nicht die gleichen Techniken</option>
-              </select>
-            </div>
             </section>
         </div>
-      <div style="position: relative; width: 500px;border: 4px solid black;">
+       <div style="border: 4px solid black; padding: 5px">
       <keep-alive>
-            <heatmapbox v-bind:heatmap-data=heatmap_coords :selected-technique=chosen_technique :compare-techniques=compare_data>
+            <heatmapbox v-bind:heatmap-data=heatmap_coords :selected-technique=chosen_technique>
             </heatmapbox>
       </keep-alive>
-      </div>
-    </div>
-      <button style="background-color: #4CAF50;
+     </div>
+      <div style="padding: 5px">
+    <button style="background-color: #4CAF50;
                         color: white;
-                        left: 200px;
+                        left: 250px;
                         height:100px;
+                        position: relative;
                         width:290px;
                         padding: 15px 32px;
                         text-align: center;
@@ -82,6 +68,8 @@
                         font-size: 22px;
                         margin: 4px 2px;" @click.prevent="next()">zur Umfrage</button>
     </div>
+   </div>
+      
     <div v-if="step === 1" class = firstPage>
             <section>
                     <div style="margin: 5px; padding: 5px; border: 4px solid black;">
@@ -112,7 +100,8 @@
                         </li>
                       </ul>
                   </div>
-                    <button v-on:click="isHidden = !isHidden" class="link">Datensicherheitserklärung anzeigen</button>
+                  <!-- margin:auto ;display:block -->
+                    <button v-on:click="isHidden = !isHidden" style="width: 220px; height: 45px;font-weight: bold;">Datensicherheitserklärung anzeigen</button>
                       <div v-if="isHidden">
                       <div style="border:3px solid black; margin:10px; padding:10px" lang="de-DE" >
                       <br>
@@ -227,10 +216,12 @@
 
         <div v-if="step === 2">
             <h1>Frage {{ pageNumber }}</h1>
-              <modal 
-              helpText="Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung."
-              >
-              </modal>
+            <div>
+            <modal
+             helpText="Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung.">
+            </modal>
+            </div>
+            <br>
               <section>
                 <legend for="questionOne">
                   Betreiben Sie mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung in Ihren Zuckerrüben?
@@ -238,8 +229,6 @@
                 <br />
                 <input
                   type="radio"
-                  name="questionOne"
-                  id="questionOne"
                   value="Ja"
                   v-model="surveyData.questionOne"
                 />
@@ -252,24 +241,25 @@
                 />
                 <label for="one">Nein</label>
                 <br />
-                <br />
-                
-              </section>
+            </section>
+              
           <button @click.prevent="prev()">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+           <br />
+              
         </div>
 
     <div v-if="step === 3 && surveyData.questionOne ==='Nein'">
-        <div style="position: absolute">
+          <h1>Frage {{ pageNumber }}</h1>
           <modal 
           helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
           </modal>
-        </div>
-          <h1>Frage {{ pageNumber }}</h1>
+          <br>
           <div>
-            <legend for="questionThree"> 
+            <legend for="questionTwoAlternative"> 
               a)  Warum nutzen Sie keine mechanische Unkrautbekämpfung? 
             </legend>
+             <br>
               <div>
                <div v-for="(category, index) in categories" :key="index">
                     <input type="checkbox" v-model="surveyData.questionTwoAlternative.reason" :value="category"  />
@@ -280,9 +270,10 @@
             <br>
             <br>
           <div>
-            <legend for="questionThree"> 
+            <legend for="questionTwoAlternative"> 
               b) Wie bekämpfen Sie Ihr Unkraut stattdessen?
             </legend>
+            <br>
              <input
               type="singleLine"
               v-model="surveyData.questionTwoAlternative.method"
@@ -292,55 +283,53 @@
             <br>
             <br>
           </div>
-
-           <div>
-            <legend for="questionThree"> 
-             c)  Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
-           </legend>
-            <input
-                  type="radio"
-                  name="questionOne"
-                  id="questionOne"
-                  value="Ja"
-                  v-model="surveyData.questionTwoAlternative.future.radio"
+          <div>
+          <legend for="questionTwoAlternative"> 
+            c)  Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
+          </legend>
+           <br>
+          <input
+                type="radio"
+                value="Ja"
+                v-model="surveyData.questionTwoAlternative.future.radio"
+              />
+              <label for="one">Ja</label>
+              <br />
+              <input 
+              type="radio" 
+              value="Nein" 
+              v-model="surveyData.questionTwoAlternative.future.radio" 
+              />
+              <label for="one">Nein</label>
+              <br />
+              .. weil: 
+                <br>
+                <input
+                type="singleLine"
+                v-model="surveyData.questionTwoAlternative.future.reason"
+                placeholder="Kommentare hier hinfügen"
+                required
                 />
-                <label for="one">Ja</label>
-                <br />
-                <input 
-                type="radio" 
-                value="Nein" 
-                v-model="surveyData.questionTwoAlternative.future.radio" 
-                />
-                <label for="one">Nein</label>
-                <br />
-                .. weil: 
-                  <br>
-                 <input
-                  type="singleLine"
-                  v-model="surveyData.questionTwoAlternative.future.reason"
-                  placeholder="Kommentare hier hinfügen"
-                  required
-                  />
-              <br>
-          </div>
-
+            <br>
+        </div>
           <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
       </div>
 
     <div v-if="step === 3 && surveyData.questionOne ==='Ja'">
+          <h1>Frage {{ pageNumber }}</h1>
           <modal 
           helpText="Bitte geben Sie auch an, ob Sie die Technik bis heute nutzen oder mittlerweile nicht mehr nutzen. 
                     Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
           </modal>
-          <h1>Frage {{ pageNumber }}</h1>
+          <br>
           <section>
-            <legend for="questionThree"> 
+            <legend for="questionTwo"> 
               Seit wann nutzen Sie die folgenden Techniken? 
             </legend>
               <br>
                 <div style="width: 400px">   
-                  <multiselect v-model="surveyData.questionThree.technique" 
+                  <multiselect v-model="surveyData.questionTwo.technique" 
                               :multiple="true"
                               :options="options"
                               :close-on-select="true"
@@ -356,16 +345,15 @@
           </section>
           <br/>
           <section>
-             <label style="font-size: 14px"  for="questionThreeAdditional">Andere Techniken:&nbsp;&nbsp;</label>
+             <label style="font-size: 14px"  for="questionTwoAdditional">Andere Techniken:&nbsp;&nbsp;</label>
             <div style="display:flex; flex-direction: row; justify-content: left  ; align-items: center">
-            <input id="questionThreeAdditional"
-                name="questionThreeAdditional"
+            <input id="questionTwoeAdditional"
                 type="text"
                 required
-                v-model="surveyData.questionThreeAdditional"
+                v-model="surveyData.questionTwoAdditional"
                 placeholder="andere Technicken hier hinfügen"
                 pattern="[aA-Zz]">
-            <button @click.prevent="surveyData.questionThree.technique.push(surveyData.questionThreeAdditional)">
+            <button @click.prevent="surveyData.questionTwo.technique.push(surveyData.questionTwoAdditional)">
             Hinfügen
             </button>
             </div>
@@ -388,8 +376,10 @@
               </tr>
             </thead>
             <tbody>
-                <tr v-for="(method, index) in surveyData.questionThree.technique" :key="index">
-                  <td>{{method}}<button @click.prevent="deleteEntryTechnique(index)">X</button></td>  
+                <tr v-for="(method, index) in surveyData.questionTwo.technique" :key="index">
+                  <td>{{method}}
+                    <button style="width:23px; height:23px"  class="button close-icon" @click.prevent="deleteEntryTechnique(index)"></button>
+                  </td>  
                   <td>          
                       <div style="display: flex">
                         <div style="position: relative">
@@ -398,7 +388,7 @@
                         <div style="position: relative">
                           <input style="height:20px; width: 60px"
                           type="text"
-                          v-model="surveyData.questionThree.timeframe[index]"
+                          v-model="surveyData.questionTwo.timeframe[index]"
                           placeholder=""
                           required> 
                         </div>
@@ -412,7 +402,7 @@
                         <div style="position: relative">
                           <input style="height:20px; width: 60px"
                           type="text"
-                          v-model="surveyData.questionThree.camera[index]"
+                          v-model="surveyData.questionTwo.camera[index]"
                           placeholder="Jahr?"
                           required> 
                         </div>
@@ -424,7 +414,7 @@
                         <div style="position: relative">
                           <input style="height:20px; width: 60px"
                           type="text"
-                          v-model="surveyData.questionThree.gps[index]"
+                          v-model="surveyData.questionTwo.gps[index]"
                           placeholder="Jahr?"
                           required> 
                         </div>
@@ -436,7 +426,7 @@
                         <div style="position: relative">
                           <input style="height:20px; width: 60px"
                           type="text"
-                          v-model="surveyData.questionThree.newInvest[index]"
+                          v-model="surveyData.questionTwo.newInvest[index]"
                           placeholder="Jahr?"
                           required> 
                         </div>
@@ -448,7 +438,7 @@
                       type="checkbox"
                       true-value="yes"
                       false-value="no"
-                      v-model="surveyData.questionThree.autonom[index]"
+                      v-model="surveyData.questionTwo.autonom[index]"
                       />
                       </div>
                       <div style="display: flex">
@@ -458,7 +448,7 @@
                         <div style="position: relative">
                           <input style="height:20px; width: 110px"
                           type="text"
-                          v-model="surveyData.questionThree.comment[index]"
+                          v-model="surveyData.questionTwo.comment[index]"
                           placeholder="hier einfügen"
                           required>
                         </div>
@@ -468,28 +458,28 @@
                     <input
                       type="radio"
                       value="own"
-                      v-model="surveyData.questionThree.mashine[index]"
+                      v-model="surveyData.questionTwo.mashine[index]"
                       />
                       <label>Eigene Maschine</label>
                       <br />
                       <input 
                       type="radio" 
                       value="shared"
-                      v-model="surveyData.questionThree.mashine[index]" 
+                      v-model="surveyData.questionTwo.mashine[index]" 
                       />
                       <label>Teile mit Nachbarn</label>
                       <br />
                       <input 
                       type="radio" 
                       value="maschinenring"
-                      v-model="surveyData.questionThree.mashine[index]" 
+                      v-model="surveyData.questionTwo.mashine[index]" 
                       />
                       <label>Maschinenring</label>
                       <br />
                       <input 
                       type="radio" 
                       value="lohnunternehmer"
-                      v-model="surveyData.questionThree.mashine[index]" 
+                      v-model="surveyData.questionTwo.mashine[index]" 
                       />
                       <label>Lohnunternehmer</label>
                       <br />
@@ -500,7 +490,7 @@
                         <div style="position: relative">
                           <input style="height:20px; width: 110px"
                           type="text"
-                          v-model="surveyData.questionThree.other_machine[index]"
+                          v-model="surveyData.questionTwo.other_machine[index]"
                           placeholder="hier einfügen"
                           required>
                         </div>
@@ -509,197 +499,88 @@
               </tr>   
             </tbody>
           </table>
-          <button @click.prevent="deleteRowTechnique()">Löschen</button>
+          <button @click.prevent="deleteRowTechnique()">Alle löschen</button>
           <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
 
       
        <div v-if="step === 4">
+
+            <h1>Frage {{ pageNumber }}</h1>
             <modal 
             helpText="Hierbei sind nicht nur Zuckerrübenbauern gemeint. 
             Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
             </modal>
-            <h1>Frage {{ pageNumber }}</h1>
+            <br>            
             <section>
-              <legend for="questionFour">
-                Kennen Sie andere Landwirte in Ihrer Umgebung, die Unkraut mechanisch bekämpfen?
+              <legend for="questionThree">
+                  Von wie vielen Landwirten wissen Sie, dass diese mechanische oder chemisch-mechanisch kombinierte 
+                  Unkrautbekämpfung auf Ihren Feldern (nicht nur in Zuckerrüben) einsetzen?               
               </legend>
                 <br />
                 <input
                   type="radio"
-                  name="questionFour"
-                  id="questionFour"
-                  value="Ja"
-                  v-model="surveyData.questionFour"
+                  value="0"
+                  v-model="surveyData.questionThree"
                 />
-                <label for="one">Ja</label>
+                <label for="one">0</label>
                 <br />
                 <input 
                 type="radio" 
-                value="Nein" 
-                v-model="surveyData.questionFour" 
+                value="1-5" 
+                v-model="surveyData.questionThree" 
                 />
-                <label for="one">Nein</label>
+                <label for="one">1-5</label>
                 <br />
+                <input 
+                type="radio" 
+                value="6-10" 
+                v-model="surveyData.questionThree" 
+                />
+                <label for="one">6-10</label>
+                <br />
+                <input 
+                type="radio" 
+                value="11-15" 
+                v-model="surveyData.questionThree" 
+                />
+                <label for="one">11-15</label>
+                <br />
+                <input 
+                type="radio" 
+                value="mehr als 15" 
+                v-model="surveyData.questionThree" 
+                />
+                <label for="one">mehr als 15</label>
                 <br />
             </section>
 
-          <div v-if="surveyData.questionFour == 'Ja'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="next(); sameTechnique()" @click="pageNumber+=1">Weiter</button>
-          </div>
-        
-          <div v-if="surveyData.questionFour == 'Nein'">
-              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-             <button @click.prevent="step = 6; sameTechnique()" @click="pageNumber+=1">Weiter</button>
-          </div>
+              <button @click.prevent="next();" @click="pageNumber+=1">Weiter</button>      
         </div>
 
-      <div v-if="step === 5 && surveyData.questionFour == 'Ja'">
-            <modal
-            helpText="Legen Sie für jeden Landwirt, der mechanische Unkrautbekämpfung durchführt, eine Zeile an. Wählen Sie aus dem Drop-down Menu aus, 
-            ob der jeweilige Landwirt die entsprechende Technik nutzt und ob er oder Sie damit zuerst angefangen haben.">
-            </modal>
-            <h1>Frage {{ pageNumber }}</h1>
-            <section>
-              <legend for="questionFive">
-                Bitte geben Sie an, welche Art von mechanischer Unkrautbekämpfung der/die Landwirte durchführen und ob Sie oder der/die andere Landwirt/in diese Technik zuerst genutzt haben.
-              </legend>
-                <br>
-                <div style="width: 400px">   
-                  <multiselect v-model="surveyData.questionFive.landwirte" 
-                              :multiple="true"
-                              :options="this.landwirte"
-                              label="name" 
-                              track-by="name" 
-                              :preselect-first="true"
-                              :close-on-select="true"
-                              :clear-on-select="false"
-                              placeholder="Auswahl"
-                              selectLabel="drücke Enter"
-                              :preserve-search="false"
-                              :max-height="300"
-                              :searchable="false">
-                    </multiselect> 
-                  </div>
-            </section>
-              <br/>
-                <table align="center" style="border:1px solid black; border-style: solid">
-                  <thead>
-                    <tr>
-                      <th scope="col">Landwirt</th>
-                      <th scope="col">Vorauflauf
-                        <i class="fa fa-question-circle" aria-hidden="true" 
-                        data-toggle="tooltip" data-placement="bottom" 
-                        title="Hint 1"
-                        style="font-size:15px;color:red;">
-                        </i>
-                      </th>
-                      <th scope="col">Nachauflauf
-                        <i class="fa fa-question-circle" aria-hidden="true" 
-                        data-toggle="tooltip" data-placement="bottom" 
-                        title="Hint 2"
-                        style="font-size:15px;color:red;">
-                        </i>
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                      <tr v-for="(landwirt, index) in surveyData.questionFive.landwirte" :key="index">
-                        <td class="bubble-wrapper" :style="{backgroundColor: landwirt.color}">{{landwirt.name}}<button @click.prevent="deleteEntryLandwirt(index)">X</button></td>  
-                        <td> 
-                            <input
-                            type="radio"
-                            name="questionFiveVorauflaufRadio"
-                            id="questionFiveVorauflaufRadio"
-                            value="Nutzt nicht"
-                            v-model="surveyData.questionFive.vorauflauf[index]"
-                            />
-                            <label for="one">Nutzt nicht</label>
-                            <br />
-                            <input 
-                            type="radio" 
-                            value="Er erst" 
-                            v-model="surveyData.questionFive.vorauflauf[index]" 
-                            />
-                            <label for="one">Er/sie erst</label>
-                            <br />
-                            <input 
-                            type="radio" 
-                            value="Ich erst" 
-                            v-model="surveyData.questionFive.vorauflauf[index]" 
-                            />
-                            <label for="one">Ich erst</label>
-                            <br />
-                            <input 
-                            type="radio" 
-                            value="Ich weiß nicht" 
-                            v-model="surveyData.questionFive.vorauflauf[index]" 
-                            />
-                            <label for="one">Ich weiß nicht</label>                      
-                        </td> 
-                        <td>
-                            <input
-                            type="radio"
-                            name="questionFiveNachauflaufRadio"
-                            id="questionFiveNachauflaufRadio"
-                            value="Nutzt nicht"
-                            v-model="surveyData.questionFive.nachauflauf[index]"
-                            />
-                            <label for="one">Nutzt nicht</label>
-                            <br />
-                            <input 
-                            type="radio" 
-                            value="Er erst" 
-                            v-model="surveyData.questionFive.nachauflauf[index]" 
-                            />
-                            <label for="one">Er/sie erst</label>
-                            <br />
-                            <input 
-                            type="radio" 
-                            value="Ich erst" 
-                            v-model="surveyData.questionFive.nachauflauf[index]" 
-                            />
-                            <label for="one">Ich erst</label>
-                            <br />
-                            <input 
-                            type="radio" 
-                            value="Ich weiß nicht" 
-                            v-model="surveyData.questionFive.nachauflauf[index]" 
-                            />
-                            <label for="one">Ich weiß nicht</label>
-                        </td>
-                    </tr>   
-                  </tbody>
-                </table>
-                <button @click.prevent="deleteRowLandwirt()">Löschen</button>
-              <div v-if="surveyData.questionFour == 'Ja'">
-                <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-                <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-              </div>        
-              <div v-if="surveyData.questionFour == 'Nein'">
-                <button @click.prevent="step = 4" @click="pageNumber-=1">Zurück</button>
-                <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-              </div>
-      </div>
-
-     <div v-show="step === 6 || step === 7">
-       <div v-if="step === 6 && skip_map == false">
-          <modal 
-              helpText="Bitte markieren Sie die entsprechende Lage auf der Karte. 
-              Sie können die Karte verschieben, indem Sie die linke Maustaste gedrückt halten. 
-              Sie können den Kreis größer und kleiner ziehen.
-              Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich. 
-              Durch erneutes Klicken auf den Kreis können Sie diesen wieder verschwinden lassen. 
-              Durch erneutes Klicken auf den Button über der Karte können sie einen weiteren Kreis hinzufügen">
-          </modal>
+     <div v-show="step === 5 || step === 6">
+       <div v-if="step === 5 && skip_map == false">
           <h1>Frage {{ pageNumber }}</h1>
-            
-              <legend for="questionTwo">
-                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte wählen Sie Ihre Region und  klicken Sie die Schläge an. 
-                Wenn Sie keine Felder auswählen möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben. 
-                Für die Auswertung ist eine möglichst genaue Angabe hilfreich.
+            <modal 
+              helpText=" Bitte markieren Sie die entsprechende Lage auf der Karte. 
+              Sie können die Karte verschieben, indem Sie die linke Maustaste gedrückt halten. 
+              Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich.">
+           </modal>
+           <br>          
+              <legend for="questionFour">
+                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr Zuckerrüben angebaut? 
+                Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker. 
+                <br>
+                <br>
+                Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet jene gelb markiert, 
+                auf denen im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut wurden(nur für NRW, 
+                Niedersachsen und Brandenburg möglich). 
+                <br>
+                <br>
+                Diese Daten stammen aus der frei zugänglichen Invekos-Datenbank. 
+                Wenn Sie keine Flächen anklicken möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
               </legend>    
               <br/>
             <div>
@@ -727,27 +608,29 @@
               </div>
             </div>
                 <!-- <span style="color:white;margin-left: 1%;margin-top:0%;vertical-align: text-top;text-align:right">{{"Eigene Felder"}}</span> -->
-          <div v-if="surveyData.questionFour == 'Ja'">
+          <div v-if="surveyData.questionThree != '0'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
               <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-              <button @click.prevent="skip_map = true" @click="pageNumber+=1">Überspringen</button>
+              <button @click.prevent="skip_map = true">Überspringen</button>
           </div>
         
-          <div v-if="surveyData.questionFour == 'Nein'">
+          <div v-if="surveyData.questionThree == '0'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="step = 8" @click="pageNumber+=1">Weiter</button>
-              <button @click.prevent="step = 8; skip_map = true" @click="pageNumber+=1">Überspringen</button>
+              <button @click.prevent="step = 7" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="skip_map = true">Überspringen</button>
           </div>
       </div>
 
-      <div v-if="step === 6 && skip_map == true">
+      <div v-if="step === 5 && skip_map == true">
+          <h1>Frage {{ pageNumber }} Alternative</h1>
           <modal 
               helpText="Hilfe?">
           </modal>
-          <h1>Frage {{ pageNumber }}</h1>
-          <legend for="questionTwo">
+          <br>          
+          <legend for="questionFourAlternative">
                <br/>
                Bitte geben Sie Ihre Postleitzahl an: 
+                <br/>
                 <br/>
               </legend>
               <div> 
@@ -759,96 +642,138 @@
                     size="5"                
                     inputmode="numeric"                 
                     type="text" 
-                    required>
+                    required
+                    v-model="surveyData.questionFourAlternative" 
+                    >
                 </div>
                 <br/>
                 <br/>
-           <div v-if="surveyData.questionFour == 'Ja'">
-              <button @click.prevent="skip_map = false" @click="pageNumber-=1">Zurück</button>
+           <div v-if="surveyData.questionThree != '0'">
+              <button @click.prevent="skip_map = false">Zurück</button>
               <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
           </div>
         
-          <div v-if="surveyData.questionFour == 'Nein'">
-              <button @click.prevent="skip_map = false" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="step = 8" @click="pageNumber+=1">Weiter</button>
+          <div v-if="surveyData.questionThree == '0'">
+              <button @click.prevent="skip_map = false">Zurück</button>
+              <button @click.prevent="step = 7" @click="pageNumber+=1">Weiter</button>
           </div>
       </div>
 
-      <div v-if="step === 7 && skip_map2 == false">
-           <modal 
-            helpText="Markieren Sie die Felder in der entsprechenden Farbe. 
-            Wählen Sie die Farbe aus der Legende über der Karte durch Anklicken aus. 
-            Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
-            </modal>
+      <div v-if="step === 6 && skip_map2 == false">
           <h1>Frage {{ pageNumber }}</h1>
+           <modal 
+            helpText="Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
+          </modal>
+          <br>          
           <section>
-            <legend for="questionSix">
-              Bitte markieren Sie mind.1 Feld (gerne auch mehr) der eben genannten Landwirte in der jeweiligen Farbe. 
-              Wenn Sie nicht genau wissen, wo die Felder der Landwirte liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Entfernung zu Ihren Kollegen angeben.
+            <legend for="questionFive">
+              Auf welchen Feldern sehen Sie mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung. <b>Hierbei sind nicht nur Zuckerrübenfelder gemeint!</b> 
+              <br>
+              <br>
+              Können Sie diese Felder auf der Karte anklicken?
+              Wenn Sie nicht genau wissen, wo die Felder, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben.
               </legend>
           </section>
-             <div id="app" class="bubble-wrapper">
-                  <div v-for="(landwirt, index) in surveyData.questionFive.landwirte" :key="index" class="crop">
-                    <p style="position: relative; top: 15px; font-size: 10px; color:white; align-items:center">{{ landwirt.name }}</p>
-                    <button
-                      class="bubble" @click="setColor(index); setMode(true)"
-                      :style="{ backgroundColor: landwirt.color, border: '3px solid black'}"
+              <div>
+                <p style="position: relative;left: 20px; top: 30px;align-items:center">Feld anklicken</p>    
+                 <div id="app" class="bubble-wrapper">                 
+                  <button
+                    class="bubble" @click="setColor(); setMode(true)"
+                    :style="{ backgroundColor: 'blue', border: '3px solid black'}"
                     />
-                  </div>
                 </div>
+              </div>
           <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-          <button @click.prevent="skip_map2 = true" @click="pageNumber+=1">Ich weiß nicht</button>   
+          <button @click.prevent="skip_map2 = true">Überspringen</button>   
       </div>
-      <div v-if="step === 7 && skip_map2 == true">
+      <div v-if="step === 6 && skip_map2 == true">
+      <h1>Frage {{ pageNumber }} Alternative</h1>
       <modal 
       helpText="Teilen Sie uns Ihre Gedanken zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
       </modal>
-      <h1>Frage {{ pageNumber }}</h1>
+      <br>      
       <section>
-        <legend for="questionSeven">
-            Liegen die Felder Ihrer Berufskollegen, die ihr Unkraut mechanisch bekämpfen in Ihrer direkten Umgebung ?
+        <legend for="questionFiveAlternative">
+            Liegen die Felder von denen Sie wissen, dass dort  Unkraut mechanisch oder chemisch-mechanisch kombiniert Unkraut bekämpft wird, in Ihrer direkten Umgebung?        
         </legend>
             <br/>
-            <div>
+            <div style="margin: 5px; padding: 5px; border: 4px solid black;">
               <label>
-              Die meisten Landwirte die ich kenne, die mechanische Unkrautbekämpfung betreiben, liegen im Umkreis von:                
-              </label>
+             <b>A)</b> Die meisten  Felder die ich kenne, auf denen  mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung betrieben wird, liegen im Umkreis von:             
+            </label>
               <br>
+              <br>              
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenAltRadio1" value="0-5 km" v-model="surveyData.questionSevenAlternative">
-              <label class="form-check-label" for="questionSevenAltRadio1">0-5 km</label>
+              <input class="form-check-input" type="radio" 
+               value="0-5 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">0-5 km</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenAltRadio2" value="5-10 km" v-model="surveyData.questionSevenAlternative">
-              <label class="form-check-label" for="questionSevenAltRadio2">5-10 km</label>
+              <input class="form-check-input" type="radio" 
+               value="5-10 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">5-10 km</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenAltRadio3" value="10-15 km" v-model="surveyData.questionSevenAlternative">
-              <label class="form-check-label" for="questionSevenAltRadio3">10-15 km</label>
+              <input class="form-check-input" type="radio" 
+               value="10-15 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">10-15 km</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenAltRadio4" value="15-20 km" v-model="surveyData.questionSevenAlternative">
-              <label class="form-check-label" for="questionSevenAltRadio4">15-20 km</label>
+              <input class="form-check-input" type="radio" 
+               value="15-20 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">15-20 km</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenAltRadio5" value="20-30 km" v-model="surveyData.questionSevenAlternative">
-              <label class="form-check-label" for="questionSevenAltRadio5">20-30 km</label>
+              <input class="form-check-input" type="radio" 
+               value="20-30 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">20-30 km</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenAltRadio6" value="mehr als 30 km" v-model="surveyData.questionSevenAlternative">
-              <label class="form-check-label" for="questionSevenAltRadio6">mehr als 30 km</label>
+              <input class="form-check-input" type="radio" 
+               value="mehr als 30 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">mehr als 30 km</label>
           </div>
         </div>              
       </section>
-        <br />
-        <button @click.prevent="skip_map2 = false" @click="pageNumber-=1">Zurück</button>
+        
+      <section>
+        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+        <label for="questionFiveAlternative">
+        <b>B)</b> Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?
+        </label>
+        <br>
+        <br>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="0" v-model="surveyData.questionFiveAlternative.fields">
+              <label class="form-check-label">0</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="1-5" v-model="surveyData.questionFiveAlternative.fields">
+              <label class="form-check-label">1-5</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="6-10" v-model="surveyData.questionFiveAlternative.fields">
+              <label class="form-check-label">6-10</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="11-15" v-model="surveyData.questionFiveAlternative.fields">
+              <label class="form-check-label">11-15</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="mehr als 15" v-model="surveyData.questionFiveAlternative.fields">
+              <label class="form-check-label">mehr als 15</label>
+          </div>
+        </div>
+      </section>
+
+
+        <button @click.prevent="skip_map2 = false">Zurück</button>
         <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
     </div>  
      <div>
@@ -859,128 +784,130 @@
         </div>
   </div>
     
-    <div v-if="step === 8">
+    <div v-if="step === 7">
+        <h1>Frage {{ pageNumber }}</h1>
         <modal 
         helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
         und werden wie die gesamte Umfrage anonymisiert erfasst.">
         </modal>
-        <h1>Frage {{ pageNumber }}</h1>
+        <br>        
         <section>
-          <legend for="questionSeven">
+          <legend for="questionSix">
               Wie alt sind Sie?
           </legend>
           <br />
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenRadio1" value="15-24" v-model="surveyData.questionSeven">
-              <label class="form-check-label" for="questionSevenRadio1">15-24</label>
+              <input class="form-check-input" type="radio" 
+               value="15-24" v-model="surveyData.questionSix">
+              <label class="form-check-label">15-24</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenRadio2" value="25-34" v-model="surveyData.questionSeven">
-              <label class="form-check-label" for="questionSevenRadio2">25-34</label>
+              <input class="form-check-input" type="radio" 
+               value="25-34" v-model="surveyData.questionSix">
+              <label class="form-check-label">25-34</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenRadio3" value="35–44" v-model="surveyData.questionSeven">
-              <label class="form-check-label" for="questionSevenRadio3">35–44</label>
+              <input class="form-check-input" type="radio" 
+               value="35–44" v-model="surveyData.questionSix">
+              <label class="form-check-label">35–44</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenRadio4" value="45-54" v-model="surveyData.questionSeven">
-              <label class="form-check-label" for="questionSevenRadio4">45-54</label>
+              <input class="form-check-input" type="radio" 
+               value="45-54" v-model="surveyData.questionSix">
+              <label class="form-check-label">45-54</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenRadio5" value="55-64" v-model="surveyData.questionSeven">
-              <label class="form-check-label" for="questionSevenRadio5">55-64</label>
+              <input class="form-check-input" type="radio" 
+               value="55-64" v-model="surveyData.questionSix">
+              <label class="form-check-label">55-64</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenRadio6" value="65 und mehr" v-model="surveyData.questionSeven">
-              <label class="form-check-label" for="questionSevenRadio6">65 und mehr</label>
+              <input class="form-check-input" type="radio" 
+               value="65 und mehr" v-model="surveyData.questionSix">
+              <label class="form-check-label">65 und mehr</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionSevenRadio6" value="65 und mehr" v-model="surveyData.questionSeven">
-              <label class="form-check-label" for="questionSevenRadio6">keine Angabe</label>
+              <input class="form-check-input" type="radio" 
+               value="keine Angabe" v-model="surveyData.questionSix">
+              <label class="form-check-label">keine Angabe</label>
           </div>
           <br />
         </section>
 
-        <div v-if="surveyData.questionFour == 'Ja'">
-            <button @click.prevent="step = 7" @click="pageNumber-=1">Zurück</button>
+        <div v-if="surveyData.questionThree != '0'">
+            <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
             <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
       
-        <div v-if="surveyData.questionFour == 'Nein'">
-          <button @click.prevent="step = 6" @click="pageNumber-=1">Zurück</button>
+        <div v-if="surveyData.questionThree == '0'">
+          <button @click.prevent="step = 5" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
         </div>
     </div>
 
 
 
-    <div v-if="step === 9">
+    <div v-if="step === 8">
+        <h1>Frage {{ pageNumber }}</h1>
         <modal 
         helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
         und werden wie die gesamte Umfrage anonymisiert erfasst.">
         </modal>
-        <h1>Frage {{ pageNumber }}</h1>
+        <br>        
         <section>
-          <legend for="questionEight">
+          <legend for="questionSeven">
               Wie groß ist Ihr Betrieb (in ha)?
           </legend>
           <br />
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio1" value="unter 5" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio1">unter 5</label>
+              <input class="form-check-input" type="radio" 
+               value="unter 5" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">unter 5</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio2" value="5-10" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio2">5-10</label>
+              <input class="form-check-input" type="radio" 
+               value="5-10" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">5-10</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio3" value="10-20" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio3">10-20</label>
+              <input class="form-check-input" type="radio" 
+               value="10-20" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">10-20</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio4" value="20-50" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio4">20-50</label>
+              <input class="form-check-input" type="radio" 
+               value="20-50" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">20-50</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio5" value="50-100" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio5">50-100</label>
+              <input class="form-check-input" type="radio" 
+               value="50-100" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">50-100</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio6" value="100-200" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio6">100-200</label>
+              <input class="form-check-input" type="radio" 
+               value="100-200" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">100-200</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio7" value="200–500" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio7">200–500</label>
+              <input class="form-check-input" type="radio" 
+               value="200–500" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">200–500</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio8" value="500-1000" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio8">500-1000</label>
+              <input class="form-check-input" type="radio" 
+               value="500-1000" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">500-1000</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio9" value="1000 und mehr" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio9">1000 und mehr</label>
+              <input class="form-check-input" type="radio" 
+               value="1000 und mehr" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">1000 und mehr</label>
           </div>
           <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" name="inlineRadioOptions" 
-              id="questionEightRadio9" value="1000 und mehr" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label" for="questionEightRadio9">keine Angabe</label>
+              <input class="form-check-input" type="radio" 
+               value="keine Angabe" v-model="surveyData.questionSeven">
+              <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
           <br />
         </section>
@@ -988,13 +915,49 @@
     <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
     </div>
 
-
-    <div v-if="step === 10">
+    <div v-if="step === 9">
+        <h1>Frage {{ pageNumber }}</h1>
         <modal 
         helpText="Teilen Sie uns Ihre Gedanken
          zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
         </modal>
+        <br>        
+        <section>
+          <legend for="questionEight">
+            Wie bewirtschaften Sie Ihren Betrieb?
+          </legend>
+          <br />
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="konventionell" v-model="surveyData.questionEight">
+              <label style="display:inline-block" class="form-check-label">konventionell</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="ökologisch" v-model="surveyData.questionEight">
+              <label style="display:inline-block" class="form-check-label">ökologisch</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="teilweise ökologisch" v-model="surveyData.questionEight">
+              <label style="display:inline-block" class="form-check-label">teilweise ökologisch</label>
+          </div>
+          </div>
+          <br />
+        </section>
+
+        <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+        <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+    </div>
+
+    <div v-if="step === 10">
         <h1>Frage {{ pageNumber }}</h1>
+        <modal 
+        helpText="Teilen Sie uns Ihre Gedanken
+         zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
+        </modal>
+        <br>        
         <section>
           <legend for="questionNine">
             Haben Sie Fragen oder Kommentare? Hier ist Platz dafür:
@@ -1020,6 +983,7 @@
 
     <div v-if="step === 11">
       <h1>Ende</h1>
+      <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
             <p>
             Vielen Dank, dass Sie sich die Zeit genommen haben, an der Umfrage teilzunehmen.
@@ -1033,7 +997,8 @@
             Wenn Sie möchten, senden wir Ihnen auch die zusammengefassten Ergebnisse der Studie zu.
             </p>
       </section>
-
+      </div>
+       <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
         <legend for="questionTen">
             Möchten Sie die zusammengefassten Ergebnisse der Studie per Mail erhalten?
@@ -1045,14 +1010,14 @@
           value="Ja"
           v-model="surveyData.questionTen"
         />
-        <label for="one">Ja</label>
+        <label>Ja</label>
         <br />
         <input 
         type="radio" 
         value="Nein" 
         v-model="surveyData.questionTen" 
         />
-        <label for="one">Nein</label>
+        <label>Nein</label>
         <br />
       </section>
       <br />
@@ -1078,8 +1043,9 @@
           <label for="one">Nein</label>
           <br />
           <br />
-      </section>   
-        <div style="border: 2px black solid" v-if="surveyData.questionTen=='Ja' || surveyData.questionEleven=='Ja'">  
+      </section> 
+      </div>                     
+        <div style="margin: 5px; padding: 5px; border: 4px solid black;" v-if="surveyData.questionTen=='Ja' || surveyData.questionEleven=='Ja'">  
             <legend>
             Bitte geben Sie hier Ihren Namen und Ihre E-Mail-Adresse an. Diese Daten werden gesondert gespeichert und es besteht keine Verbindung zu Ihren Antworten in der Umfrage.
             </legend>           
@@ -1095,18 +1061,16 @@
             </div>
         </div>
         <br>
+      <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
-        <legend>
           Bei Fragen melden Sie sich bitte bei:
-        </legend>
           <br />
-          <i><b>Anna Massfeller, Doktorandin bei PhenoRob</b> 
-          <br />
-          Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
+          <i>Anna Massfeller, Doktorandin am Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
           <br />
           E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a>
           </i>
       </section>
+      </div>
   <button @click.prevent="prev()">Zurück</button>
   <button @click.prevent="submit()">Abgeben</button>
   </div>
@@ -1169,26 +1133,12 @@ export default {
       options: ['Striegel', 'Hackstriegel', 'Reihenstriegel',  'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
       heatmap_coords: [],
       chosen_technique: "choose",
-      compare_data: "choose",
-      min: 2010,
-      max: 2022,
       currentColor: '',
-      landwirte: [{name: "Landwirt 1", color: "#9B29F8"}, 
-                  {name: "Landwirt 2", color: "#EAB90C"},  
-                  {name: "Landwirt 3", color: "#06498B"}, 
-                  {name: "Landwirt 4", color: "#909085"},  
-                  {name: "Landwirt 5", color: "green"}],
       surveyData: {
         _id: new Date().toISOString(),
         consent: null,
         questionOne: 'Ja',
-        questionTwoAlternative: {
-        reason: [],
-        method: null,
-        future: {radio: 'Ja', reason: null}
-        },
-        questionTwoAndSix: [], //here the farmer + neighbor coordinates are saved
-        questionThree: {
+        questionTwo: {
           technique: [],
           timeframe: [],
           camera: [],
@@ -1198,17 +1148,21 @@ export default {
           comment: [],
           mashine: [],
           other_machine: []
-
         },
-        questionThreeAdditional: null,
-        questionFour: 'Ja',
-        questionFive: {
-          landwirte: [], 
-          vorauflauf: [],
-          nachauflauf: []
+        questionTwoAdditional: null,
+        questionTwoAlternative: {
+        reason: [],
+        method: null,
+        future: {radio: 'Ja', reason: null}
         },
+        questionThree:[],
+        questionFourAndFive: [], //here the farmer + neighbor coordinates are saved
+        questionFourAlternative: [],
+        questionFiveAlternative: {
+        distance: [],
+        fields: []},
+        questionSix: null,
         questionSeven: null,
-        questionSevenAlternative: null,
         questionEight: null,
         questionNine: null,
         questionTen: null,
@@ -1240,7 +1194,7 @@ export default {
       for (var i = 0; i < location.length; i++) { 
           console.log("start" + i +location[i].color);
       }
-      this.surveyData.questionTwoAndSix = location
+      this.surveyData.questionFourAndFive = location
       this.$refs.gmaps.setMode(false);
     },
     
@@ -1253,8 +1207,8 @@ export default {
             var jsonData = (result.rows)
 
             for (var i = 0; i < jsonData.length; i++) {
-                var entries = jsonData[i].doc.questionTwoAndSix
-                var techniques = jsonData[i].doc.questionThree.technique
+                var entries = jsonData[i].doc.questionFourAndFive
+                var techniques = jsonData[i].doc.questionTwo.technique
                 heatmap_data.push([{technique: techniques}])
 
                 for (var j = 0; j < entries.length; j++) {
@@ -1285,54 +1239,37 @@ export default {
     setMode: function(value){
               this.$refs.gmaps.setMode(value);
     },
-    setColor: function(index){
-      if (this.step === 6) {
+    setColor: function(){
+      if (this.step === 5) {
           this.currentColor = 'red'
           console.log(this.currentColor)
       }
-      if (this.step === 7) {
-          this.currentColor = this.surveyData.questionFive.landwirte[index].color}
+      if (this.step === 6) {
+          this.currentColor = "blue"}
           console.log(this.currentColor)
       },
-
-    // heatmap same technique used between farmers and neighbours
-    sameTechnique: function(){
-      if (this.surveyData.questionOne == "Ja" && this.surveyData.questionFour == "Ja"){
-        console.log("fulfilled")
-      }
-      else{
-        console.log("not fulfilled")
-      }
-    },
     deleteEntryTechnique: function (index) {
-      this.surveyData.questionThree.technique.splice(index, 1)
-      this.surveyData.questionThree.timeframe.splice(index, 1)
-      this.surveyData.questionThree.camera.splice(index, 1)
-      this.surveyData.questionThree.gps.splice(index, 1)
-      this.surveyData.questionThree.newInvest.splice(index, 1)
-      this.surveyData.questionThree.comment.splice(index, 1)
-    },
-    deleteEntryLandwirt: function (index) {
-      this.surveyData.questionFive.landwirte.splice(index, 1)
-      this.surveyData.questionFive.technique.splice(index, 1)
-      this.surveyData.questionFive.vorauflauf.splice(index, 1)
-      this.surveyData.questionFive.nachauflauf.splice(index, 1)
+      this.surveyData.questionTwo.technique.splice(index, 1)
+      this.surveyData.questionTwo.timeframe.splice(index, 1)
+      this.surveyData.questionTwo.camera.splice(index, 1)
+      this.surveyData.questionTwo.gps.splice(index, 1)
+      this.surveyData.questionTwo.newInvest.splice(index, 1)
+      this.surveyData.questionTwo.autonom.splice(index, 1)
+      this.surveyData.questionTwo.comment.splice(index, 1)
+      this.surveyData.questionTwo.mashine.splice(index, 1)
+      this.surveyData.questionTwo.other_machine.splice(index, 1)
     },
     deleteRowTechnique () {
       // delete row (index-0).
-      this.surveyData.questionThree.technique.splice(-1)
-      this.surveyData.questionThree.timeframe.splice(-1)
-      this.surveyData.questionThree.camera.splice(-1)
-      this.surveyData.questionThree.gps.splice(-1)
-      this.surveyData.questionThree.newInvest.splice(-1)
-      this.surveyData.questionThree.comment.splice(-1)
-    },
-    deleteRowLandwirt () {
-      // delete row (index-0).
-      this.surveyData.questionFive.landwirte.splice(-1)
-      this.surveyData.questionFive.technique.splice(-1)
-      this.surveyData.questionFive.vorauflauf.splice(-1)
-      this.surveyData.questionFive.nachauflauf.splice(-1)
+      this.surveyData.questionTwo.technique = []
+      this.surveyData.questionTwo.timeframe = []
+      this.surveyData.questionTwo.camera = []
+      this.surveyData.questionTwo.gps = []
+      this.surveyData.questionTwo.newInvest = []
+      this.surveyData.questionTwo.autonom = []
+      this.surveyData.questionTwo.comment = []
+      this.surveyData.questionTwo.mashine = []
+      this.surveyData.questionTwo.other_machine = []
     },
     prev () {
       this.step--
@@ -1417,8 +1354,61 @@ legend{
  font-size: 18px; font-family: Arial, Helvetica, sans-serif ; 
 }
 
+#techniqueTable {
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(255, 255, 255);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#techniqueTable td, #techniqueTable th {
+  border: 3px solid rgb(43, 70, 77);
+  padding: 8px;
+}
+
+#techniqueTable tr:nth-child(even){background-color: #48696e;}
+#techniqueTable tr:nth-child(odd){background-color: #48696e;}
+#techniqueTable tr:hover {background-color: rgb(85, 112, 128);}
+
+#techniqueTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #20585f;
+  color: white;
+}
+
  table, th, td {
   border: 2px solid black;
+}
+
+h1 {
+  text-align: center;
+  display: block;
+  font-size: 2em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+button {
+  width: 120px;
+  height: 45px;
+  font-weight: bold;
+
+}
+legend {
+  font-weight: normal;
+  text-align: justify; 
+  word-wrap: break-word;
+  text-justify: inter-word;
+  text-justify: distribute;
+  text-align-last: left;
+  font-size:18px; 
+  word-spacing:-2px;
+  color: #dbdbdb;
 }
 
 .crop {
@@ -1598,5 +1588,19 @@ legend{
   content: "";
   display: table;
   clear: both;
+}
+
+.close-icon
+{
+  box-sizing:border-box;
+  width:20px;
+  height:20px;
+  border-width:3px;
+  border-style: solid;
+  border-color:red;
+  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
+  background-color:rgb(173, 132, 132);
+  box-shadow:0px 0px 5px 2px rgba(5, 5, 5, 0.5);
+  transition: all 0.3s ease;
 }
 </style>

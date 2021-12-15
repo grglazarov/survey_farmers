@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img class="resize" alt="Phenorob logo" src="./assets/phenorob.png">
+    <img class="resize" style="height: 150px;width:100%" alt="Phenorob logo" src="./assets/phenorob.png">
     <keep-alive>
     <survey/>
     </keep-alive>
@@ -25,10 +25,6 @@ export default {
     font-size: 100%;
     vertical-align: baseline;
 } */
-img.resize {
- width:700px;
-  height:140px;
-}
 </style>
 
 // !!! added keep alive and type = method to the script
