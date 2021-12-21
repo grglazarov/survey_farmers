@@ -16,9 +16,9 @@
                   <li><b>Egal wie Sie Ihr Unkraut bekämpfen – es interessiert uns!</b></li>
                </ul>
               <br>
-              <li>Als Landwirt/in haben Sie online die Möglichkeit, <b>anonym und unverbindlich</b> Angaben zur Unkrautbekämpfung und ihrem räumlichen Umfeld in eine Datenbank einzutragen, um so Ihre eigenen Werte mit denen Ihrer Berufskollegen und -kolleginnen in ganz Deutschland zu vergleichen. Damit tragen Sie aktiv dazu bei, praxistaugliche Alternativen für die Bekämpfung von Unkräutern in Zuckerrüben zu entwickeln, die den Ansprüchen der Landwirte und Landwirtinnen entsprechen.</li>
+              <li>Als Landwirt/in haben Sie online die Möglichkeit, <b>anonym</b> Angaben zur Unkrautbekämpfung und ihrem räumlichen Umfeld in eine Datenbank einzutragen, um so Ihre eigenen Werte mit denen Ihrer Berufskollegen und -kolleginnen in ganz Deutschland zu vergleichen. Damit tragen Sie aktiv dazu bei, praxistaugliche Alternativen für die Bekämpfung von Unkräutern in Zuckerrüben zu entwickeln, die den Ansprüchen der Landwirte und Landwirtinnen entsprechen.</li>
               <br>
-              <li style="font-size: 16px"><b><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></b></li>
+              <li style="font-size: 16px; color: #DD0000"><b><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></b></li>
             </ul>  
         </div>
          <div style="margin: 0px; padding: 5px; border:4px solid black">
@@ -26,9 +26,9 @@
           <p>Klicken Sie auf die jeweilige Rubrik um zu sehen, wie die Verteilung in Deutschland ist.
           Ihre Daten werden so zusammengefasst auch für andere Teilnehmer der Umfrage zu sehen sein. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</p>
          <section>
-              <legend style="font-size: 15px">
+              <p style="font-size: 15px">
               Bitte wählen sie eine mechanische Unkrautbekämpfungmethode?
-              </legend>
+              </p>
             <select class="bootstrap-select" style="width: 15em; border: 2px black solid"
               v-model="chosen_technique">             
               <option value="choose">Bitte auswählen</option>
@@ -50,12 +50,12 @@
         </div>
        <div style="border: 4px solid black; padding: 5px">
       <keep-alive>
-            <heatmapbox v-bind:heatmap-data=heatmap_coords :selected-technique=chosen_technique>
+            <heatmapbox v-bind:heatmap-data="heatmap_coords" :selected-technique="chosen_technique">
             </heatmapbox>
       </keep-alive>
      </div>
       <div style="padding: 5px">
-    <button style="background-color: #4CAF50;
+    <button style="background-color: green;
                         color: white;
                         left: 250px;
                         height:100px;
@@ -369,7 +369,7 @@
                   <i class="fa fa-question-circle" aria-hidden="true" 
                   data-toggle="tooltip" data-placement="bottom" 
                   title="Hat die Maschine eine besondere Ausstattung? Haben Sie im Laufe der Zeit die Maschine durch eine neuere ersetzt? Wenn ja, wann?"
-                  style="font-size:22px;color:red;">
+                  style="font-size:22px;color:#DD0000;">
                   </i>
                 </th>
                  <th scope="col">Wessen Maschine wird genutzt?</th>
@@ -515,8 +515,8 @@
             <br>            
             <section>
               <legend for="questionThree">
-                  Von wie vielen Landwirten wissen Sie, dass diese mechanische oder chemisch-mechanisch kombinierte 
-                  Unkrautbekämpfung auf Ihren Feldern (nicht nur in Zuckerrüben) einsetzen?               
+                  Von wie vielen Landwirten/Betrieben wissen Sie, dass diese mechanische oder chemisch-mechanisch kombinierte 
+                  Unkrautbekämpfung auf Ihren Feldern <b style="color: #DD0000">(nicht nur in Zuckerrüben!)</b> einsetzen?               
               </legend>
                 <br />
                 <input
@@ -542,25 +542,18 @@
                 <br />
                 <input 
                 type="radio" 
-                value="11-15" 
+                value="mehr als 10" 
                 v-model="surveyData.questionThree" 
                 />
-                <label for="one">11-15</label>
-                <br />
-                <input 
-                type="radio" 
-                value="mehr als 15" 
-                v-model="surveyData.questionThree" 
-                />
-                <label for="one">mehr als 15</label>
+                <label for="one">mehr als 10</label>
                 <br />
             </section>
 
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="next();" @click="pageNumber+=1">Weiter</button>      
+              <button @click.prevent="next();" @click="pageNumber+=1; setColor()">Weiter</button>      
         </div>
 
-     <div v-show="step === 5 || step === 6">
+      <div v-if="step === 5 || step === 6">
        <div v-if="step === 5 && skip_map == false">
           <h1>Frage {{ pageNumber }}</h1>
             <modal 
@@ -583,34 +576,10 @@
                 Wenn Sie keine Flächen anklicken möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
               </legend>    
               <br/>
-            <div>
-             <div>
-              <p style="font-size: 18px;">
-                Bitte geben Sie Ihren Standort ein:
-                <br/>
-              </p>
-                <div>
-                    <input                 
-                    type="text" 
-                    v-model="zip" 
-                    required>
-                </div>
-                 <button @click.prevent="loadZip()">Standort Anzeigen</button>
-              </div>
-                  <div>
-                  <p style="position: relative;left: 10px; top: 30px;">Eigene Schläge</p>
-                 <div id="app" class="bubble-wrapper">
-                    <button
-                      class="bubble" @click="currentColor ='red'; setMode(true)"
-                      :style="{ backgroundColor: 'red', border: '3px solid black'}"
-                    />
-                </div>
-              </div>
-            </div>
-                <!-- <span style="color:white;margin-left: 1%;margin-top:0%;vertical-align: text-top;text-align:right">{{"Eigene Felder"}}</span> -->
+           
           <div v-if="surveyData.questionThree != '0'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="next()" @click="pageNumber+=1; setColor()">Weiter</button>
               <button @click.prevent="skip_map = true">Überspringen</button>
           </div>
         
@@ -650,7 +619,7 @@
                 <br/>
            <div v-if="surveyData.questionThree != '0'">
               <button @click.prevent="skip_map = false">Zurück</button>
-              <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+              <button @click.prevent="next()" @click="pageNumber+=1; setColor()">Weiter</button>
           </div>
         
           <div v-if="surveyData.questionThree == '0'">
@@ -667,23 +636,14 @@
           <br>          
           <section>
             <legend for="questionFive">
-              Auf welchen Feldern sehen Sie mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung. <b>Hierbei sind nicht nur Zuckerrübenfelder gemeint!</b> 
+              Auf welchen Feldern sehen Sie mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung. <b style="color: #DD0000">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</b> 
               <br>
               <br>
               Können Sie diese Felder auf der Karte anklicken?
               Wenn Sie nicht genau wissen, wo die Felder, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben.
               </legend>
           </section>
-              <div>
-                <p style="position: relative;left: 20px; top: 30px;align-items:center">Feld anklicken</p>    
-                 <div id="app" class="bubble-wrapper">                 
-                  <button
-                    class="bubble" @click="setColor(); setMode(true)"
-                    :style="{ backgroundColor: 'blue', border: '3px solid black'}"
-                    />
-                </div>
-              </div>
-          <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+          <button @click.prevent="prev()" @click="pageNumber-=1; setColor()">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
           <button @click.prevent="skip_map2 = true">Überspringen</button>   
       </div>
@@ -700,50 +660,10 @@
             <br/>
             <div style="margin: 5px; padding: 5px; border: 4px solid black;">
               <label>
-             <b>A)</b> Die meisten  Felder die ich kenne, auf denen  mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung betrieben wird, liegen im Umkreis von:             
+             <b>A)</b> Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?             
             </label>
               <br>
-              <br>              
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" 
-               value="0-5 km" v-model="surveyData.questionFiveAlternative.distance">
-              <label class="form-check-label">0-5 km</label>
-          </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" 
-               value="5-10 km" v-model="surveyData.questionFiveAlternative.distance">
-              <label class="form-check-label">5-10 km</label>
-          </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" 
-               value="10-15 km" v-model="surveyData.questionFiveAlternative.distance">
-              <label class="form-check-label">10-15 km</label>
-          </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" 
-               value="15-20 km" v-model="surveyData.questionFiveAlternative.distance">
-              <label class="form-check-label">15-20 km</label>
-          </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" 
-               value="20-30 km" v-model="surveyData.questionFiveAlternative.distance">
-              <label class="form-check-label">20-30 km</label>
-          </div>
-          <div class="form-check form-check-inline">
-              <input class="form-check-input" type="radio" 
-               value="mehr als 30 km" v-model="surveyData.questionFiveAlternative.distance">
-              <label class="form-check-label">mehr als 30 km</label>
-          </div>
-        </div>              
-      </section>
-        
-      <section>
-        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
-        <label for="questionFiveAlternative">
-        <b>B)</b> Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?
-        </label>
-        <br>
-        <br>
+              <br>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="0" v-model="surveyData.questionFiveAlternative.fields">
@@ -768,20 +688,58 @@
               <input class="form-check-input" type="radio" 
                value="mehr als 15" v-model="surveyData.questionFiveAlternative.fields">
               <label class="form-check-label">mehr als 15</label>
+          </div>              
+        </div>              
+      </section>
+        
+      <section>
+        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+        <label for="questionFiveAlternative">
+        <b>B)</b> In welchem Umkreis liegen diese Felder?
+        </label>
+        <br>
+        <br>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="0-5 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">0-5 km</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="6-10 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">6-10 km</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="11-15 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">11-15 km</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="16-20 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">16-20 km</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="21-30 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">21-30 km</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="mehr als 30 km" v-model="surveyData.questionFiveAlternative.distance">
+              <label class="form-check-label">mehr als 30 km</label>
           </div>
         </div>
       </section>
-
-
         <button @click.prevent="skip_map2 = false">Zurück</button>
         <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
     </div>  
-     <div>
-          <!-- Maps component embedding -->
-              <keep-alive>
-                <gmaps ref="gmaps" :markerCenter = zip_to_geo :circleColor = currentColor @map_clicked="setGeolocation"/>
-             </keep-alive>
-        </div>
+     <div style="border: 4px solid black; padding: 5px">
+        <!-- Maps component embedding -->
+        <keep-alive>
+          <markermapbox v-bind:marker-color="currentColor" @map_clicked="setGeolocation"/>
+        </keep-alive>
+    </div>
   </div>
     
     <div v-if="step === 7">
@@ -1100,24 +1058,28 @@
 
 <script>
 
-import gmaps from '@/components/gmaps.vue'
+import markermapbox from '@/components/markermapbox.vue'
 import modal from './modal.vue'
 import heatmapbox from './heatmapbox.vue'
 import multiselect from 'vue-multiselect'
-import {gmapApi} from "gmap-vue";
+import {
+  gmapApi
+} from "gmap-vue";
 
 var PouchDB = require('pouchdb');
 let pouchDb = PouchDB.default.defaults();
-let db = new pouchDb('https://fruchtfolge.agp.uni-bonn.de/db/survey_anna/', { skip_setup: true })
+let db = new pouchDb('https://fruchtfolge.agp.uni-bonn.de/db/survey_anna/', {
+  skip_setup: true
+})
 db.info().then(info => console.log(info));
 
 
 export default {
-    computed: {
+  computed: {
     google: gmapApi
     },
     name: 'survey',
-    components: {gmaps, modal, heatmapbox, multiselect},   
+    components: {markermapbox, modal, heatmapbox, multiselect},   
   data () {
     return {
       step: 0,
@@ -1129,8 +1091,8 @@ export default {
       skip_map2: false,
       zip_to_geo: {},
       selected: null,
-      categories: ['Zu hohe Kosten','Geringe Zuverlässigkeit','Hohes Risiko','Technik nicht vorhanden','Zeitaufwand zu hoch','nicht möglich auf meinem Betrieb'],
-      options: ['Striegel', 'Hackstriegel', 'Reihenstriegel',  'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
+      categories: ['Zu hohe Kosten', 'Geringe Zuverlässigkeit', 'Hohes Risiko', 'Technik nicht vorhanden', 'Zeitaufwand zu hoch', 'nicht möglich auf meinem Betrieb'],
+      options: ['Striegel', 'Hackstriegel', 'Reihenstriegel', 'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
       heatmap_coords: [],
       chosen_technique: "choose",
       currentColor: '',
@@ -1151,16 +1113,20 @@ export default {
         },
         questionTwoAdditional: null,
         questionTwoAlternative: {
-        reason: [],
-        method: null,
-        future: {radio: 'Ja', reason: null}
+          reason: [],
+          method: null,
+          future: {
+            radio: 'Ja',
+            reason: null
+          }
         },
-        questionThree:[],
-        questionFourAndFive: [], //here the farmer + neighbor coordinates are saved
+        questionThree: [],
+        questionFourAndFive: {farms: [], shapes: []}, //here the farmer + neighbor coordinates are saved
         questionFourAlternative: [],
         questionFiveAlternative: {
-        distance: [],
-        fields: []},
+          distance: [],
+          fields: []
+        },
         questionSix: null,
         questionSeven: null,
         questionEight: null,
@@ -1173,79 +1139,88 @@ export default {
     }
   },
   methods: {
-    async loadZip() {
-            console.log("Hello")
-            var zipcode = this.zip.toString()
-            var geocoder = new this.google.maps.Geocoder();
-            var abs = await geocoder.geocode({ 'address': 'zipcode ' + zipcode,
-            componentRestrictions: {
-            country: 'DE'
-            }})
-            var lat = abs.results[0].geometry.location.lat();
-            var lng = abs.results[0].geometry.location.lng();
-            console.log("IN", {lat: lat, lng: lng})
-            this.zip_to_geo = {lat: lat, lng: lng}
-            
-        },
-     
+
     //-- PouchDB methods
 
-    setGeolocation: function(location){
-      for (var i = 0; i < location.length; i++) { 
-          console.log("start" + i +location[i].color);
+    setGeolocation: function(markers, plots) {
+      for (var i = 0; i < markers.length; i++) {
+        console.log("marker" + i + markers[i]["own"]);
       }
-      this.surveyData.questionFourAndFive = location
-      this.$refs.gmaps.setMode(false);
+      this.surveyData.questionFourAndFive.farms = markers
+
+
+      for (var j = 0; j < plots.features.length; j++) {
+        console.log("Plot" + j + plots.features[j].geometry.coordinates)
+
+      }
+      this.surveyData.questionFourAndFive.shapes = plots
+
     },
-    
-    getGeolocation: function(){
+
+    getGeolocation: function() {
       var heatmap_data = []
       db.allDocs({
-          include_docs: true,
-          descending: true
-          }).then(function (result) {
-            var jsonData = (result.rows)
+        include_docs: true,
+        descending: true
+      }).then(function(result) {
+        var jsonData = result.rows
+        console.log(jsonData.length)
+        for (var i = 0; i < jsonData.length; i++) {
 
-            for (var i = 0; i < jsonData.length; i++) {
-                var entries = jsonData[i].doc.questionFourAndFive
-                var techniques = jsonData[i].doc.questionTwo.technique
-                heatmap_data.push([{technique: techniques}])
+          // *** insert the techniques ***
+          
+          var techniques = jsonData[i].doc.questionTwo.technique
+          console.log("techniques", techniques)
+          heatmap_data.push({
+            technique: techniques,
+            coords: []
+          })
 
-                for (var j = 0; j < entries.length; j++) {
-                    var geoloc = entries[j].position
-                    var color = entries[j].color
-                      if (color == "red") {
-                        heatmap_data[i].push({geoloc})
-                      }
-                }
-            }                 
-          }).catch(function (err) {
-          console.log("error" + err)
-        })
-      console.log(heatmap_data)
-      this.heatmap_coords = heatmap_data
+          // *** insert the plot coordinates ***
+
+          var plot_entries = jsonData[i].doc.questionFourAndFive.shapes.features
+          for (var j = 0; j < plot_entries.length; j++) {
+            var plots = plot_entries[j].geometry.coordinates[0][0][0]
+            var plots_coords = {'lng': plots[0], 'lat': plots[1]}
+            console.log("plot", plots_coords)
+            heatmap_data[i].coords.push(plots_coords)  
+          }
+
+          // *** insert the chosen farm coordinates ***
+
+          var farm_entries = jsonData[i].doc.questionFourAndFive.farms
+          for (var k = 0; k < farm_entries.length; k++) {
+
+            if (farm_entries[k].own) {
+            console.log("farm", farm_entries[k].own)
+            heatmap_data[i].coords.push(farm_entries[k].own)  
+          }
+          }
+        }
+      console.log("whole_data", heatmap_data)
+      }).catch(function(err) {
+        console.log("error" + err)
+      })
+      return heatmap_data
     },
-    deleteDB: function(){
-       db.allDocs().then(function (result) {
-         return Promise.all( result.rows.map(function (row) {
-            return db.remove(row.id, row.value.rev); 
-            })); 
-          }).then(function () {
-            console.log("done");
-        }).catch(function (err) {
-          console.log("error" + err);
+    deleteDB: function() {
+      db.allDocs().then(function(result) {
+        return Promise.all(result.rows.map(function(row) {
+          return db.remove(row.id, row.value.rev);
+        }));
+      }).then(function() {
+        console.log("done");
+      }).catch(function(err) {
+        console.log("error" + err);
       });
-    },
-    setMode: function(value){
-              this.$refs.gmaps.setMode(value);
     },
     setColor: function(){
       if (this.step === 5) {
-          this.currentColor = 'red'
+          this.currentColor = '#FF7F50'
           console.log(this.currentColor)
       }
       if (this.step === 6) {
-          this.currentColor = "blue"}
+          this.currentColor = "#1E90FF"}
           console.log(this.currentColor)
       },
     deleteEntryTechnique: function (index) {
@@ -1259,7 +1234,7 @@ export default {
       this.surveyData.questionTwo.mashine.splice(index, 1)
       this.surveyData.questionTwo.other_machine.splice(index, 1)
     },
-    deleteRowTechnique () {
+    deleteRowTechnique() {
       // delete row (index-0).
       this.surveyData.questionTwo.technique = []
       this.surveyData.questionTwo.timeframe = []
@@ -1271,11 +1246,11 @@ export default {
       this.surveyData.questionTwo.mashine = []
       this.surveyData.questionTwo.other_machine = []
     },
-    prev () {
+    prev() {
       this.step--
     },
     // those are question fields in the form, each of which is check if filled
-    next (formFieldsToCheck) {
+    next(formFieldsToCheck) {
       if (formFieldsToCheck) {
         this.errors = []
         for (const field in formFieldsToCheck) {
@@ -1290,8 +1265,8 @@ export default {
         this.step++
       }
     },
-    
-    async postData (url = '', data = {}) {
+
+    async postData(url = '', data = {}) {
       const response = await fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -1306,69 +1281,79 @@ export default {
       })
       return response.json()
     },
-    async submit () {
+    async submit() {
       try {
 
         // send data to the backend, for testing use: "https://httpbin.org/post"
 
-        this.backendResponse = await db.put(this.surveyData,function callback(err) {
-            if (!err) {
-              console.log('Successfully posted a farmer feedback!');
-            }})
+        this.backendResponse = await db.put(this.surveyData, function callback(err) {
+          if (!err) {
+            console.log('Successfully posted a farmer feedback!');
+          }
+        })
 
         db.changes({
-            since: 'now',
-            live: true
-            }) // .on('change', this.showDocs());
+          since: 'now',
+          live: true
+        }) // .on('change', this.showDocs());
 
         console.log(this.backendResponse)
         this.step = 'done'
         this.showDocs()
-        } 
-      
-        catch (e) {
+      } catch (e) {
         // ToDo: Handle errors
         console.error(e)
         this.step = 'error'
       }
     },
-      async showDocs() {
+    async showDocs() {
       try {
-        const {rows} = await db.allDocs({include_docs: true, descending: true})
+        const {
+          rows
+        } = await db.allDocs({
+          include_docs: true,
+          descending: true
+        })
         console.log(rows)
         //console.log("total rows " + rows.total_rows);
       } catch (e) {
         console.error(e)
       }
     }
-      },
-        // calculates the heatmap on page load
-        beforeMount(){
-    this.getGeolocation()
-    }
-    }
-</script>   
-<style>
-
-legend{
- font-size: 18px; font-family: Arial, Helvetica, sans-serif ; 
+  },
+  // calculates the heatmap on page load
+  beforeMount() {
+    this.heatmap_coords = this.getGeolocation()
+  }
 }
+</script>   
+<style scoped>
 
 #techniqueTable {
+  font-size: 1.0vw;
   font-family: Arial, Helvetica, sans-serif;
   color: rgb(255, 255, 255);
   border-collapse: collapse;
   width: 100%;
 }
 
-#techniqueTable td, #techniqueTable th {
+#techniqueTable td,
+#techniqueTable th {
   border: 3px solid rgb(43, 70, 77);
   padding: 8px;
 }
 
-#techniqueTable tr:nth-child(even){background-color: #48696e;}
-#techniqueTable tr:nth-child(odd){background-color: #48696e;}
-#techniqueTable tr:hover {background-color: rgb(85, 112, 128);}
+#techniqueTable tr:nth-child(even) {
+  background-color: #48696e;
+}
+
+#techniqueTable tr:nth-child(odd) {
+  background-color: #48696e;
+}
+
+#techniqueTable tr:hover {
+  background-color: rgb(85, 112, 128);
+}
 
 #techniqueTable th {
   padding-top: 12px;
@@ -1378,8 +1363,17 @@ legend{
   color: white;
 }
 
- table, th, td {
+table,
+th,
+td {
   border: 2px solid black;
+}
+
+button {
+  width: 120px;
+  height: 45px;
+  font-weight: bold;
+
 }
 
 h1 {
@@ -1393,12 +1387,6 @@ h1 {
   font-weight: bold;
 }
 
-button {
-  width: 120px;
-  height: 45px;
-  font-weight: bold;
-
-}
 legend {
   font-weight: normal;
   text-align: justify; 
@@ -1407,8 +1395,38 @@ legend {
   text-justify: distribute;
   text-align-last: left;
   font-size:18px; 
-  word-spacing:-2px;
+  word-spacing:3px;
   color: #dbdbdb;
+}
+@media only screen and (max-width: 800px) {
+h1 {
+  text-align: center;
+  display: block;
+  font-size: 3.4vw; 
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+legend {
+  font-weight: normal;
+  text-align: justify;
+  word-wrap: break-word;
+  text-justify: inter-word;
+  text-justify: distribute;
+  text-align-last: left;
+  font-size: 2.3vw; 
+  word-spacing:3px;
+  color: #dbdbdb;
+}
+button {
+  width: 22%;
+  height: auto;
+  font-size: 2.5vw; 
+  font-weight: bold;
+}
 }
 
 .crop {
@@ -1447,6 +1465,7 @@ legend {
   border: 1px solid #E8E8E8;
   background: rgb(46, 65, 88);
 }
+
 .multiselect__tag {
   position: relative;
   display: inline-block;
@@ -1490,24 +1509,29 @@ legend {
   outline: none;
   color: white;
 }
+
 .multiselect__option--highlight:after {
   content: attr(data-select);
   background: #02113a;
   color: rgb(61, 66, 133);
 }
+
 .multiselect__option--selected {
   background: #F3F3F3;
   color: #35495E;
   font-weight: bold;
 }
+
 .multiselect__option--selected:after {
   content: attr(data-selected);
   color: silver;
 }
+
 .multiselect__option--selected.multiselect__option--highlight {
   background: #6a79ff;
   color: rgb(7, 15, 54);
 }
+
 .multiselect__option--selected.multiselect__option--highlight:after {
   background: #4d77ad;
   content: attr(data-deselect);
@@ -1537,7 +1561,7 @@ legend {
   min-height: 10px;
 }
 
-.multiselect__placeholder{
+.multiselect__placeholder {
   margin-left: 10px;
   margin-top: 2px;
 }
@@ -1580,7 +1604,8 @@ legend {
   float: left;
   width: 33.33%;
   padding: 10px;
-  height: 300px; /* Should be removed. Only for demonstration */
+  height: 300px;
+  /* Should be removed. Only for demonstration */
 }
 
 /* Clear floats after the columns */
@@ -1590,17 +1615,16 @@ legend {
   clear: both;
 }
 
-.close-icon
-{
-  box-sizing:border-box;
-  width:20px;
-  height:20px;
-  border-width:3px;
+.close-icon {
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  border-width: 3px;
   border-style: solid;
-  border-color:red;
-  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%,  white 56%,transparent 56%, transparent 100%);
-  background-color:rgb(173, 132, 132);
-  box-shadow:0px 0px 5px 2px rgba(5, 5, 5, 0.5);
+  border-color: red;
+  background: -webkit-linear-gradient(-45deg, transparent 0%, transparent 46%, white 46%, white 56%, transparent 56%, transparent 100%), -webkit-linear-gradient(45deg, transparent 0%, transparent 46%, white 46%, white 56%, transparent 56%, transparent 100%);
+  background-color: rgb(173, 132, 132);
+  box-shadow: 0px 0px 5px 2px rgba(5, 5, 5, 0.5);
   transition: all 0.3s ease;
 }
 </style>

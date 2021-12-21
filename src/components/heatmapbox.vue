@@ -1,6 +1,6 @@
 <template>
 <div class="heatmapbox">  <!-- style="width: 100%; height: 100%">  -->
-    <div id="map" style="position: relative; width: 760px; height: 550px; border: 10px solid black; border-style: inset"> 
+    <div id="heatmap-map" style="position: relative; width: 100%; height: 550px; border: 10px solid black; border-style: inset"> 
 
    </div> 
    </div> 
@@ -214,8 +214,6 @@ export default {
         }
     },
      mounted () {
-        const urlParams = new URLSearchParams(window.location.search)
-        this.sessionId = urlParams.get('id')
         this.map = null
         this.initMap()
     },
@@ -224,10 +222,10 @@ export default {
         var locations_all = []
         var locations_selected = []
         for (var i = 0; i < this.heatmapData.length; i++) {
-            var technique = this.heatmapData[i][0].technique  
-            var coords = this.heatmapData[i].slice(2)
+            var technique = this.heatmapData[i].technique  
+            var coords = this.heatmapData[i].coords
             for (var j = 0; j < coords.length; j++) {
-                var single_location = coords[j].geoloc
+                var single_location = coords[j]
                 locations_all.push(single_location)   
                 if (technique.includes(this.selectedTechnique)){
                     locations_selected.push(single_location)   
@@ -266,7 +264,7 @@ export default {
    },
     initMap () {
       const map = new mapboxgl.Map({
-        container: 'map',
+        container: 'heatmap-map',
         style: 'mapbox://styles/mapbox/outdoors-v11',
         center: [10.3254293, 51.20],
         zoom: 4.9,
@@ -398,7 +396,7 @@ addHeatmap (){
 
 </script>
 
-<style>
+<style scoped>
 .vue-map-container, .vue-map{
   height: 100%;  }
 

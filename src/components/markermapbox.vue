@@ -1,16 +1,12 @@
+
 <template>
-  <div class="container">
-     <div v-if="loading" style="z-index: 100;">
-      <div class="loading" />
-      <span style="position: absolute;margin-left: -10px">Lädt...</span>
-    </div>
-    <div id="map" />
-    <div class="footer">
-      <div class="bubble-wrapper">
-        {{this.featureCollection}}
-      </div>
-    </div>
+  <div class="surveymapbox">
+      <div id="survey-map" style="position: relative; width: 100%; height: 550px; border: 10px solid black; border-style: inset"> 
+      </div>  
+        {{this.featureCollection}} 
+        {{this.markers}}
   </div>
+
 </template>
 
 <script>
@@ -25,15 +21,11 @@ import { union } from 'polygon-clipping'
 
 
 export default {
+  name: 'surveymapbox',
+  props: ["markerColor"],
    data () {
     return {
-      loading: true,
       markers: [],
-      crops: [{
-        color: '#F88353',
-        name: 'Sugarbeet',
-        area: 0
-      }],
       selectedCrop: 'Sugarbeet',
       featureCollection: {
         type: 'FeatureCollection',
@@ -102,11 +94,12 @@ export default {
       mapboxgl.accessToken = 'pk.eyJ1IjoidG9mZmkiLCJhIjoiY2t3ejJwN3R4MHR2MzJvbGF4bHljejNhdCJ9.uKgZYyMZoCjn2wQSD_vaUw'
 
       this.map = new mapboxgl.Map({
-        container: 'map',
+        container: 'survey-map',
         style: 'mapbox://styles/toffi/ckwz25stp0usy15k59cckn2sf',
         center: [8.3502733, 52.0887843],
         zoom: 13
       })
+      this.map.resize()
 
       this.map.addControl(
         new MapboxGeocoder({
@@ -143,6 +136,7 @@ export default {
   })
 
     this.map.on("click", (event) => {
+      console.log(this.markerColor)
     if (
       event.originalEvent.srcElement &&
       event.originalEvent.srcElement.classList &&
@@ -187,6 +181,7 @@ export default {
         //this.featureCollection = this.featureCollection;
         // now update the plot layer
         this.map.getSource("plots").setData(this.featureCollection);
+        this.$emit('map_clicked', this.markers, this.featureCollection)
       } catch (error) {
         console.error(error);
         this.addMarker(event, this.map);
@@ -205,154 +200,38 @@ export default {
       el.style.width = `40px`;
       el.style.height = `40px`;
       el.style.backgroundSize = '100%';
+      el.style.backgroundColor = this.markerColor
+      el.style.borderRadius = `50%`;
+      el.style.opacity = "0.8"
       // create the marker
       const marker = new mapboxgl.Marker(el);
 
-      // create the popup container
-      const popupDiv = document.createElement("div");
-      popupDiv.className = "popup";
-      popupDiv.innerText = "Klicken Sie zum Löschen: .. "
-      popupDiv.fontSize = "18px"
-      popupDiv.style.backgroundImage = `url(../assets/traktor.png)`;
-
-      // create the trash icon
-      const trash = document.createElement("i");
-      trash.className = "gg-trash trash";
-      trash.style.fontSize = "12px";
-      popupDiv.append(trash);
-      const popup = new mapboxgl.Popup({ offset: 25 }).setDOMContent(popupDiv);
-
-      // handle click
-      trash.addEventListener("click", (event) => {
+    // add the marker to the map
+      marker.setLngLat(e.lngLat).addTo(map).togglePopup();
+      if (this.markerColor == '#FF7F50') {
+        this.markers.push({"own": e.lngLat});
+      }
+      else {
+       this.markers.push({"others": e.lngLat});
+      }
+            // handle click
+      el.addEventListener("click", (event) => {
       // stop the click event from propagating (aka also triggering other behaviour)
       event.stopPropagation();
       // once clicked, we remove the marker again
       marker.remove();
+        var index = this.markers - 1
       // also remove from our placed markers array
-      const index = this.markers.indexOf(marker);
-      this.markers.splice(index, 1);
+        this.markers.splice(index, 1);
+        this.$emit('map_clicked', this.markers, this.featureCollection)
     });
-
-    // add the marker to the map
-      marker.setLngLat(e.lngLat).setPopup(popup).addTo(map).togglePopup();
-      this.markers.push(e.lngLat);
-      console.log(this.markers[0].lat, this.markers[1].lat, this.markers[2].lat)
-        }
+   this.$emit('map_clicked', this.markers, this.featureCollection)
+    }
   }
 }
 </script>
 
-<style>
-body {
-  margin: 0;
-  padding: 0;
-}
-#map {
-  position: absolute;
-  top: 100px;
-  bottom: 84px;
-  width: 100%;
-}
-#crop-summary {
-  width: 100% !important;
-}
-.header {
-  position: absolute;
-  top: 0;
-  width: 100%;
-  background-color: white;
-  /* height: 150px; */
-  min-height: 100px;
-  z-index: 10;
-  display: inline-flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-@media (min-width: 576px) {
-  .header {
-    padding: 10px 10px 0px 10px;
-    align-items: center;
-  }
-}
-
-.loading {
-  position: absolute;
-  background-color: white;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-}
-
-.footer {
-  display: flex;
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 84px;
-  overflow: scroll;
-}
-.footer::before, .footer::after {
-  content: '';  /* Insert pseudo-element */
-  margin: auto; /* Make it push flex items to the center */
-}
-.crop {
-  display: flex;
-  width: 50px;
-  margin-right: 25px;
-  font-size: 14px;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.input {
-  width: 150px !important;
-  margin-right: 15px;
-}
-.input:hover {
-  cursor: grab;
-}
-.input:active {
-  cursor: grabbing;
-}
-
-.trash {
-  color: rgb(241, 22, 22);
-}
-.trash:hover {
-  cursor: pointer;
-  color: black;
-}
-
-.popup {
-  display: inline-flex;
-  margin-top: 15px;
-  padding: 5px;
-}
-
-/* .marker {
-  display: block;
-  background: rgb(68, 226, 121);
-  border: none;
-  color: white;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  line-height: 50px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  cursor: pointer;
-  padding: 0;
-} */
+<style scoped>
+.vue-map-container, .vue-map{
+  height: 100%;  }
 </style>

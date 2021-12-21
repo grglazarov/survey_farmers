@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+
     <div
       class="card-tools"
       v-if="!isHidden">
@@ -16,11 +17,13 @@
         >Ausblenden</button>
       </center> -->
     </div>
+
     <button
-      v-on:click="isHidden = !isHidden"
-      style="font-size:20px; position: fixed; color:#696969; align-items:center"
+      v-on:click="isHidden = !isHidden"  
+      style="font-size: 2.9vw; position: fixed; color: black; opacity: 0.7; align-items:center"
       class="show-tool"
     >Hilfe</button>  
+    
  </div>
 </template>
 
@@ -77,13 +80,15 @@ button {
 }
 
 .show-tool {
-  left: 5px;
-  position: relative;
-  top: 5px;
-  width: 140px;
-  height: 140px;
+  background-color: rgb(233, 225, 225);
+  background-repeat: no-repeat;
+  opacity: 0.01;
   right: 5px;
-  background-color: #fafafa;
+  position: absolute;
+  top: 5px;
+  width: 15%;
+  height: auto;
+  right: 5px;
   border: 1px solid #bbb;
   z-index: 100;
 }
