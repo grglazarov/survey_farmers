@@ -628,7 +628,7 @@
           </div>
       </div>
 
-      <div v-if="step === 6 && skip_map2 == false">
+      <div v-if="step === 6  && skip_map2 == false">
           <h1>Frage {{ pageNumber }}</h1>
            <modal 
             hideModal = true; helpText="Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
