@@ -218,7 +218,7 @@
             <h1>Frage {{ pageNumber }}</h1>
             <div>
             <modal
-             helpText="Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung.">
+             hideModal = true; helpText="Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung.">
             </modal>
             </div>
             <br>
@@ -252,7 +252,7 @@
     <div v-if="step === 3 && surveyData.questionOne ==='Nein'">
           <h1>Frage {{ pageNumber }}</h1>
           <modal 
-          helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
+          hideModal = true; helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
           </modal>
           <br>
           <div>
@@ -319,7 +319,7 @@
     <div v-if="step === 3 && surveyData.questionOne ==='Ja'">
           <h1>Frage {{ pageNumber }}</h1>
           <modal 
-          helpText="Bitte geben Sie auch an, ob Sie die Technik bis heute nutzen oder mittlerweile nicht mehr nutzen. 
+          hideModal = true; helpText="Bitte geben Sie auch an, ob Sie die Technik bis heute nutzen oder mittlerweile nicht mehr nutzen. 
                     Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
           </modal>
           <br>
@@ -509,7 +509,7 @@
 
             <h1>Frage {{ pageNumber }}</h1>
             <modal 
-            helpText="Hierbei sind nicht nur Zuckerrübenbauern gemeint. 
+            hideModal = true; helpText="Hierbei sind nicht nur Zuckerrübenbauern gemeint. 
             Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
             </modal>
             <br>            
@@ -553,11 +553,11 @@
               <button @click.prevent="next();" @click="pageNumber+=1; setColor()">Weiter</button>      
         </div>
 
-      <div v-if="step === 5 || step === 6">
+      <div v-show="step === 5 || step === 6">
        <div v-if="step === 5 && skip_map == false">
           <h1>Frage {{ pageNumber }}</h1>
             <modal 
-              helpText=" Bitte markieren Sie die entsprechende Lage auf der Karte. 
+              hideModal = true; helpText=" Bitte markieren Sie die entsprechende Lage auf der Karte. 
               Sie können die Karte verschieben, indem Sie die linke Maustaste gedrückt halten. 
               Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich.">
            </modal>
@@ -593,7 +593,7 @@
       <div v-if="step === 5 && skip_map == true">
           <h1>Frage {{ pageNumber }} Alternative</h1>
           <modal 
-              helpText="Hilfe?">
+              hideModal = true; helpText="Hilfe?">
           </modal>
           <br>          
           <legend for="questionFourAlternative">
@@ -631,7 +631,7 @@
       <div v-if="step === 6 && skip_map2 == false">
           <h1>Frage {{ pageNumber }}</h1>
            <modal 
-            helpText="Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
+            hideModal = true; helpText="Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
           </modal>
           <br>          
           <section>
@@ -650,7 +650,7 @@
       <div v-if="step === 6 && skip_map2 == true">
       <h1>Frage {{ pageNumber }} Alternative</h1>
       <modal 
-      helpText="Teilen Sie uns Ihre Gedanken zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
+      hideModal = true; helpText="Teilen Sie uns Ihre Gedanken zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
       </modal>
       <br>      
       <section>
@@ -745,7 +745,7 @@
     <div v-if="step === 7">
         <h1>Frage {{ pageNumber }}</h1>
         <modal 
-        helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
+        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
         und werden wie die gesamte Umfrage anonymisiert erfasst.">
         </modal>
         <br>        
@@ -808,7 +808,7 @@
     <div v-if="step === 8">
         <h1>Frage {{ pageNumber }}</h1>
         <modal 
-        helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
+        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
         und werden wie die gesamte Umfrage anonymisiert erfasst.">
         </modal>
         <br>        
@@ -876,7 +876,7 @@
     <div v-if="step === 9">
         <h1>Frage {{ pageNumber }}</h1>
         <modal 
-        helpText="Teilen Sie uns Ihre Gedanken
+        hideModal = true; helpText="Teilen Sie uns Ihre Gedanken
          zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
         </modal>
         <br>        
@@ -912,7 +912,7 @@
     <div v-if="step === 10">
         <h1>Frage {{ pageNumber }}</h1>
         <modal 
-        helpText="Teilen Sie uns Ihre Gedanken
+        hideModal = true; helpText="Teilen Sie uns Ihre Gedanken
          zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
         </modal>
         <br>        
@@ -958,9 +958,9 @@
       </div>
        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
-        <legend for="questionTen">
+        <p for="questionTen">
             Möchten Sie die zusammengefassten Ergebnisse der Studie per Mail erhalten?
-        </legend>
+        </p>
         <input
           type="radio"
           name="questionTen"
@@ -981,9 +981,9 @@
       <br />
 
       <section>
-        <legend for="questionEleven">
+        <p for="questionEleven">
             Möchten Sie an dem Gewinnspiel teilnehmen?
-        </legend>
+        </p>
           <input
             type="radio"
             name="questionEleven"
@@ -1004,9 +1004,9 @@
       </section> 
       </div>                     
         <div style="margin: 5px; padding: 5px; border: 4px solid black;" v-if="surveyData.questionTen=='Ja' || surveyData.questionEleven=='Ja'">  
-            <legend>
+            <p>
             Bitte geben Sie hier Ihren Namen und Ihre E-Mail-Adresse an. Diese Daten werden gesondert gespeichert und es besteht keine Verbindung zu Ihren Antworten in der Umfrage.
-            </legend>           
+            </p>           
             <br />
             <div class="mb-3">
                 <label for="farmerName" class="form-label"><b>Name:</b></label>
@@ -1369,11 +1369,25 @@ td {
   border: 2px solid black;
 }
 
+
 button {
+  color: #484b49;
+  margin: 10px;
+  border-radius: 5px;
+  background-color: white;
+  border: 1px solid #999;
+  font-size: 1.05em;
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   width: 120px;
   height: 45px;
   font-weight: bold;
+}
 
+button:hover {
+background-color: #f0ebde;
 }
 
 h1 {

@@ -302,6 +302,7 @@ export default {
 
 addHeatmap (){
 
+    if (!this.map) return;
     if (this.map.getSource("earthquakes")) {
     this.map.removeLayer('earthquakes-heat')
     this.map.removeSource('earthquakes')  

@@ -3,7 +3,7 @@
 
     <div
       class="card-tools"
-      v-if="!isHidden">
+      v-if="!hide">
       <center>
     <p style="text-align: justify-all; font-family:sans-serif;font-size:12px; color: white">
         {{helpText}}
@@ -19,8 +19,8 @@
     </div>
 
     <button
-      v-on:click="isHidden = !isHidden"  
-      style="font-size: 2.9vw; position: fixed; color: black; opacity: 0.7; align-items:center"
+      v-on:click="hide = !hide"  
+      style="font-size: 2.9vw;position: fixed; color: black; opacity: 0.85; align-items:center"
       class="show-tool"
     >Hilfe</button>  
     
@@ -30,10 +30,10 @@
 <script>
   export default {
     name: "modals",
-    props: ['helpText'],
+    props: ['helpText', 'hideModal'],
     data () {
       return {
-        isHidden: true,
+        hide: this.hideModal
       }
     },
     methods: {
@@ -48,10 +48,8 @@
 <style>
 
 button {
-  color: #484b49;
   margin: 10px;
   border-radius: 5px;
-  background-color: white;
   border: 1px solid #999;
   font-size: 1.05em;
   padding-right: 10px;
@@ -59,7 +57,9 @@ button {
   padding-top: 5px;
   padding-bottom: 5px;
 }
-
+button:hover {
+background-color: #ffffff;
+}
 
 .card-tools {
   top: 5px;
@@ -69,7 +69,7 @@ button {
   width: 100%;
   z-index: 100;
   position: relative;
-  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  box-shadow: rgba(10, 9, 9, 0.3) 0px 1px 4px -1px;
 }
 .hide-tool {
   background-color: #fafafa;
