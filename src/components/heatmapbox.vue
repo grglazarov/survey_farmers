@@ -296,8 +296,17 @@ export default {
       map.on('load', () => {
         console.log('load')
         this.map = map
+        let labels = [ 'country-label', 'state-label', 
+        'settlement-label', 'settlement-subdivision-label', 
+        'airport-label', 'poi-label', 'water-point-label', 
+        'water-line-label', 'natural-point-label', 
+        'natural-line-label', 'waterway-label', 'road-label' ];
         
-      })
+        labels.forEach(label => {
+          this.map.setLayoutProperty(label, 'text-field', ['get','name_de']);
+        });
+            
+          })
     },
 
 addHeatmap (){

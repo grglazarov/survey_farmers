@@ -8,7 +8,7 @@
             <ul>
               <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirte und Landwirtinnen brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
               <br>
-              <li>Wir möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskolegen und -kolleginnen austauschen. </li>
+              <li>Wir möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskollegen und -kolleginnen austauschen. </li>
                <ul>
                   <li>Wie wird Unkraut in Zuckerrüben aktuell bekämpft?</li>
                   <li>Welche Rolle spielen neue Techniken wie kameragesteuerter Hacken?</li>
@@ -23,12 +23,20 @@
         </div>
          <div style="margin: 0px; padding: 5px; border:4px solid black">
            <h2 style="text-align: center">Karte</h2>
-          <p>Klicken Sie auf die jeweilige Rubrik um zu sehen, wie die Verteilung in Deutschland ist.
-          Ihre Daten werden so zusammengefasst auch für andere Teilnehmer der Umfrage zu sehen sein. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</p>
+          <ul>
+            <li>Klicken Sie auf die jeweilige Rubrik um zu sehen, wie die Verteilung in Deutschland ist.
+            <br/>
+            Zur Orientierung sind die großen Zuckerrübenfabriken eingezeichnet.</li>
+            <br/>
+            <li>Ihre Daten werden so zusammengefasst auch für andere Teilnehmer der Umfrage zu sehen sein.
+            <br/>
+            Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</li>
+         </ul>            
+        <br/>
          <section>
-              <p style="font-size: 15px">
+              <legend style="font-size: 15px">
               Bitte wählen sie eine mechanische Unkrautbekämpfungmethode?
-              </p>
+              </legend>
             <select class="bootstrap-select" style="width: 15em; border: 2px black solid"
               v-model="chosen_technique">             
               <option value="choose">Bitte auswählen</option>
@@ -74,7 +82,7 @@
             <section>
                     <div style="margin: 5px; padding: 5px; border: 4px solid black;">
                         <p>
-                        Die Umfrage wird ca. 10 - 12 Minuten in Anspruch nehmen. 
+                        Die Umfrage wird max. 10 Minuten in Anspruch nehmen. 
                         Alle Ergebnisse werden anonymisiert analysiert. 
                         Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. 
                         Dazu können Sie im Anschluss an die Studie Ihre persönlichen Daten angeben.
@@ -87,7 +95,7 @@
                         <br/>
                         Doktorandin am Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
                         <br />
-                        E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a> 
+                        E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #8ebf65">anna.massfeller@ilr.uni-bonn.de</a> 
                       </p>
                    </div>
                    <div style="margin: 5px; padding: 5px; border: 4px solid black;">
@@ -173,31 +181,31 @@
                   <li><p style="margin-bottom: 0in; line-height: 108%"><b>Beschwerden,
                   Auskunftsanfragen und andere Anliegen sind an folgende Stelle zu
                   richten:</b></p>
-                  <p style="margin-bottom: 0in; line-height: 108%">Anna Massfeller
+                  <p style="margin-bottom: 0in; line-height: 108%"><i>Anna Massfeller</i>
                   <br>Junior
                   Research Group of Hugo Storm “Data science in agricultural economics”
                   <br>Niebuhrstraße 1a, 53113 Bonn
                   <br>
-                  E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a></p>
+                  E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #8ebf42">anna.massfeller@ilr.uni-bonn.de</a></p>
                   <br/></li>
                 <li>
                   <p style="margin-bottom: 0in; line-height: 108%"><b>Zuständiger Datenschutzbeauftragter der Universität Bonn:</b></p>
-                  <p style="margin-bottom: 0in; line-height: 108%">Dr. Jörg Hartmann
+                  <p style="margin-bottom: 0in; line-height: 108%"><i>Dr. Jörg Hartmann</i>
                   <br>
                   Genscherallee 3, 53113 Bonn
                   <br>
-                  E-mail: <a href="mailto:joerg.hartmann@uni-bonn.de">joerg.hartmann@uni-bonn.de</a>
+                  E-mail: <a href="mailto:joerg.hartmann@uni-bonn.de" style="color: #8ebf42">joerg.hartmann@uni-bonn.de</a>
                   <br>
-                  <a href="tel:+49228736758">+ 49 (0)228 -73 -6758</a>
+                  <a href="tel:+49228736758" style="color: #8ebf42">+ 49 (0)228 -73 -6758</a>
                   <br> 
-                  <a href="https://www.datenschutz.uni-bonn.de/" target="https://www.datenschutz.uni-bonn.de">https://www.datenschutz.uni-bonn.de</a></p>
+                  <a href="https://www.datenschutz.uni-bonn.de/" target="https://www.datenschutz.uni-bonn.de" style="color: #8ebf42">https://www.datenschutz.uni-bonn.de</a></p>
                 </li>
                 <p style="margin-bottom: 0in; line-height: 108%"><br/></p>
                 <li>
                   <p style="margin-bottom: 0in; line-height: 108%"><b>Zuständige
                   Aufsichtsbehörde:</b></p>
-                  <p style="margin-bottom: 0in; line-height: 108%">Landesbeauftragte
-                  für Datenschutz und Informationsfreiheit Nordrhein-Westfalen
+                  <p style="margin-bottom: 0in; line-height: 108%"><i>Landesbeauftragte
+                  für Datenschutz und Informationsfreiheit Nordrhein-Westfalen</i>
                   <br>Postfach 20 04 44, 40102 Düsseldorf</p>
                   <br>
               </li>
@@ -335,11 +343,13 @@
                               :close-on-select="true"
                               :clear-on-select="false"
                               placeholder="Auswahl"  
-                              selectLabel= "faslse"                           
+                              selectLabel= "zum Auswählen anklicken"
+                              selectedLabel="Ausgewählt" 
+                              deselect-label="zum Entfernen anklicken" 
                               :preserve-search="false"
                               :max-height="300"
-                              :searchable="false">
-                              //selectLabel="false" -->
+                              :searchable="false"
+                              >
                     </multiselect> 
                 </div>
           </section>
@@ -368,7 +378,7 @@
                 <th scope="col">Zusatzausstattung/ Investition/ Kommentare 
                   <i class="fa fa-question-circle" aria-hidden="true" 
                   data-toggle="tooltip" data-placement="bottom" 
-                  title="Hat die Maschine eine besondere Ausstattung? Haben Sie im Laufe der Zeit die Maschine durch eine neuere ersetzt? Wenn ja, wann?"
+                  title="Hat die Maschine eine besondere Ausstattung? Haben Sie das Gerät in der Vergangenheit durch ein neues ersetzt? Ist das Gerät autonom fahrend? Haben Sie vielleicht selbst etwas angebaut? Dann nutzen Sie bitte das Kommentarfeld."
                   style="font-size:22px;color:#DD0000;">
                   </i>
                 </th>
@@ -386,7 +396,7 @@
                           <label>Jahr: </label>
                         </div>
                         <div style="position: relative">
-                          <input style="height:20px; width: 60px"
+                          <input style="height:20px; width: 50px"
                           type="text"
                           v-model="surveyData.questionTwo.timeframe[index]"
                           placeholder=""
@@ -400,7 +410,7 @@
                           <label>Mit Kamera seit: </label>
                         </div>
                         <div style="position: relative">
-                          <input style="height:20px; width: 60px"
+                          <input style="height:20px; width: 50px"
                           type="text"
                           v-model="surveyData.questionTwo.camera[index]"
                           placeholder="Jahr?"
@@ -412,7 +422,7 @@
                           <label>Mit GPS seit: </label>
                         </div>
                         <div style="position: relative">
-                          <input style="height:20px; width: 60px"
+                          <input style="height:20px; width: 50px"
                           type="text"
                           v-model="surveyData.questionTwo.gps[index]"
                           placeholder="Jahr?"
@@ -424,7 +434,7 @@
                           <label>Neuinvestition in: </label>
                         </div>
                         <div style="position: relative">
-                          <input style="height:20px; width: 60px"
+                          <input style="height:20px; width: 50px"
                           type="text"
                           v-model="surveyData.questionTwo.newInvest[index]"
                           placeholder="Jahr?"
@@ -446,7 +456,7 @@
                           <label>Kommentar: </label>
                         </div>
                         <div style="position: relative">
-                          <input style="height:20px; width: 110px"
+                          <input style="height:20px; width: 100px"
                           type="text"
                           v-model="surveyData.questionTwo.comment[index]"
                           placeholder="hier einfügen"
@@ -488,7 +498,7 @@
                           <label>Andere: </label>
                         </div>
                         <div style="position: relative">
-                          <input style="height:20px; width: 110px"
+                          <input style="height:20px; width: 100px"
                           type="text"
                           v-model="surveyData.questionTwo.other_machine[index]"
                           placeholder="hier einfügen"
@@ -564,16 +574,16 @@
            <br>          
               <legend for="questionFour">
                 Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr Zuckerrüben angebaut? 
-                Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker. 
+                Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
                 <br>
                 <br>
                 Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet jene gelb markiert, 
-                auf denen im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut wurden(nur für NRW, 
-                Niedersachsen und Brandenburg möglich). 
+                auf denen im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut wurden. 
+                Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen mit Hilfe eines kleinen Traktor-Symbols zu markieren. 
                 <br>
                 <br>
-                Diese Daten stammen aus der frei zugänglichen Invekos-Datenbank. 
-                Wenn Sie keine Flächen anklicken möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
+                Die Daten stammen aus der frei zugänglichen Invekos-Datenbank. Wenn Sie keine Flächen anklicken möchten, 
+                können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
               </legend>    
               <br/>
            
@@ -599,7 +609,6 @@
           <legend for="questionFourAlternative">
                <br/>
                Bitte geben Sie Ihre Postleitzahl an: 
-                <br/>
                 <br/>
               </legend>
               <div> 
@@ -1013,9 +1022,9 @@
                 <input v-model="surveyData.farmerName" class="form-control" id="farmerName" placeholder="Thomas Müller" required>
             </div>
             <div class="mb-3">
-                <label for="farmerEmail" class="form-label"><b>eMail-Adresse:</b></label>
-                <input v-model="surveyData.farmerEmail" type="email" class="form-control" aria-describedby="emailHelp" id="farmerEmail" placeholder="name@example.com" required>
-                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                <label for="farmerEmail" class="form-label"><b>E-mail Adresse:</b></label>
+                <input v-model="surveyData.farmerEmail" type="email" class="form-control" aria-describedby="emailHelp" id="farmerEmail" placeholder="mueller@gmx.de" required>
+                <small id="emailHelp" class="form-text text-muted">Wir werden Ihre E-Mail niemals an Dritte weitergeben.</small>
             </div>
         </div>
         <br>
@@ -1023,9 +1032,10 @@
       <section>
           Bei Fragen melden Sie sich bitte bei:
           <br />
+          <br />
           <i>Anna Massfeller, Doktorandin am Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
           <br />
-          E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de">anna.massfeller@ilr.uni-bonn.de</a>
+          E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #8ebf42">anna.massfeller@ilr.uni-bonn.de</a>
           </i>
       </section>
       </div>
@@ -1049,7 +1059,7 @@
         </div>
 
       <p v-if="errors && errors.length">
-        <b>Please correct the following error(s):</b>
+        <b>Bitte geben Sie die erforderlichen Angaben ein:</b>
       </p>
       <br /><br />Debug: {{surveyData}}
 

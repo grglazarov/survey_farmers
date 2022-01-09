@@ -123,6 +123,16 @@ export default {
           data: this.featureCollection
         })
 
+    let labels = [ 'country-label', 'state-label', 
+    'settlement-label', 'settlement-subdivision-label', 
+    'airport-label', 'poi-label', 'water-point-label', 
+    'water-line-label', 'natural-point-label', 
+    'natural-line-label', 'waterway-label', 'road-label' ];
+    
+    labels.forEach(label => {
+      this.map.setLayoutProperty(label, 'text-field', ['get','name_de']);
+    });
+ 
       this.map.addLayer({
       id: "plots",
       type: "fill",
@@ -231,7 +241,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .vue-map-container, .vue-map{
-  height: 100%;}
+  height: 100%;  }
 </style>
