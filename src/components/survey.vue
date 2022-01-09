@@ -563,7 +563,7 @@
               <button @click.prevent="next();" @click="pageNumber+=1; setColor()">Weiter</button>      
         </div>
 
-      <div v-show="step === 5 || step === 6">
+      <div v-if="step === 5 || step === 6">
        <div v-if="step === 5 && skip_map == false">
           <h1>Frage {{ pageNumber }}</h1>
             <modal 

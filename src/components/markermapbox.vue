@@ -41,15 +41,15 @@ export default {
       }
     }
   },
-  beforeCreate () {
-    // reload the page early if no query parameters are attached
-    const urlParams = new URLSearchParams(window.location.search)
-    if (!urlParams.has('id')) {
-      const sessionId = new Date().toISOString()
-      urlParams.set('id', sessionId)
-      document.location.search = urlParams.toString()
-    }
-  },
+  // beforeCreate () {
+  //   // reload the page early if no query parameters are attached
+  //   const urlParams = new URLSearchParams(window.location.search)
+  //   if (!urlParams.has('id')) {
+  //     const sessionId = new Date().toISOString()
+  //     urlParams.set('id', sessionId)
+  //     document.location.search = urlParams.toString()
+  //   }
+  // },
   async mounted () {
     // get or create session id
     const urlParams = new URLSearchParams(window.location.search)
@@ -99,7 +99,6 @@ export default {
         center: [8.3502733, 52.0887843],
         zoom: 13
       })
-      this.map.resize()
 
       this.map.addControl(
         new MapboxGeocoder({
@@ -118,13 +117,14 @@ export default {
       )
 
       this.map.on('load', () => {
+        this.map.resize()
         this.map.addSource('plots', {
           type: 'geojson',
           data: this.featureCollection
         })
 
     let labels = [ 'country-label', 'state-label', 
-    'settlement-label', 'settlement-subdivision-label', 
+    'settlement-subdivision-label', 
     'airport-label', 'poi-label', 'water-point-label', 
     'water-line-label', 'natural-point-label', 
     'natural-line-label', 'waterway-label', 'road-label' ];
