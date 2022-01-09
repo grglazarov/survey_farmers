@@ -56,14 +56,14 @@
             </select>
             </section>
         </div>
-       <div style="border: 4px solid black; padding: 5px">
+       <div style="border: 4px solid black">
       <keep-alive>
             <heatmapbox v-bind:heatmap-data="heatmap_coords" :selected-technique="chosen_technique">
             </heatmapbox>
       </keep-alive>
      </div>
       <div style="padding: 5px">
-    <button style="background-color: green;
+    <button style="background-color: #006400;
                         color: white;
                         left: 250px;
                         height:100px;
@@ -107,9 +107,9 @@
                         Um die Umfrage zu öffnen, akzeptieren Sie bitte unsere Datensicherheitserklärung.
                         </li>
                       </ul>
+                     <button v-on:click="isHidden = !isHidden" style="width: 220px; height: 45px;font-weight: bold;">Datensicherheitserklärung anzeigen</button>                     
                   </div>
                   <!-- margin:auto ;display:block -->
-                    <button v-on:click="isHidden = !isHidden" style="width: 220px; height: 45px;font-weight: bold;">Datensicherheitserklärung anzeigen</button>
                       <div v-if="isHidden">
                       <div style="border:3px solid black; margin:10px; padding:10px" lang="de-DE" >
                       <br>
@@ -234,6 +234,7 @@
                 <legend for="questionOne">
                   Betreiben Sie mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung in Ihren Zuckerrüben?
                 </legend>
+                <hr>
                 <br />
                 <input
                   type="radio"
@@ -267,7 +268,8 @@
             <legend for="questionTwoAlternative"> 
               a)  Warum nutzen Sie keine mechanische Unkrautbekämpfung? 
             </legend>
-             <br>
+              <hr>
+              <br />
               <div>
                <div v-for="(category, index) in categories" :key="index">
                     <input type="checkbox" v-model="surveyData.questionTwoAlternative.reason" :value="category"  />
@@ -281,7 +283,8 @@
             <legend for="questionTwoAlternative"> 
               b) Wie bekämpfen Sie Ihr Unkraut stattdessen?
             </legend>
-            <br>
+              <hr>
+              <br />
              <input
               type="singleLine"
               v-model="surveyData.questionTwoAlternative.method"
@@ -295,7 +298,8 @@
           <legend for="questionTwoAlternative"> 
             c)  Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
           </legend>
-           <br>
+              <hr>
+              <br />
           <input
                 type="radio"
                 value="Ja"
@@ -335,7 +339,9 @@
             <legend for="questionTwo"> 
               Seit wann nutzen Sie die folgenden Techniken? 
             </legend>
-              <br>
+              <hr>
+              <br />
+              <br />
                 <div style="width: 400px">   
                   <multiselect v-model="surveyData.questionTwo.technique" 
                               :multiple="true"
@@ -528,7 +534,8 @@
                   Von wie vielen Landwirten/Betrieben wissen Sie, dass diese mechanische oder chemisch-mechanisch kombinierte 
                   Unkrautbekämpfung auf Ihren Feldern <b style="color: #DD0000">(nicht nur in Zuckerrüben!)</b> einsetzen?               
               </legend>
-                <br />
+              <hr>
+              <br />
                 <input
                   type="radio"
                   value="0"
@@ -585,7 +592,8 @@
                 Die Daten stammen aus der frei zugänglichen Invekos-Datenbank. Wenn Sie keine Flächen anklicken möchten, 
                 können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
               </legend>    
-              <br/>
+              <hr>
+              <br />
            
           <div v-if="surveyData.questionThree != '0'">
               <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
@@ -609,8 +617,9 @@
           <legend for="questionFourAlternative">
                <br/>
                Bitte geben Sie Ihre Postleitzahl an: 
-                <br/>
               </legend>
+              <hr>
+              <br />
               <div> 
                     <input 
                     id="zip"
@@ -651,6 +660,8 @@
               Können Sie diese Felder auf der Karte anklicken?
               Wenn Sie nicht genau wissen, wo die Felder, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben.
               </legend>
+              <hr>
+              <br />
           </section>
           <button @click.prevent="prev()" @click="pageNumber-=1; setColor()">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
@@ -666,7 +677,8 @@
         <legend for="questionFiveAlternative">
             Liegen die Felder von denen Sie wissen, dass dort  Unkraut mechanisch oder chemisch-mechanisch kombiniert Unkraut bekämpft wird, in Ihrer direkten Umgebung?        
         </legend>
-            <br/>
+              <hr>
+              <br />
             <div style="margin: 5px; padding: 5px; border: 4px solid black;">
               <label>
              <b>A)</b> Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?             
@@ -743,7 +755,7 @@
         <button @click.prevent="skip_map2 = false">Zurück</button>
         <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
     </div>  
-     <div style="border: 4px solid black; padding: 5px">
+     <div style="border: 4px solid black">
         <!-- Maps component embedding -->
         <keep-alive>
           <markermapbox v-bind:marker-color="currentColor" @map_clicked="setGeolocation"/>
@@ -762,6 +774,8 @@
           <legend for="questionSix">
               Wie alt sind Sie?
           </legend>
+              <hr>
+              <br />
           <br />
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
@@ -825,7 +839,8 @@
           <legend for="questionSeven">
               Wie groß ist Ihr Betrieb (in ha)?
           </legend>
-          <br />
+              <hr>
+              <br />
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="unter 5" v-model="surveyData.questionSeven">
@@ -893,7 +908,8 @@
           <legend for="questionEight">
             Wie bewirtschaften Sie Ihren Betrieb?
           </legend>
-          <br />
+              <hr>
+              <br />
           <div>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
@@ -929,7 +945,8 @@
           <legend for="questionNine">
             Haben Sie Fragen oder Kommentare? Hier ist Platz dafür:
           </legend>
-          <br />
+              <hr>
+              <br />
           <div class="form-group">
             <textarea class="form-control"
                       style="width: 500px"
@@ -1027,7 +1044,6 @@
                 <small id="emailHelp" class="form-text text-muted">Wir werden Ihre E-Mail niemals an Dritte weitergeben.</small>
             </div>
         </div>
-        <br>
       <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
           Bei Fragen melden Sie sich bitte bei:

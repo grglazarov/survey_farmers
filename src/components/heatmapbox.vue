@@ -1,6 +1,6 @@
 <template>
 <div class="heatmapbox">  <!-- style="width: 100%; height: 100%">  -->
-    <div id="heatmap-map" style="position: relative; width: 100%; height: 550px; border: 10px solid black; border-style: inset"> 
+    <div id="heatmap-map" style="position: relative; width: 100%; height: 560px"> 
 
    </div> 
    </div> 
