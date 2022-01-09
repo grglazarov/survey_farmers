@@ -603,7 +603,7 @@
       <div v-if="step === 5 && skip_map == true">
           <h1>Frage {{ pageNumber }} Alternative</h1>
           <modal 
-              hideModal = true; helpText="Hilfe?">
+            hideModal = true; helpText="Hilfe?">
           </modal>
           <br>          
           <legend for="questionFourAlternative">
