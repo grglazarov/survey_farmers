@@ -1,10 +1,9 @@
-
+  <!-- {{this.featureCollection}}  -->
+  <!-- {{this.markers}} -->
 <template>
   <div class="surveymapbox">
       <div id="survey-map" style="position: relative; width: 100%; height: 560px"> 
       </div>  
-        {{this.featureCollection}} 
-        {{this.markers}}
   </div>
 
 </template>
