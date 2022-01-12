@@ -35,4 +35,4 @@ echo ----
 echo ---- deleting gh-pages branch
 echo ----
 git checkout -f master
-git branch -D gh-pages
+#git branch -D gh-pages
