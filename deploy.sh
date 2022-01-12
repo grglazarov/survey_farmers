@@ -11,7 +11,7 @@ git commit -m "webpage updates"
 echo ---- creating new pages branch ----
 echo ----
 echo ----
-git checkout --orphan gh-pages # stores a repo's website inside the repo but on a separate branch, keeps only the website's history on this branch.
+#git checkout --orphan gh-pages # stores a repo's website inside the repo but on a separate branch, keeps only the website's history on this branch.
 
 echo ---- ... Start running new build ----
 echo ----
