@@ -1,3 +1,3 @@
 module.exports = {
-  publicPath: '/survey_sugarbeet/'
+  // publicPath: '/survey_sugarbeet/'
 }
