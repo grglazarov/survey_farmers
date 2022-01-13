@@ -1088,9 +1088,6 @@ import markermapbox from '@/components/markermapbox.vue'
 import modal from './modal.vue'
 import heatmapbox from './heatmapbox.vue'
 import multiselect from 'vue-multiselect'
-import {
-  gmapApi
-} from "gmap-vue";
 
 var PouchDB = require('pouchdb');
 let pouchDb = PouchDB.default.defaults();
@@ -1101,9 +1098,6 @@ db.info().then(info => console.log(info));
 
 
 export default {
-  computed: {
-    google: gmapApi
-    },
     name: 'survey',
     components: {markermapbox, modal, heatmapbox, multiselect},   
   data () {
