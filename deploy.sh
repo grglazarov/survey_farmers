@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-git branch -D gh-pages
 
 set -e
 
