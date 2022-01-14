@@ -1,5 +1,3 @@
-  <!-- {{this.featureCollection}}  -->
-  <!-- {{this.markers}} -->
 <template>
   <div class="surveymapbox">
       <div id="survey-map" style="position: relative; width: 100%; height: 560px"> 
@@ -21,14 +19,14 @@ import { union } from 'polygon-clipping'
 
 export default {
   name: 'surveymapbox',
-  props: ["markerColor"],
+  props: ["markedFarm"],
    data () {
     return {
       markers: [],
       selectedCrop: 'Sugarbeet',
       featureCollection: {
         type: 'FeatureCollection',
-        features: []
+        features: [],
       }
     }
   },
@@ -131,21 +129,34 @@ export default {
     labels.forEach(label => {
       this.map.setLayoutProperty(label, 'text-field', ['get','name_de']);
     });
- 
+      
       this.map.addLayer({
       id: "plots",
       type: "fill",
       source: "plots",
       layout: {},
+      filter: ['==', 'farm', "own"],   
       paint: {
-        "fill-color": "red",
-        "fill-opacity": 0.4
+                'fill-color': "#FF7F50",
+                "fill-opacity": 0.8
+      }
+    });
+      this.map.addLayer({
+      id: "plots2",
+      type: "fill",
+      source: "plots",
+      layout: {},
+      filter: ['!=', 'farm', "own"],
+      paint: {
+                'fill-color': "#1E90FF"
+                ,
+                "fill-opacity": 0.8
       }
     });
   })
 
     this.map.on("click", (event) => {
-      console.log(this.markerColor)
+      console.log(this.markedFarm)
     if (
       event.originalEvent.srcElement &&
       event.originalEvent.srcElement.classList &&
@@ -173,7 +184,7 @@ export default {
           feature = featureData;
         }
         // add id to the feature
-
+        feature.properties.farm = this.markedFarm;
         feature.properties.ID = featureData[0].id;
         // if the plot hasn't been selected before, we add it to our feature collection
         // otherwise we remove it
@@ -202,6 +213,7 @@ export default {
     },
       addMarker(e, map) {
       // create a new DIV element that contains our marker
+     
       const el = document.createElement("div");
       el.className = "marker";
       // el.innerText = "Hallo"
@@ -209,7 +221,12 @@ export default {
       el.style.width = `40px`;
       el.style.height = `40px`;
       el.style.backgroundSize = '100%';
-      el.style.backgroundColor = this.markerColor
+      if (this.markedFarm == 'own') {
+        el.style.backgroundColor = '#FF7F50'
+      }
+      else {
+        el.style.backgroundColor = '#1E90FF'
+      } 
       el.style.borderRadius = `50%`;
       el.style.opacity = "0.8"
       // create the marker
@@ -217,7 +234,7 @@ export default {
 
     // add the marker to the map
       marker.setLngLat(e.lngLat).addTo(map).togglePopup();
-      if (this.markerColor == '#FF7F50') {
+      if (this.markedFarm == 'own') {
         this.markers.push({"own": e.lngLat});
       }
       else {

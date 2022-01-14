@@ -758,7 +758,7 @@
      <div style="border: 4px solid black">
         <!-- Maps component embedding -->
         <keep-alive>
-          <markermapbox v-bind:marker-color="currentColor" @map_clicked="setGeolocation"/>
+          <markermapbox v-bind:marked-farm="currentFarm" @map_clicked="setGeolocation"/>
         </keep-alive>
     </div>
   </div>
@@ -1115,7 +1115,7 @@ export default {
       options: ['Striegel', 'Hackstriegel', 'Reihenstriegel', 'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
       heatmap_coords: [],
       chosen_technique: "choose",
-      currentColor: '',
+      currentFarm: '',
       surveyData: {
         _id: new Date().toISOString(),
         consent: null,
@@ -1236,12 +1236,12 @@ export default {
     },
     setColor: function(){
       if (this.step === 5) {
-          this.currentColor = '#FF7F50'
-          console.log(this.currentColor)
+          this.currentFarm = 'own'
+          console.log(this.currentFarm)
       }
       if (this.step === 6) {
-          this.currentColor = "#1E90FF"}
-          console.log(this.currentColor)
+          this.currentFarm = "others"}
+          console.log(this.currentFarm)
       },
     deleteEntryTechnique: function (index) {
       this.surveyData.questionTwo.technique.splice(index, 1)
