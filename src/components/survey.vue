@@ -264,7 +264,7 @@
           <br>
           <div>
             <legend for="questionTwoAlternative"> 
-              a) Warum nutzen Sie keine mechanische Unkrautbekämpfung? 
+              Warum nutzen Sie keine mechanische Unkrautbekämpfung? 
             </legend>
               <hr>
               <br />
@@ -279,7 +279,7 @@
             <br>
           <div>
             <legend for="questionTwoAlternative"> 
-              b) Wie bekämpfen Sie Ihr Unkraut stattdessen?
+              Wie bekämpfen Sie Ihr Unkraut stattdessen?
             </legend>
               <hr>
               <br />
@@ -294,7 +294,7 @@
           </div>
           <div>
           <legend for="questionTwoAlternative"> 
-            c)  Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
+            Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
           </legend>
               <hr>
               <br />
@@ -677,7 +677,7 @@
       <section>
         <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend>
-          <b>a)</b> Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?             
+           Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?             
         </legend>
               <hr>
               <br>
@@ -712,7 +712,7 @@
       <section>
         <div style="margin: 5px; padding: 5px; border: 4px solid black;">
         <legend for="questionFiveAlternative">
-        <b>b)</b> In welchem Umkreis liegen diese Felder?
+        In welchem Umkreis liegen diese Felder?
         </legend>
         <hr>
         <br>
@@ -1386,6 +1386,40 @@ export default {
 </script>   
 <style scoped>
 
+#techniqueTable {
+  font-size: 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(255, 255, 255);
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#techniqueTable td,
+#techniqueTable th {
+  border: 3px solid rgb(43, 70, 77);
+  padding: 8px;
+}
+
+#techniqueTable tr:nth-child(even) {
+  background-color: #48696e;
+}
+
+#techniqueTable tr:nth-child(odd) {
+  background-color: #48696e;
+}
+
+#techniqueTable tr:hover {
+  background-color: rgb(85, 112, 128);
+}
+
+#techniqueTable th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #20585f;
+  color: white;
+}
+
 table,
 th,
 td {
@@ -1394,7 +1428,7 @@ td {
 
 
 button {
-  color: #484b49;
+  color: #000000;
   margin: 10px;
   border-radius: 5px;
   background-color: white;
@@ -1426,13 +1460,11 @@ h1 {
 
 legend {
   font-weight: normal;
-  text-align: justify; 
-  word-wrap: break-word;
+  text-align: justify;    
   text-justify: inter-word;
-  text-justify: distribute;
   text-align-last: left;
+  font-family: Helvetica, Sans-Serif;
   font-size:18px; 
-  word-spacing:3px;
   color: #dbdbdb;
 }
 
@@ -1634,4 +1666,40 @@ legend {
   box-shadow: 0px 0px 5px 2px rgba(5, 5, 5, 0.5);
   transition: all 0.3s ease;
 }
+
+
+ @media only screen and (max-width: 800px) {
+
+} 
+
 </style>
+/* word-wrap: break-word;   text-justify: distribute;   word-spacing:3px; /*
+
+/* h1 {
+  text-align: center;
+  display: block;
+  font-size: 3.4vw; 
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 0;
+  margin-right: 0;
+  font-weight: bold;
+}
+
+legend {
+  font-weight: normal;
+  text-align: justify;
+  word-wrap: break-word;
+  text-justify: inter-word;
+  text-justify: distribute;
+  text-align-last: left;
+  font-size: 2.3vw; 
+  word-spacing:3px;
+  color: #dbdbdb;
+}
+  button {
+  width: 22%;
+  height: auto;
+  font-size: 2.5vw; 
+  font-weight: bold;
+} /*

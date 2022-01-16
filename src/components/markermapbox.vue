@@ -257,7 +257,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 .vue-map-container, .vue-map{
   height: 100%;  }
 </style>
