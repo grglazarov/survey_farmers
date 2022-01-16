@@ -92,7 +92,7 @@ export default {
 
       this.map = new mapboxgl.Map({
         container: 'survey-map',
-        style: 'mapbox://styles/toffi/ckwz25stp0usy15k59cckn2sf',
+        style: 'mapbox://styles/toffi/ckyh6bsvg2vee14rx3gv9kg8x', //mapbox://styles/toffi/ckwz25stp0usy15k59cckn2sf'
         center: [8.3502733, 52.0887843],
         zoom: 13
       })
@@ -257,7 +257,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .vue-map-container, .vue-map{
   height: 100%;  }
 </style>

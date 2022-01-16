@@ -2,8 +2,9 @@
     <div>
     <div v-if="step === 0" class = heatMap>
       <div style="text-align: center; border:4px solid black;">
-          <h2>“Was uns beim Einsatz des Unkrautroboters gefehlt hat, <br> ist ein anderer Landwirt aus der Region mit Erfahrung”</h2>
-      </div> 
+          <h1>Unkrautbekämpfung in Zuckerrüben - heute und morgen</h1>
+          <h2 style="text-align: center"><i>“Was uns beim Einsatz des Unkrautroboters gefehlt hat, <br> ist ein anderer Landwirt aus der Region mit Erfahrung”</i></h2>
+     </div> 
         <div style="border: 4px solid black; padding: 5px">
             <ul>
               <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirte und Landwirtinnen brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
@@ -18,24 +19,19 @@
               <br>
               <li>Als Landwirt/in haben Sie online die Möglichkeit, <b>anonym</b> Angaben zur Unkrautbekämpfung und ihrem räumlichen Umfeld in eine Datenbank einzutragen, um so Ihre eigenen Werte mit denen Ihrer Berufskollegen und -kolleginnen in ganz Deutschland zu vergleichen. Damit tragen Sie aktiv dazu bei, praxistaugliche Alternativen für die Bekämpfung von Unkräutern in Zuckerrüben zu entwickeln, die den Ansprüchen der Landwirte und Landwirtinnen entsprechen.</li>
               <br>
-              <li style="font-size: 16px; color: #DD0000"><b><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></b></li>
+              <li style="font-size: 16px; color: #1adee8"><b><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></b></li>
             </ul>  
         </div>
          <div style="margin: 0px; padding: 5px; border:4px solid black">
            <h2 style="text-align: center">Karte</h2>
-          <ul>
-            <li>Klicken Sie auf die jeweilige Rubrik um zu sehen, wie die Verteilung in Deutschland ist.
-            <br/>
-            Zur Orientierung sind die großen Zuckerrübenfabriken eingezeichnet.</li>
-            <br/>
-            <li>Ihre Daten werden so zusammengefasst auch für andere Teilnehmer der Umfrage zu sehen sein.
-            <br/>
-            Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</li>
-         </ul>            
-        <br/>
+                   
          <section>
               <legend style="font-size: 15px">
-              Bitte wählen sie eine mechanische Unkrautbekämpfungmethode?
+              <ul>
+                <li>Wählen Sie eine Unkrautbekämpfungsmethode um zu sehen, wie die Verteilung in Deutschland ist.</li>
+                <li>Zur Orientierung sind die großen Zuckerrübenfabriken eingezeichnet.</li>
+                <li>Ihre Daten werden so zusammengefasst auch für andere Teilnehmer der Umfrage zu sehen sein. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</li>
+              </ul>   
               </legend>
             <select class="bootstrap-select" style="width: 15em; border: 2px black solid"
               v-model="chosen_technique">             
@@ -80,7 +76,9 @@
       
     <div v-if="step === 1" class = firstPage>
             <section>
+
                     <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+                      <h2 style="text-align: center">Willkommen zu unserer Umfrage für Unkrautbekämpfung in Zuckerrüben!</h2>
                         <p>
                         Die Umfrage wird max. 10 Minuten in Anspruch nehmen. 
                         Alle Ergebnisse werden anonymisiert analysiert. 
@@ -95,7 +93,7 @@
                         <br/>
                         Doktorandin am Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
                         <br />
-                        E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #8ebf65">anna.massfeller@ilr.uni-bonn.de</a> 
+                        E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #1adee8">anna.massfeller@ilr.uni-bonn.de</a> 
                       </p>
                    </div>
                    <div style="margin: 5px; padding: 5px; border: 4px solid black;">
@@ -186,21 +184,21 @@
                   Research Group of Hugo Storm “Data science in agricultural economics”
                   <br>Niebuhrstraße 1a, 53113 Bonn
                   <br>
-                  E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #8ebf42">anna.massfeller@ilr.uni-bonn.de</a></p>
-                  <br/></li>
+                  E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #1adee8">anna.massfeller@ilr.uni-bonn.de</a></p>
+                  </li>
                 <li>
                   <p style="margin-bottom: 0in; line-height: 108%"><b>Zuständiger Datenschutzbeauftragter der Universität Bonn:</b></p>
                   <p style="margin-bottom: 0in; line-height: 108%"><i>Dr. Jörg Hartmann</i>
                   <br>
                   Genscherallee 3, 53113 Bonn
                   <br>
-                  E-mail: <a href="mailto:joerg.hartmann@uni-bonn.de" style="color: #8ebf42">joerg.hartmann@uni-bonn.de</a>
+                  E-mail: <a href="mailto:joerg.hartmann@uni-bonn.de" style="color: #1adee8">joerg.hartmann@uni-bonn.de</a>
                   <br>
-                  <a href="tel:+49228736758" style="color: #8ebf42">+ 49 (0)228 -73 -6758</a>
+                  <a href="tel:+49228736758" style="color: #1adee8">+ 49 (0)228 -73 -6758</a>
                   <br> 
-                  <a href="https://www.datenschutz.uni-bonn.de/" target="https://www.datenschutz.uni-bonn.de" style="color: #8ebf42">https://www.datenschutz.uni-bonn.de</a></p>
+                  <a href="https://www.datenschutz.uni-bonn.de/" target="https://www.datenschutz.uni-bonn.de" style="color: #1adee8">https://www.datenschutz.uni-bonn.de</a></p>
                 </li>
-                <p style="margin-bottom: 0in; line-height: 108%"><br/></p>
+                <p style="margin-bottom: 0in; line-height: 108%"></p>
                 <li>
                   <p style="margin-bottom: 0in; line-height: 108%"><b>Zuständige
                   Aufsichtsbehörde:</b></p>
@@ -266,7 +264,7 @@
           <br>
           <div>
             <legend for="questionTwoAlternative"> 
-              a)  Warum nutzen Sie keine mechanische Unkrautbekämpfung? 
+              a) Warum nutzen Sie keine mechanische Unkrautbekämpfung? 
             </legend>
               <hr>
               <br />
@@ -331,8 +329,8 @@
     <div v-if="step === 3 && surveyData.questionOne ==='Ja'">
           <h1>Frage {{ pageNumber }}</h1>
           <modal 
-          hideModal = true; helpText="Bitte geben Sie auch an, ob Sie die Technik bis heute nutzen oder mittlerweile nicht mehr nutzen. 
-                    Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
+          hideModal = true; helpText="Bitte wählen Sie eine Maschine aus. Füllen Sie dann die entsprechenden Spalten in der Tabelle aus. 
+                                      Sie können Maschinen hinzufügen, die nicht in der Liste stehen oder auch wieder entfernen.">
           </modal>
           <br>
           <section>
@@ -532,7 +530,7 @@
             <section>
               <legend for="questionThree">
                   Von wie vielen Landwirten/Betrieben wissen Sie, dass diese mechanische oder chemisch-mechanisch kombinierte 
-                  Unkrautbekämpfung auf Ihren Feldern <b style="color: #DD0000">(nicht nur in Zuckerrüben!)</b> einsetzen?               
+                  Unkrautbekämpfung auf Ihren Feldern <b style="color: #1adee8">(nicht nur in Zuckerrüben!)</b> einsetzen?               
               </legend>
               <hr>
               <br />
@@ -584,12 +582,12 @@
                 Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
                 <br>
                 <br>
-                Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet jene gelb markiert, 
+                Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, 
                 auf denen im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut wurden. 
                 Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen mit Hilfe eines kleinen Traktor-Symbols zu markieren. 
                 <br>
                 <br>
-                Die Daten stammen aus der frei zugänglichen Invekos-Datenbank. Wenn Sie keine Flächen anklicken möchten, 
+                Die Daten stammen aus der frei zugänglichen Invekos-Datenbank (mehr dazu <a href="https://www.zi-daten.de/">hier</a>) und aus Fernerkundungsdaten. Wenn Sie keine Flächen anklicken möchten, 
                 können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
               </legend>    
               <hr>
@@ -611,7 +609,8 @@
       <div v-if="step === 5 && skip_map == true">
           <h1>Frage {{ pageNumber }} Alternative</h1>
           <modal 
-            hideModal = true; helpText="Hilfe?">
+            hideModal = true; helpText="Diese Information wird anonym gespeichert und es können keine Rückschlüsse auf einzelne Betriebe gezogen werden. 
+                                        Alle Daten werden später aggregiert und wie am Anfang auf der Karte zusammengefasst">
           </modal>
           <br>          
           <legend for="questionFourAlternative">
@@ -654,14 +653,16 @@
           <br>          
           <section>
             <legend for="questionFive">
-              Auf welchen Feldern sehen Sie mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung. <b style="color: #DD0000">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</b> 
+              Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren) auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
+              <b style="color: #1adee8">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</b> 
               <br>
               <br>
               Können Sie diese Felder auf der Karte anklicken?
-              Wenn Sie nicht genau wissen, wo die Felder, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben.
-              </legend>
-              <hr>
-              <br />
+              Wenn Sie nicht genau wissen, wo die Felder liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben.
+              Auf welchen Feldern sehen Sie mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung.  
+            </legend>
+            <hr>
+            <br />
           </section>
           <button @click.prevent="prev()" @click="pageNumber-=1; setColor()">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
@@ -670,20 +671,15 @@
       <div v-if="step === 6 && skip_map2 == true">
       <h1>Frage {{ pageNumber }} Alternative</h1>
       <modal 
-      hideModal = true; helpText="Teilen Sie uns Ihre Gedanken zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
+      hideModal = true; helpText="Bitte geben Sie möglichst genau an, wo und wie viele Felder Sie zum Beispiel im Vorbeifahren beobachten.">
       </modal>
       <br>      
       <section>
-        <legend for="questionFiveAlternative">
-            Liegen die Felder von denen Sie wissen, dass dort  Unkraut mechanisch oder chemisch-mechanisch kombiniert Unkraut bekämpft wird, in Ihrer direkten Umgebung?        
+        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+          <legend>
+          <b>a)</b> Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?             
         </legend>
               <hr>
-              <br />
-            <div style="margin: 5px; padding: 5px; border: 4px solid black;">
-              <label>
-             <b>A)</b> Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?             
-            </label>
-              <br>
               <br>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
@@ -715,10 +711,10 @@
         
       <section>
         <div style="margin: 5px; padding: 5px; border: 4px solid black;">
-        <label for="questionFiveAlternative">
-        <b>B)</b> In welchem Umkreis liegen diese Felder?
-        </label>
-        <br>
+        <legend for="questionFiveAlternative">
+        <b>b)</b> In welchem Umkreis liegen diese Felder?
+        </legend>
+        <hr>
         <br>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
@@ -766,8 +762,7 @@
     <div v-if="step === 7">
         <h1>Frage {{ pageNumber }}</h1>
         <modal 
-        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
-        und werden wie die gesamte Umfrage anonymisiert erfasst.">
+        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage und werden, wie die gesamte Umfrage, anonymisiert erfasst.">
         </modal>
         <br>        
         <section>
@@ -776,7 +771,6 @@
           </legend>
               <hr>
               <br />
-          <br />
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="15-24" v-model="surveyData.questionSix">
@@ -831,8 +825,7 @@
     <div v-if="step === 8">
         <h1>Frage {{ pageNumber }}</h1>
         <modal 
-        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage 
-        und werden wie die gesamte Umfrage anonymisiert erfasst.">
+        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage und werden, wie die gesamte Umfrage, anonymisiert erfasst.">
         </modal>
         <br>        
         <section>
@@ -900,8 +893,7 @@
     <div v-if="step === 9">
         <h1>Frage {{ pageNumber }}</h1>
         <modal 
-        hideModal = true; helpText="Teilen Sie uns Ihre Gedanken
-         zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
+        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage und werden, wie die gesamte Umfrage, anonymisiert erfasst.">
         </modal>
         <br>        
         <section>
@@ -937,12 +929,57 @@
     <div v-if="step === 10">
         <h1>Frage {{ pageNumber }}</h1>
         <modal 
-        hideModal = true; helpText="Teilen Sie uns Ihre Gedanken
-         zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
+        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage und werden, wie die gesamte Umfrage, anonymisiert erfasst.">
         </modal>
         <br>        
         <section>
           <legend for="questionNine">
+            Wie ist Ihr Betrieb ausgerichtet?
+          </legend>
+              <hr>
+              <br />
+          <div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="vornehmlich Ackerbau" v-model="surveyData.questionEight">
+              <label style="display:inline-block" class="form-check-label">vornehmlich Ackerbau</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="vornehmlich Tierhaltung + Grassland" v-model="surveyData.questionEight">
+              <label style="display:inline-block" class="form-check-label">vornehmlich Tierhaltung + Grassland</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="vornehmlich Sonderkulturen" v-model="surveyData.questionEight">
+              <label style="display:inline-block" class="form-check-label">vornehmlich Sonderkulturen</label>
+          </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="gemischtbetrieb (Ackerbau + Tierhaltung)" v-model="surveyData.questionEight">
+          <label style="display:inline-block" class="form-check-label">gemischtbetrieb (Ackerbau + Tierhaltung)</label>
+         </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="andere" v-model="surveyData.questionEight">
+          <label style="display:inline-block" class="form-check-label">andere</label>
+          </div>
+          </div>
+          <br />
+        </section>
+
+        <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
+        <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+    </div>
+
+    <div v-if="step === 11">
+        <h1>Frage {{ pageNumber }}</h1>
+        <modal 
+        hideModal = true; helpText="Teilen Sie uns Ihre Gedanken zu dieser Umfrage und zum Thema mechanische Unkrautbekämpfung mit.">
+        </modal>
+        <br>        
+        <section>
+          <legend for="questionTen">
             Haben Sie Fragen oder Kommentare? Hier ist Platz dafür:
           </legend>
               <hr>
@@ -953,7 +990,7 @@
                       v-model="surveyData.questionNine"
                       placeholder="Fragen oder Kommentare hier hinfügen"
                       required
-                      id="questionNine"
+                      id="questionTen"
                       rows="3">
             </textarea>
           </div>
@@ -965,7 +1002,7 @@
     </div>
 
 
-    <div v-if="step === 11">
+    <div v-if="step === 12">
       <h1>Ende</h1>
       <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
@@ -984,13 +1021,13 @@
       </div>
        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
-        <p for="questionTen">
+        <p for="questionEleven">
             Möchten Sie die zusammengefassten Ergebnisse der Studie per Mail erhalten?
         </p>
         <input
           type="radio"
-          name="questionTen"
-          id="questionTen"
+          name="questionEleven"
+          id="questionEleven"
           value="Ja"
           v-model="surveyData.questionTen"
         />
@@ -1007,13 +1044,13 @@
       <br />
 
       <section>
-        <p for="questionEleven">
+        <p for="questionTwelve">
             Möchten Sie an dem Gewinnspiel teilnehmen?
         </p>
           <input
             type="radio"
-            name="questionEleven"
-            id="questionEleven"
+            name="questionTwelve"
+            id="questionTwelve"
             value="Ja"
             v-model="surveyData.questionEleven"
           />
@@ -1051,7 +1088,7 @@
           <br />
           <i>Anna Massfeller, Doktorandin am Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
           <br />
-          E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #8ebf42">anna.massfeller@ilr.uni-bonn.de</a>
+          E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #1adee8">anna.massfeller@ilr.uni-bonn.de</a>
           </i>
       </section>
       </div>
@@ -1061,21 +1098,21 @@
 
        <div v-if="step === 'done'">
           <h1>Fertig!</h1>
-          <p>Thanks for filling out our survey! The following data just arrived at our backend:</p>
+          <p>Vielen Dank für die Teilnahme an der Umfrage. Ihre Daten wurden nun gespeichert.</p>
           <br>
           {{ backendResponse }}
           <br>
         </div>
 
         <div v-if="step === 'error'">
-          <h1>Oh no!</h1>
-          <p>Something happend. Sorry for the inconvenience!</p>
+          <h1>Oh, nein!</h1>
+          <p>Es ist etwas schiefgegangen. Entschuldigung für die Unannehmlichkeit!</p>
           <br>
-          <button @click.prevent="step = 1">Restart</button>
+          <button @click.prevent="step = 1">Neu starten</button>
         </div>
 
       <p v-if="errors && errors.length">
-        <b>Bitte geben Sie die erforderlichen Angaben ein:</b>
+        <b>Um fortfahren zu können, müssen Sie die erforderlichen Felder ausfüllen!</b>
       </p>
       <br /><br />Debug: {{surveyData}}
 
@@ -1111,7 +1148,7 @@ export default {
       skip_map2: false,
       zip_to_geo: {},
       selected: null,
-      categories: ['Zu hohe Kosten', 'Geringe Zuverlässigkeit', 'Hohes Risiko', 'Technik nicht vorhanden', 'Zeitaufwand zu hoch', 'nicht möglich auf meinem Betrieb'],
+      categories: ['Zu hohe laufende Kosten', 'Geringe Zuverlässigkeit', 'Hohes Risiko', 'Technik nicht vorhanden', 'Zu hohe Investitionskosten', 'Zu hoher Zeitaufwand', 'Nicht möglich auf meinem Betrieb', 'Meine Nachbarn haben schlechte Erfahrungen gemacht und mir davon erzählt', 'Ich weiß nicht, ob die Technik bei mir in funktioniert', 'Kennen keinen Kollegen in meiner Region der mir Tipps geben könnte'],
       options: ['Striegel', 'Hackstriegel', 'Reihenstriegel', 'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
       heatmap_coords: [],
       chosen_technique: "choose",
@@ -1349,40 +1386,6 @@ export default {
 </script>   
 <style scoped>
 
-#techniqueTable {
-  font-size: 1.0vw;
-  font-family: Arial, Helvetica, sans-serif;
-  color: rgb(255, 255, 255);
-  border-collapse: collapse;
-  width: 100%;
-}
-
-#techniqueTable td,
-#techniqueTable th {
-  border: 3px solid rgb(43, 70, 77);
-  padding: 8px;
-}
-
-#techniqueTable tr:nth-child(even) {
-  background-color: #48696e;
-}
-
-#techniqueTable tr:nth-child(odd) {
-  background-color: #48696e;
-}
-
-#techniqueTable tr:hover {
-  background-color: rgb(85, 112, 128);
-}
-
-#techniqueTable th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #20585f;
-  color: white;
-}
-
 table,
 th,
 td {
@@ -1396,7 +1399,7 @@ button {
   border-radius: 5px;
   background-color: white;
   border: 1px solid #999;
-  font-size: 1.05em;
+  font-size: 14px;
   padding-right: 10px;
   padding-left: 10px;
   padding-top: 5px;
@@ -1431,36 +1434,6 @@ legend {
   font-size:18px; 
   word-spacing:3px;
   color: #dbdbdb;
-}
-@media only screen and (max-width: 800px) {
-h1 {
-  text-align: center;
-  display: block;
-  font-size: 3.4vw; 
-  margin-top: 0.67em;
-  margin-bottom: 0.67em;
-  margin-left: 0;
-  margin-right: 0;
-  font-weight: bold;
-}
-
-legend {
-  font-weight: normal;
-  text-align: justify;
-  word-wrap: break-word;
-  text-justify: inter-word;
-  text-justify: distribute;
-  text-align-last: left;
-  font-size: 2.3vw; 
-  word-spacing:3px;
-  color: #dbdbdb;
-}
-button {
-  width: 22%;
-  height: auto;
-  font-size: 2.5vw; 
-  font-weight: bold;
-}
 }
 
 .crop {
