@@ -107,7 +107,7 @@ background-color: #ffffff;
   margin: 0;
   padding: 10px 0 0 10px;
   height: 30px;
-  background: #555;
+  background: rgb(28, 58, 87);
   color: #fff;
   font-weight: 400;
   font-size: 18px;

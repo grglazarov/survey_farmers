@@ -1,10 +1,10 @@
 <template>
     <div>
     <div v-if="step === 0" class = heatMap>
-      <div style="text-align: center; border:4px solid black;">
+      <!-- <div style="text-align: center; border:4px solid black;">
           <h1>Unkrautbekämpfung in Zuckerrüben - heute und morgen</h1>
           <h2 style="text-align: center"><i>“Was uns beim Einsatz des Unkrautroboters gefehlt hat, <br> ist ein anderer Landwirt aus der Region mit Erfahrung”</i></h2>
-     </div> 
+     </div>  -->
         <div style="border: 4px solid black; padding: 5px">
             <ul>
               <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirte und Landwirtinnen brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
@@ -277,51 +277,6 @@
           </div>
             <br>
             <br>
-          <div>
-            <legend for="questionTwoAlternative"> 
-              Wie bekämpfen Sie Ihr Unkraut stattdessen?
-            </legend>
-              <hr>
-              <br />
-             <input
-              type="singleLine"
-              v-model="surveyData.questionTwoAlternative.method"
-              placeholder="Kommentare hier hinfügen"
-              required
-              />
-            <br>
-            <br>
-          </div>
-          <div>
-          <legend for="questionTwoAlternative"> 
-            Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
-          </legend>
-              <hr>
-              <br />
-          <input
-                type="radio"
-                value="Ja"
-                v-model="surveyData.questionTwoAlternative.future.radio"
-              />
-              <label for="one">Ja</label>
-              <br />
-              <input 
-              type="radio" 
-              value="Nein" 
-              v-model="surveyData.questionTwoAlternative.future.radio" 
-              />
-              <label for="one">Nein</label>
-              <br />
-              .. weil: 
-                <br>
-                <input
-                type="singleLine"
-                v-model="surveyData.questionTwoAlternative.future.reason"
-                placeholder="Kommentare hier hinfügen"
-                required
-                />
-            <br>
-        </div>
           <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
           <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
       </div>
@@ -530,7 +485,7 @@
             <section>
               <legend for="questionThree">
                   Von wie vielen Landwirten/Betrieben wissen Sie, dass diese mechanische oder chemisch-mechanisch kombinierte 
-                  Unkrautbekämpfung<b style="color: #1adee8">(nicht nur in Zuckerrüben!)</b> einsetzen?               
+                  Unkrautbekämpfung <b style="color: #1adee8">(nicht nur in Zuckerrüben!)</b> einsetzen?               
               </legend>
               <hr>
               <br />
@@ -1115,7 +1070,7 @@
       <p v-if="errors && errors.length">
         <b>Um fortfahren zu können, müssen Sie die erforderlichen Felder ausfüllen!</b>
       </p>
-      <br /><br />Debug: {{surveyData}}
+      <!-- <br /><br />Debug: {{surveyData}} -->
 
     </div>
     </template>
