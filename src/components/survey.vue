@@ -9,7 +9,7 @@
             <ul>
               <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirte und Landwirtinnen brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
               <br>
-              <li>Wir möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskollegen und -kolleginnen austauschen. </li>
+              <li>Wir von der Uni Bonn möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskollegen und -kolleginnen austauschen. </li>
                <ul>
                   <li>Wie wird Unkraut in Zuckerrüben aktuell bekämpft?</li>
                   <li>Welche Rolle spielen neue Techniken wie kameragesteuerter Hacken?</li>
@@ -17,8 +17,8 @@
                   <li><b>Egal wie Sie Ihr Unkraut bekämpfen – es interessiert uns!</b></li>
                </ul>
               <br>
-              <li>Als Landwirt/in haben Sie online die Möglichkeit, <b>anonym</b> Angaben zur Unkrautbekämpfung und ihrem räumlichen Umfeld in eine Datenbank einzutragen, um so Ihre eigenen Werte mit denen Ihrer Berufskollegen und -kolleginnen in ganz Deutschland zu vergleichen. Damit tragen Sie aktiv dazu bei, praxistaugliche Alternativen für die Bekämpfung von Unkräutern in Zuckerrüben zu entwickeln, die den Ansprüchen der Landwirte und Landwirtinnen entsprechen.</li>
-              <br>
+              <li>Als Landwirt/in haben Sie die Möglichkeit, <b>anonym</b> in unserer kurzen Umfrage anzugeben, wie Sie Unkraut bekämpfen. Auf einer Karte können Sie die aktuellen Ergebnisse der Umfrage einsehen und vergleichen, welche Techniken zur Unkrautbekämpfung wo in Deutschland verwendet werden.</li>
+                <br>
               <li style="font-size: 16px; color: #1adee8"><b><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></b></li>
             </ul>  
         </div>
@@ -64,7 +64,7 @@
                         left: 250px;
                         height:100px;
                         position: relative;
-                        width:290px;
+                        width:290px;absolute
                         padding: 15px 32px;
                         text-align: center;
                         text-decoration: none;
@@ -383,7 +383,7 @@
                   <i class="fa fa-question-circle" aria-hidden="true" 
                   data-toggle="tooltip" data-placement="bottom" 
                   title="Hat die Maschine eine besondere Ausstattung? Haben Sie das Gerät in der Vergangenheit durch ein neues ersetzt? Ist das Gerät autonom fahrend? Haben Sie vielleicht selbst etwas angebaut? Dann nutzen Sie bitte das Kommentarfeld."
-                  style="font-size:22px;color:#DD0000;">
+                  style="font-size:22px;color:#87cefa">
                   </i>
                 </th>
                  <th scope="col">Wessen Maschine wird genutzt?</th>
@@ -519,7 +519,7 @@
         </div>
 
       
-       <div v-if="step === 4">
+       <div v-if="step === 4">  
 
             <h1>Frage {{ pageNumber }}</h1>
             <modal 
@@ -530,7 +530,7 @@
             <section>
               <legend for="questionThree">
                   Von wie vielen Landwirten/Betrieben wissen Sie, dass diese mechanische oder chemisch-mechanisch kombinierte 
-                  Unkrautbekämpfung auf Ihren Feldern <b style="color: #1adee8">(nicht nur in Zuckerrüben!)</b> einsetzen?               
+                  Unkrautbekämpfung<b style="color: #1adee8">(nicht nur in Zuckerrüben!)</b> einsetzen?               
               </legend>
               <hr>
               <br />
@@ -578,16 +578,17 @@
            </modal>
            <br>          
               <legend for="questionFour">
-                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr Zuckerrüben angebaut? 
+                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr(2021) Zuckerrüben angebaut? 
                 Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
                 <br>
                 <br>
                 Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, 
-                auf denen im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut wurden. 
-                Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen mit Hilfe eines kleinen Traktor-Symbols zu markieren. 
+                auf denen in den letzten drei Wirtschaftsjahren (2019-2021) Zuckerrüben angebaut wurden. 
+                Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen (gilt vor allem für Hamburg und das Saarland) mit Hilfe eines kleinen Traktor-Symbols zu markieren. 
                 <br>
                 <br>
-                Die Daten stammen aus der frei zugänglichen Invekos-Datenbank (mehr dazu <a href="https://www.zi-daten.de/">hier</a>) und aus Fernerkundungsdaten. Wenn Sie keine Flächen anklicken möchten, 
+                Die Daten für NRW, Niedersachsen und Brandenburg stammen aus der frei zugänglichen Invekos-Datenbank (mehr dazu <a href="https://www.zi-daten.de/">hier</a>) und die für die anderen Bundesländer aus Fernerkundungsdaten. 
+                Es kann zu Abweichungen in der Umrandung der Felder kommen, wählen Sie daher einfach den/ die am besten passendsten Schlag/ Schläge aus. Wenn Sie keine Flächen anklicken möchten, 
                 können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
               </legend>    
               <hr>
@@ -1148,7 +1149,7 @@ export default {
       skip_map2: false,
       zip_to_geo: {},
       selected: null,
-      categories: ['Zu hohe laufende Kosten', 'Geringe Zuverlässigkeit', 'Hohes Risiko', 'Technik nicht vorhanden', 'Zu hohe Investitionskosten', 'Zu hoher Zeitaufwand', 'Nicht möglich auf meinem Betrieb', 'Meine Nachbarn haben schlechte Erfahrungen gemacht und mir davon erzählt', 'Ich weiß nicht, ob die Technik bei mir in funktioniert', 'Kennen keinen Kollegen in meiner Region der mir Tipps geben könnte'],
+      categories: ['Zu hohe laufende Kosten', 'Geringe Zuverlässigkeit', 'Hohes Risiko', 'Technik nicht vorhanden', 'Zu hohe Investitionskosten', 'Zu hoher Zeitaufwand', 'Nicht möglich auf meinem Betrieb', 'Meine Nachbarn haben schlechte Erfahrungen gemacht und mir davon erzählt', 'Ich weiß nicht, ob die Technik bei mir funktioniert', 'Ich kenne keinen Kollegen in meiner Region der mir Tipps geben könnte', 'Ich traue mir die Anwendung/Bedienung nur bedingt zu'],
       options: ['Striegel', 'Hackstriegel', 'Reihenstriegel', 'Rotorstriegel', 'Scharhacke', 'Trennhacke', 'Rollhacke', 'Fingerhacke', 'Kombination Hacke-Bandspritze', 'Häufelgerät', 'Hackbürste', 'Hackfräse'],
       heatmap_coords: [],
       chosen_technique: "choose",
