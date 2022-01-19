@@ -898,27 +898,27 @@
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="vornehmlich Ackerbau" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label">vornehmlich Ackerbau</label>
+              <label style="display:inline-block" class="form-check-label">Vornehmlich Ackerbau</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="vornehmlich Tierhaltung + Grassland" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label">vornehmlich Tierhaltung + Grassland</label>
+              <label style="display:inline-block" class="form-check-label">Vornehmlich Tierhaltung + Grassland</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="vornehmlich Sonderkulturen" v-model="surveyData.questionEight">
-              <label style="display:inline-block" class="form-check-label">vornehmlich Sonderkulturen</label>
+              <label style="display:inline-block" class="form-check-label">Vornehmlich Sonderkulturen</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="gemischtbetrieb (Ackerbau + Tierhaltung)" v-model="surveyData.questionEight">
-          <label style="display:inline-block" class="form-check-label">gemischtbetrieb (Ackerbau + Tierhaltung)</label>
+          <label style="display:inline-block" class="form-check-label">Gemischtbetrieb (Ackerbau + Tierhaltung)</label>
          </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="andere" v-model="surveyData.questionEight">
-          <label style="display:inline-block" class="form-check-label">andere</label>
+          <label style="display:inline-block" class="form-check-label">Andere</label>
           </div>
           </div>
           <br />
@@ -957,7 +957,7 @@
         <button @click.prevent="next()">Weiter</button>
     </div>
 
-
+ 
     <div v-if="step === 12">
       <h1>Ende</h1>
       <div style="margin: 5px; padding: 5px; border: 4px solid black;">
