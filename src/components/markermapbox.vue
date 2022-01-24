@@ -92,7 +92,7 @@ export default {
 
       this.map = new mapboxgl.Map({
         container: 'survey-map',
-        style: 'mapbox://styles/toffi/ckyh6bsvg2vee14rx3gv9kg8x', //mapbox://styles/toffi/ckwz25stp0usy15k59cckn2sf'
+        style: 'mapbox://styles/toffi/ckyn0rxbi8kj414qpssdlx2zt', //mapbox://styles/toffi/ckwz25stp0usy15k59cckn2sf'
         center: [8.3502733, 52.0887843],
         zoom: 13
       })
@@ -100,6 +100,7 @@ export default {
       this.map.addControl(
         new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
+        language: 'de-DE',
         mapboxgl: mapboxgl
         })
       );
@@ -147,10 +148,8 @@ export default {
       source: "plots",
       layout: {},
       filter: ['!=', 'farm', "own"],
-      paint: {
-                'fill-color': "#1E90FF"
-                ,
-                "fill-opacity": 0.8
+      paint: {'fill-color': "#1E90FF"
+                ,"fill-opacity": 0.8
       }
     });
   })
