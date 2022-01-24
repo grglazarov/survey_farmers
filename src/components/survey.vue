@@ -792,7 +792,7 @@
                   <th>GPS-/ kameragesteuerte <b>autonom</b> fahrende Maschinen zur mechanischen/ chemisch-mechanisch kombinierten Unkrautbekämpfung (z.Bsp. Roboter)</th>
                 </tr>
               </thead>
-              <tbody style="font-size:10px">
+              <tbody style="font-size:12px">
                 <tr>
                   <td>
                     <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column1" />Ich plane nichts in diese Richtung</label>
