@@ -208,6 +208,17 @@ export default {
                     'type': 'Point',
                     'coordinates': [53.8503, 13.6960]
                     }
+                    },
+                    {
+                    'type': 'Feature',
+                    'properties': {
+                    'message': 'Lage',
+                    'iconSize': [60, 60]
+                    },
+                    'geometry': {
+                    'type': 'Point',
+                    'coordinates': [51.8443, 8.3235]
+                    }
                     }
                 ]
             }

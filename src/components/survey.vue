@@ -13,9 +13,9 @@
 
         <div style="border: 4px solid black; padding: 5px">
             <ul>
-              <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirtinnen und Landwirte und Landwirtinnen brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
+              <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirtinnen und Landwirte brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
               <br>
-              <li>Wir von der Uni Bonn möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskolleginnenen und -kollegen und -kolleginnen austauschen. </li>
+              <li>Wir von der Uni Bonn möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskolleginnen und -kollegen austauschen. </li>
                <ul>
                   <li>Wie wird Unkraut in Zuckerrüben aktuell bekämpft?</li>
                   <li>Welche Rolle spielen neue Techniken wie kameragesteuerter Hacken?</li>
@@ -25,7 +25,7 @@
               <br>
               <li>Als Landwirt/in haben Sie die Möglichkeit, <b>anonym</b> in unserer kurzen Umfrage anzugeben, wie Sie Unkraut bekämpfen. Auf einer Karte können Sie die aktuellen Ergebnisse der Umfrage einsehen und vergleichen, welche Techniken zur Unkrautbekämpfung wo in Deutschland verwendet werden.</li>
                 <br>
-              <li style="font-size: 16px; color: #1adee8"><b><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></b></li>
+              <li><mark style="color: #1adee8; background: none; font-size: 16px"><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></mark></li>
             </ul>  
         </div>
          <div style="margin: 0px; padding: 5px; border:4px solid black">
@@ -35,8 +35,8 @@
               <legend style="font-size: 15px">
               <ul>
                 <li>Wählen Sie eine Unkrautbekämpfungsmethode um zu sehen, wie die Verteilung in Deutschland ist.</li>
-                <li>Zur Orientierung sind die großen Zuckerrübenfabriken eingezeichnet.</li>
-                <li>Ihre Daten werden so aggregiert auch für andere Teilnehmer der Umfrage zu sehen sein. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</li>
+                <li>Zur Orientierung sind die Zuckerrübenfabriken eingezeichnet.</li>
+                <li>Die Daten werden aggregiert und sind so auch für andere Teilnehmer der Umfrage zu sehen. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</li>
               </ul>   
               </legend>
             <select class="bootstrap-select" style="width: 15em; border: 2px black solid"
@@ -76,7 +76,7 @@
                         text-decoration: none;
                         display: inline-block;
                         font-size: 22px;
-                        margin: 4px 2px;" @click.prevent="next()">zur Umfrage</button>
+                        margin: 4px 2px;" @click.prevent="next()" @click="scrollToTop()">zur Umfrage</button>
     </div>
    </div>
       
@@ -89,7 +89,7 @@
                         Die Umfrage wird max. 10 Minuten in Anspruch nehmen. 
                         Alle Ergebnisse werden anonymisiert analysiert. 
                         Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. 
-                        Dazu können Sie im Anschluss an die Studie Ihre persönlichen Daten angeben.
+                        Dazu können Sie im Anschluss an die Studie Ihre e-Mail Addresse angeben.
                         </p>
                         <p>
                         Zur Hilfe haben wir in der Umfrage Tipps hinterlegt, die Sie über das ?-Symbol aufrufen können.
@@ -226,7 +226,7 @@
                 v-model="surveyData.consent"
                 /></h3>
             </section> 
-         <button @click.prevent="next({consent: 'consent'})">Weiter</button>
+         <button @click.prevent="next({consent: 'consent'})" @click="scrollToTop()">Weiter</button>
         </div>
 
         <div v-if="step === 2">
@@ -241,7 +241,7 @@
                 <legend for="question1">
                   Betreiben Sie mechanische Unkrautbekämpfung in Ihren Zuckerrüben? 
                   Dazu zählt auch chemisch-mechanisch kombinierte Unkrautbekämpfung wie eine Hacke-Bandspritze. 
-                  <b style="color: #1adee8">Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung.</b>
+                  Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung.
                 
                 </legend>
                 <hr>
@@ -262,9 +262,9 @@
                 <br />
             </section>
               
-          <button @click.prevent="prev()">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
-           <br />
+          <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+          <button @click.prevent="next()" @click="pageNumber+=1; scrollToTop()">Weiter</button>
+           <br />  
               
         </div>
 
@@ -283,18 +283,17 @@
           </div>
 
           <input type="checkbox" name="pets" value="1" v-model="surveyData.question2_alt.select" > Zu hohe laufende Kosten<br>
-          <input type="checkbox" name="pets" value="2" v-model="surveyData.question2_alt.select" > Geringe Zuverlässigkeit<br>
-          <input type="checkbox" name="pets" value="3" v-model="surveyData.question2_alt.select" > Hohes Risiko<br>
-          <input type="checkbox" name="pets" value="4" v-model="surveyData.question2_alt.select" > Technik nicht vorhanden<br>
-          <input type="checkbox" name="pets" value="5" v-model="surveyData.question2_alt.select" > Zu hohe Investitionskosten<br>
-          <input type="checkbox" name="pets" value="6" v-model="surveyData.question2_alt.select" > Zu hoher Zeitaufwand<br>
-          <input type="checkbox" name="pets" value="7" v-model="surveyData.question2_alt.select" > Nicht möglich auf meinem Betrieb<br>
-          <input type="checkbox" name="pets" value="8" v-model="surveyData.question2_alt.select" > Meine Kollegen in der Region haben schlechte Erfahrungen gemacht und mir davon erzählt<br>
-          <input type="checkbox" name="pets" value="9" v-model="surveyData.question2_alt.select" > Ich weiß nicht, ob die Technik bei mir funktioniert<br>
-          <input type="checkbox" name="pets" value="10" v-model="surveyData.question2_alt.select" > Ich kenne keinen Kollegen in meiner Region der mir Tipps geben könnte<br>
+          <input type="checkbox" name="pets" value="1" v-model="surveyData.question2_alt.select" > Zu hohe Investitionskosten<br>
+          <input type="checkbox" name="pets" value="1" v-model="surveyData.question2_alt.select" > Zu hoher Zeitaufwand<br>
+          <input type="checkbox" name="pets" value="2" v-model="surveyData.question2_alt.select" > Geringe Zuverlässigkeit in der Unkrautbekämpfung<br>
+          <input type="checkbox" name="pets" value="3" v-model="surveyData.question2_alt.select" > Hohes Risiko die Kulturpflanze zu schädigen<br>
+          <input type="checkbox" name="pets" value="7" v-model="surveyData.question2_alt.select" > Nicht möglich auf meinem Betrieb (z. Bsp. durch Bodenbedingungen, Feldgrößen, …)<br>
+          <input type="checkbox" name="pets" value="9" v-model="surveyData.question2_alt.select" > Ich weiß nicht, ob die Technik bei mir funktioniert<br>         
           <input type="checkbox" name="pets" value="11" v-model="surveyData.question2_alt.select" > Ich traue mir die Anwendung/Bedienung nur bedingt zu<br>
+          <input type="checkbox" name="pets" value="8" v-model="surveyData.question2_alt.select" > Meine Kollegen in der Region haben schlechte Erfahrungen gemacht und mir davon erzählt<br>
+          <input type="checkbox" name="pets" value="10" v-model="surveyData.question2_alt.select" > Ich kenne keine Kollegen in meiner Region der mir Tipps geben könnten<br>
           <input type="checkbox" name="pets" value="12" v-model="surveyData.question2_alt.select" > Ich möchte noch warten bis die Technik ausgereifter ist<br>
-          <input type="checkbox" name="pets" value="13" v-model="surveyData.question2_alt.select" > Ich bin nicht überzeugt von dieser Unkrautbekämpfungsmethode<br>
+          <input type="checkbox" name="pets" value="13" v-model="surveyData.question2_alt.select" > Es gibt für mich keinen Grund für eine Umstellung meines Anbaus<br>
           <br/>
           <div class="form-group">
             <label>Kommentar: </label>
@@ -309,8 +308,8 @@
           </div>
             <br>
             <br>
-          <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+          <button @click.prevent="prev()" @click="pageNumber-=1; scrollToTop()">Zurück</button>
+          <button @click.prevent="next()" @click="pageNumber+=1; scrollToTop()">Weiter</button>
       </div>
 
     <div v-if="step === 3 && surveyData.question1 ==='Ja'">
@@ -346,7 +345,7 @@
           </section>
           <br/>
           <section>
-             <label style="font-size: 14px"  for="question2_add">Andere Techniken:&nbsp;&nbsp;</label>
+             <label style="font-size: 14px"  for="question2_add">Andere Techniken, die nicht in der Liste stehen, können Sie hier hinzufügen:&nbsp;&nbsp;</label>
             <div style="display:flex; flex-direction: row; justify-content: left  ; align-items: center">
             <input id="question2_add"
                 type="text"
@@ -355,7 +354,7 @@
                 placeholder="andere Technicken hier hinfügen"
                 pattern="[aA-Zz]">
             <button @click.prevent="surveyData.question2.technique.push(surveyData.question2_add)">
-            Hinfügen
+            Hinzufügen
             </button>
             </div>
           </section>
@@ -373,7 +372,7 @@
                   style="font-size:22px;color:#87cefa">
                   </i>
                 </th>
-                 <th scope="col">Wessen Maschine wird genutzt?</th>
+                 <th scope="col">Wem gehört die aktuell genutzte Maschine?</th>
               </tr>
             </thead>
             <tbody>
@@ -459,12 +458,17 @@
                       </div>
                       <hr>
                       <div>
-                      <label for="one">d) Autonom fahrend</label>
+                      <label for="one">d) Autonom fahrend seit: </label>
                       <input
-                      id="one"
-                      type="checkbox"
-                      true-value="yes"
-                      false-value="no"
+                      minlength="4" 
+                      maxlength="4"  
+                      size="4"
+                      placeholder="Jahr"                
+                      inputmode="numeric"                 
+                      type="text" 
+                      required
+                      style="width:40%; height: 10%"
+                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                       v-model="surveyData.question2.autonom[index]"
                       />
                       </div>
@@ -555,8 +559,7 @@
             <br>            
             <section>
               <legend for="question3">
-                  Von wie vielen Landwirten/Betrieben wissen Sie, dass diese mechanische oder chemisch-mechanisch kombinierte 
-                  Unkrautbekämpfung <b style="color: #1adee8">(nicht nur in Zuckerrüben!)</b> einsetzen?               
+                  Mit wie vielen Landwirten, die mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung <mark style="color: #1adee8; background: none">(nicht nur in Zuckerrüben!)</mark> einsetzen, stehen Sie in persönlichem Kontakt?
               </legend>
               <hr>
               <br />
@@ -590,8 +593,8 @@
                 <br />
             </section>
 
-              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="next();" @click="pageNumber+=1; setColor()">Weiter</button>      
+              <button @click.prevent="prev()" @click="pageNumber-=1; scrollToTop()">Zurück</button>
+              <button @click.prevent="next();" @click="pageNumber+=1; setColor(); scrollToTop()">Weiter</button>      
         </div>
 
       <div v-if="step === 5 || step === 6">
@@ -606,20 +609,19 @@
                  Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
                 <br>
                 <br>
-                Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, auf denen in den letzten drei Wirtschaftsjahren (2019-2021) Zuckerrüben angebaut wurden. 
-                Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen (gilt vor allem für Hamburg und das Saarland) mit Hilfe eines kleinen Traktor-Symbols zu markieren.
+                Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, von denen wir wissen, dass dort in den letzten drei Wirtschaftsjahren (2019-2021) Zuckerrüben angebaut wurden. Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen (gilt vor allem für Hamburg und das Saarland) mit Hilfe eines kleinen Traktor-Symbols zu markieren.
                 <br>
                 <br>
-                Die Daten für NRW, Niedersachsen und Brandenburg stammen aus der frei zugänglichen Invekos-Datenbank (mehr dazu <a href="https://www.zi-daten.de/" target="_blank" rel="noopener noreferrer">hier</a>) und die Daten für die anderen Bundesländer aus Fernerkundungsdaten (Satellitenbilder etc.).  
-                Es kann zu Abweichungen in der Umrandung der Felder kommen, wählen Sie daher einfach den/ die am besten passendsten Schlag/ Schläge aus. Die Umrandung wird erst sichtbar wenn sie an die Felder heranzoomen. 
-                Wenn Sie keine Flächen anklicken möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
+                Die Daten für NRW, Niedersachsen und Brandenburg stammen aus der frei zugänglichen Invekos-Datenbank (mehr dazu <a href="https://www.zi-daten.de/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">hier</a>) und die Daten für die anderen Bundesländer aus Fernerkundungsdaten (automatisch erkannte Feldumrandungen aus Satellitenbildern etc.).
+                Es kann daher zu Abweichungen in der Umrandung der Felder kommen, wählen Sie daher einfach den/ die am besten passendsten Schlag/ Schläge aus. 
+                Die Umrandung wird erst sichtbar, wenn sie an die Felder heranzoomen. Wenn Sie keine Flächen anklicken möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
               </legend>    
               <hr>
               <br />
            
           <div>
-              <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-              <button @click.prevent="next()" @click="pageNumber+=1; setColor()">Weiter</button>
+              <button @click.prevent="prev()" @click="pageNumber-=1; scrollToTop()">Zurück</button>
+              <button @click.prevent="next()" @click="pageNumber+=1; setColor(); scrollToTop()">Weiter</button>
               <button @click.prevent="skip_map = true">Überspringen</button>
           </div>
       </div>
@@ -652,8 +654,8 @@
                 <br/>
                 <br/>
            <div>
-              <button @click.prevent="skip_map = false">Zurück</button>
-              <button @click.prevent="next()" @click="pageNumber+=1; setColor()">Weiter</button>
+              <button @click.prevent="skip_map = false" @click="scrollToTop()">Zurück</button>
+              <button @click.prevent="next()" @click="pageNumber+=1; setColor(); scrollToTop()">Weiter</button>
           </div>
       </div>
 
@@ -665,18 +667,18 @@
           <br>          
           <section>
             <legend>
-              Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren) auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
-              <b style="color: #1adee8">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</b> 
+              Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren), auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
+              <mark style="color: #1adee8; background: none">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</mark> 
               <br>
               <br>
               Bitte klicken Sie diese Felder auf der Karte an.
-              Wenn Sie nicht genau wissen, wo die Felder liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben. 
+              Wenn Sie nicht genau wissen, wo die Flächen liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben. 
             </legend>
             <hr>  
-            <br />
+            <br /> 
           </section>
-          <button @click.prevent="prev()" @click="pageNumber-=1; setColor()">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+          <button @click.prevent="prev()" @click="pageNumber-=1; setColor(); scrollToTop()">Zurück</button>
+          <button @click.prevent="next()" @click="pageNumber+=1; scrollToTop()">Weiter</button>
           <button @click.prevent="skip_map2 = true">Überspringen</button>   
       </div>
       <div v-if="step === 6 && skip_map2 == true">
@@ -688,7 +690,7 @@
       <section>
         <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend>
-           a) Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert wird?             
+           a) Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert bekämpft wird?             
         </legend>
               <hr>
               <br>
@@ -778,7 +780,9 @@
            <br>          
           <section>
           <legend>
-           Bewerten Sie folgende Techniken im Hinblick auf die 5 Aussagen. Wählen Sie jeweils die Aussagen, die am besten zu Ihrer derzeitigen Planung passen.
+           Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
+           <br>
+          Bewerten Sie folgende Techniken im Hinblick auf die 5 Aussagen. Wählen Sie jeweils die Aussage/n, die am besten zu Ihrer derzeitigen Planung passt/passen.
         </legend>
         <hr>
         <br>
@@ -799,33 +803,33 @@
                     <hr>
                     <label for="radio1"><input type="radio" value="2" v-model="surveyData.question6.column1" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
                     <hr>
-                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column1" />Ich plane aktiv innerhalb der nächsten 10 Jahre Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
+                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column1" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column1" />Ich plane innerhalb der nächsten 10 Jahre in diese Art Technik zu investieren</label>
+                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column1" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column1" />Ich besitze diese Technik schon</label>
+                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column1" />Ich setze diese schon ein</label>
                   </td>
                   <td>
                     <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column2" />Ich plane nichts in diese Richtung</label>
                     <hr>
                     <label for="radio1"><input type="radio" value="2" v-model="surveyData.question6.column2" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
                     <hr>
-                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column2" />Ich plane aktiv innerhalb der nächsten 10 Jahre Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
+                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column2" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column2" />Ich plane innerhalb der nächsten 10 Jahre in diese Art Technik zu investieren</label>
+                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column2" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column2" />Ich besitze diese Technik schon</label>
+                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column2" />Ich setze diese schon ein</label>
                   </td>
                   <td>
                     <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column3" />Ich plane nichts in diese Richtung</label>
                     <hr>
                     <label for="radio1"><input type="radio"  value="2" v-model="surveyData.question6.column3" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
                     <hr>
-                    <label for="radio1"><input type="radio"  value="3" v-model="surveyData.question6.column3" />Ich plane aktiv innerhalb der nächsten 10 Jahre Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
+                    <label for="radio1"><input type="radio"  value="3" v-model="surveyData.question6.column3" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column3" />Ich plane innerhalb der nächsten 10 Jahre in diese Art Technik zu investieren</label>
+                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column3" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column3" />Ich besitze diese Technik schon</label>
+                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column3" />Ich setze diese schon ein</label>
                   </td>
                 </tr>
               </tbody>
@@ -962,13 +966,18 @@
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="ökologisch" v-model="surveyData.question7.farm">
-              <label style="display:inline-block" class="form-check-label">ökologisch</label>
+               value="gesamter Betrieb ökologisch" v-model="surveyData.question7.farm">
+              <label style="display:inline-block" class="form-check-label">gesamter Betrieb ökologisch</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="teilweise ökologisch" v-model="surveyData.question7.farm">
-              <label style="display:inline-block" class="form-check-label">teilweise ökologisch</label>
+               value="Ackerbau ökologisch" v-model="surveyData.question7.farm">
+              <label style="display:inline-block" class="form-check-label">Ackerbau ökologisch</label>
+          </div>
+           <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="andere Bereiche ökologisch" v-model="surveyData.question7.farm">
+              <label style="display:inline-block" class="form-check-label">andere Bereiche ökologisch</label>
           </div>
           <br />
         </div>
@@ -977,34 +986,55 @@
         <section>
           <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend for="question7">
-            D) Wie ist Ihr Betrieb ausgerichtet?
+            D) Wo würden Sie Ihren Betrieb einordnen?<br>
+            (Kategorisierung der offiziellen Destatis-Statistiken)?
           </legend>
               <hr>
               <br />
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Ackerbau" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Vornehmlich Ackerbau</label>
+                value="Ackerbaubetrieb" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Ackerbaubetrieb</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Tierhaltung/Tierhaltung und Futterbau" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Vornehmlich Tierhaltung/Tierhaltung und Futterbau</label>
+                value="Gartenbaubetrieb" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Gartenbaubetrieb</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Sonderkulturen (auch Gartenbau oder Dauerkulturen)" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Vornehmlich Sonderkulturen (auch Gartenbau oder Dauerkulturen)</label>
+                value="Dauerkulturbetrieb" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Dauerkulturbetrieb</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Gemischtbetrieb (Ackerbau + Tierhaltung)" v-model="surveyData.question7.orientation.choice">
-            <label style="display:inline-block" class="form-check-label">Gemischtbetrieb (Ackerbau + Tierhaltung)</label>
+                value="Futterbaubetriebe" v-model="surveyData.question7.orientation.choice">
+            <label style="display:inline-block" class="form-check-label">Futterbaubetriebe (Weideviehbetrieb) (z.Bsp. spezialiserter Milchviehbetrieb)</label>
           </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="andere" v-model="surveyData.question7.orientation.choice">
-            <label style="display:inline-block" class="form-check-label">Andere</label>
+                value="Veredlungsbetrieb" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Veredlungsbetrieb</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" 
+                value="Pflanzenbaumischbetrieb" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Pflanzenbaumischbetrieb (z.Bsp. Gartenbau- und Dauerkulturbetrieb)</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" 
+                value="Viehhaltungsmischbetrieb" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Viehhaltungsmischbetrieb (z.Bsp. Veredlung und Milchvieh kombiniert)</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" 
+                value="Mischbetrieb" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Mischbetrieb (z.Bsp. Ackerbau und Milchvieh kombiniert)</label>
+            </div>
+            <!-- <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" 
+                value="andere" v-model="surveyData.question7.orientation.choice"> -->
+            <!-- <label style="display:inline-block" class="form-check-label">Andere</label>
             </div>
               <div v-if="surveyData.question7.orientation.choice=='andere'">  
             <textarea class="form-control"
@@ -1014,7 +1044,7 @@
                       required
                       >
             </textarea>
-            </div>
+            </div> -->
            <br />
           </div>
         </section>
@@ -1309,6 +1339,9 @@ export default {
     checkValue: function(value){
         if(value > 2022 || value < 1970) 
         { value = '' }
+    },
+    scrollToTop() {
+    window.scrollTo(0,0);
     },
     setColor: function(){
       if (this.step === 5) {
