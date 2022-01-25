@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img class="resize" style="width:100%" alt="Phenorob logo" src="./assets/test_title.png">
+    <img class="resize" style="width:100%" alt="Phenorob logo" src="./assets/latest.png">
     <keep-alive>
     <survey/>
     </keep-alive>

@@ -89,7 +89,7 @@
                         Die Umfrage wird max. 10 Minuten in Anspruch nehmen. 
                         Alle Ergebnisse werden anonymisiert analysiert. 
                         Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. 
-                        Dazu können Sie im Anschluss an die Studie Ihre e-Mail Addresse angeben.
+                        Dazu können Sie im Anschluss an die Studie Ihre e-Mail Adresse angeben.
                         </p>
                         <p>
                         Zur Hilfe haben wir in der Umfrage Tipps hinterlegt, die Sie über das ?-Symbol aufrufen können.
@@ -226,6 +226,7 @@
                 v-model="surveyData.consent"
                 /></h3>
             </section> 
+         <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
          <button @click.prevent="next({consent: 'consent'})" @click="scrollToTop()">Weiter</button>
         </div>
 
@@ -544,8 +545,8 @@
             </tbody>
           </table>
           <button @click.prevent="deleteRowTechnique()">Alle löschen</button>
-          <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+          <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
+          <button @click.prevent="next()" @click="pageNumber+=1;scrollToTop()">Weiter</button>
         </div>
 
       
@@ -560,6 +561,8 @@
             <section>
               <legend for="question3">
                   Mit wie vielen Landwirten, die mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung <mark style="color: #1adee8; background: none">(nicht nur in Zuckerrüben!)</mark> einsetzen, stehen Sie in persönlichem Kontakt?
+                  <br>
+                  Hierbei sind nicht nur Landwirte gemeint, die man täglich spricht, sondern auch Landwirte mit denen man sich telefonisch oder zum Beispiel auf Messen, bei Arbeitskreistreffen, durch Anbauverbände und bei Feldbegehungen austauscht
               </legend>
               <hr>
               <br />
@@ -761,8 +764,8 @@
           </div>
         </div>
       </section>
-        <button @click.prevent="skip_map2 = false">Zurück</button>
-        <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+        <button @click.prevent="skip_map2 = false" @click="scrollToTop()">Zurück</button>
+        <button @click.prevent="next()" @click="pageNumber+=1; scrollToTop()">Weiter</button>
     </div>  
      <div style="border: 4px solid black">
         <!-- Maps component embedding -->
@@ -807,7 +810,7 @@
                     <hr>
                     <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column1" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column1" />Ich setze diese schon ein</label>
+                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column1" />Ich setze diese Technik schon ein</label>
                   </td>
                   <td>
                     <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column2" />Ich plane nichts in diese Richtung</label>
@@ -818,7 +821,7 @@
                     <hr>
                     <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column2" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column2" />Ich setze diese schon ein</label>
+                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column2" />Ich setze diese Technik schon ein</label>
                   </td>
                   <td>
                     <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column3" />Ich plane nichts in diese Richtung</label>
@@ -829,14 +832,14 @@
                     <hr>
                     <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column3" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column3" />Ich setze diese schon ein</label>
+                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column3" />Ich setze diese Technik schon ein</label>
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-      <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-      <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+      <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
+      <button @click.prevent="next()" @click="pageNumber+=1;scrollToTop()">Weiter</button>
   </div>
     
     <div v-if="step === 8">
@@ -986,56 +989,35 @@
         <section>
           <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend for="question7">
-            D) Wo würden Sie Ihren Betrieb einordnen?<br>
-            (Kategorisierung der offiziellen Destatis-Statistiken)?
+            D) Wie ist Ihr Betrieb ausgerichtet?<br>
           </legend>
               <hr>
               <br />
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Ackerbaubetrieb" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Ackerbaubetrieb</label>
+                value="Vornehmlich Ackerbau" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Vornehmlich Ackerbau</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Gartenbaubetrieb" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Gartenbaubetrieb</label>
+                value="Vornehmlich Viehhaltung" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Vornehmlich Viehhaltung</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Dauerkulturbetrieb" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Dauerkulturbetrieb</label>
+                value="Vornehmlich Sonderkulturen" v-model="surveyData.question7.orientation.choice">
+                <label style="display:inline-block" class="form-check-label">Vornehmlich Sonderkulturen</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Futterbaubetriebe" v-model="surveyData.question7.orientation.choice">
-            <label style="display:inline-block" class="form-check-label">Futterbaubetriebe (Weideviehbetrieb) (z.Bsp. spezialiserter Milchviehbetrieb)</label>
+                value="Gemischtbetrieb" v-model="surveyData.question7.orientation.choice">
+            <label style="display:inline-block" class="form-check-label">Gemischtbetrieb</label>
           </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Veredlungsbetrieb" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Veredlungsbetrieb</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" 
-                value="Pflanzenbaumischbetrieb" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Pflanzenbaumischbetrieb (z.Bsp. Gartenbau- und Dauerkulturbetrieb)</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" 
-                value="Viehhaltungsmischbetrieb" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Viehhaltungsmischbetrieb (z.Bsp. Veredlung und Milchvieh kombiniert)</label>
-            </div>
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" 
-                value="Mischbetrieb" v-model="surveyData.question7.orientation.choice">
-                <label style="display:inline-block" class="form-check-label">Mischbetrieb (z.Bsp. Ackerbau und Milchvieh kombiniert)</label>
-            </div>
-            <!-- <div class="form-check form-check-inline">
-                <input class="form-check-input" type="radio" 
-                value="andere" v-model="surveyData.question7.orientation.choice"> -->
-            <!-- <label style="display:inline-block" class="form-check-label">Andere</label>
-            </div>
+                value="andere" v-model="surveyData.question7.orientation.choice">
+            <label style="display:inline-block" class="form-check-label">Andere/Kommentar</label>
+          </div>
               <div v-if="surveyData.question7.orientation.choice=='andere'">  
             <textarea class="form-control"
                       style="width: 400px; height: 80px"
@@ -1044,12 +1026,12 @@
                       required
                       >
             </textarea>
-            </div> -->
-           <br />
+            </div>
           </div>
+          <br />
         </section>
-        <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-        <button @click.prevent="next()" @click="pageNumber+=1">Weiter</button>
+        <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
+        <button @click.prevent="next()" @click="pageNumber+=1;scrollToTop()">Weiter</button>
     </div>
 
     <div v-if="step === 9">
@@ -1077,8 +1059,8 @@
           <br />
         </section>
 
-        <button @click.prevent="prev()" @click="pageNumber-=1">Zurück</button>
-        <button @click.prevent="next()">Weiter</button>
+        <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
+        <button @click.prevent="next()" @click="scrollToTop()">Weiter</button>
     </div>
  
     <div v-if="step === 10">
