@@ -13,7 +13,7 @@
 
         <div style="border: 4px solid black; padding: 5px">
             <ul>
-              <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirtinnen und Landwirte brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskollegen und -kolleginnen in der Region machen. </li>
+              <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirtinnen und Landwirte brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskolleginnen und -kollegen in der Region machen. </li>
               <br>
               <li>Wir von der Uni Bonn möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskolleginnen und -kollegen austauschen. </li>
                <ul>
@@ -25,7 +25,7 @@
               <br>
               <li>Als Landwirt/in haben Sie die Möglichkeit, <b>anonym</b> in unserer kurzen Umfrage anzugeben, wie Sie Unkraut bekämpfen. Auf einer Karte können Sie die aktuellen Ergebnisse der Umfrage einsehen und vergleichen, welche Techniken zur Unkrautbekämpfung wo in Deutschland verwendet werden.</li>
                 <br>
-              <li><mark style="color: #1adee8; background: none; font-size: 16px"><i>Unter je 100 Teilnehmern werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></mark></li>
+              <li><mark style="color: #1adee8; background: none; font-size: 16px"><i>Unter je 100 Teilnehmenden werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></mark></li>
             </ul>  
         </div>
          <div style="margin: 0px; padding: 5px; border:4px solid black">
@@ -562,7 +562,7 @@
               <legend for="question3">
                   Mit wie vielen Landwirten, die mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung <mark style="color: #1adee8; background: none">(nicht nur in Zuckerrüben!)</mark> einsetzen, stehen Sie in persönlichem Kontakt?
                   <br>
-                  Hierbei sind nicht nur Landwirte gemeint, die man täglich spricht, sondern auch Landwirte mit denen man sich telefonisch oder zum Beispiel auf Messen, bei Arbeitskreistreffen, durch Anbauverbände und bei Feldbegehungen austauscht
+                  Hierbei sind nicht nur Landwirte gemeint, die man täglich spricht, sondern auch Landwirte mit denen Sie sich telefonisch oder zum Beispiel auf Messen, bei Arbeitskreistreffen, durch Anbauverbände und bei Feldbegehungen austauschen.
               </legend>
               <hr>
               <br />
@@ -851,7 +851,7 @@
         <section>
         <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend for="question7">
-              A) Wie alt sind Sie?
+              a) Wie alt sind Sie?
           </legend>
               <hr>
               <br />
@@ -897,7 +897,7 @@
         <section>
           <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend for="question7">
-              B) Wie groß ist Ihr Betrieb (in ha)?
+              b) Wie groß ist Ihr Betrieb (in ha)?
           </legend>
               <hr>
               <br />
@@ -958,7 +958,7 @@
         <section>
           <div style="margin: 5px; padding: 5px; border: 4px solid black;">        
           <legend for="question7">
-            C) Wie bewirtschaften Sie Ihren Betrieb?
+            c) Wie bewirtschaften Sie Ihren Betrieb?
           </legend>
               <hr>
               <br />
@@ -982,6 +982,11 @@
                value="andere Bereiche ökologisch" v-model="surveyData.question7.farm">
               <label style="display:inline-block" class="form-check-label">andere Bereiche ökologisch</label>
           </div>
+           <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="keine Angabe" v-model="surveyData.question7.farm">
+              <label style="display:inline-block" class="form-check-label">keine Angabe</label>
+          </div>
           <br />
         </div>
       </section>
@@ -989,7 +994,7 @@
         <section>
           <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend for="question7">
-            D) Wie ist Ihr Betrieb ausgerichtet?<br>
+            d) Wie ist Ihr Betrieb ausgerichtet?<br>
           </legend>
               <hr>
               <br />
@@ -1013,6 +1018,11 @@
                 value="Gemischtbetrieb" v-model="surveyData.question7.orientation.choice">
             <label style="display:inline-block" class="form-check-label">Gemischtbetrieb</label>
           </div>
+           <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="keine Angabe" v-model="surveyData.question7.choice">
+              <label style="display:inline-block" class="form-check-label">keine Angabe</label>
+          </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
                 value="andere" v-model="surveyData.question7.orientation.choice">
@@ -1030,6 +1040,33 @@
           </div>
           <br />
         </section>
+
+         <section>
+          <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+          <legend for="question7">
+            e) Nehmen Sie in der aktuellen Förderperiode (2021 - 2027) an einer Agrarumwelt-Klimamaßnahme (freiwillige Maßnahme aus 2. Säule der GAP) teil?
+          </legend>
+              <hr>
+              <br />
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" 
+                value="Ja" v-model="surveyData.question7.environment">
+                <label style="display:inline-block" class="form-check-label">Ja</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" 
+                value="Nein" v-model="surveyData.question7.environment">
+            <label style="display:inline-block" class="form-check-label">Nein</label>
+          </div>
+           <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="keine Angabe" v-model="surveyData.question7.environment">
+              <label style="display:inline-block" class="form-check-label">keine Angabe</label>
+          </div>
+          </div>
+          <br />
+        </section>
+
         <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
         <button @click.prevent="next()" @click="pageNumber+=1;scrollToTop()">Weiter</button>
     </div>
@@ -1134,7 +1171,7 @@
             <div class="mb-3">
                 <label for="farmerEmail" class="form-label"><b>E-mail Adresse:</b></label>
                 <input v-model="surveyData.farmerEmail" type="email" class="form-control" aria-describedby="emailHelp" id="farmerEmail" placeholder="mueller@gmx.de" required>
-                <small id="emailHelp" class="form-text text-muted">Wir werden Ihre E-Mail nicht an Dritte weitergeben.</small>
+                <small id="emailHelp" class="form-text text-muted">Wir werden Ihre E-Mail-Adresse nicht an Dritte weitergeben.</small>
             </div>
         </div>
       <div style="margin: 5px; padding: 5px; border: 4px solid black;">
@@ -1234,7 +1271,7 @@ export default {
           fields: []
         },
         question6: {column1: [], column2: [], column3: []},
-        question7: {age: null, size: null, farm: null, orientation: {choice: null, comment: ''}},
+        question7: {age: null, size: null, farm: null, orientation: {choice: null, comment: ''}, environment: null},
         question8: '',
         question9: null,
         question10: null,
