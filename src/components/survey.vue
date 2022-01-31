@@ -1,31 +1,18 @@
 <template>
     <div>
     <div v-if="step === 0" class = heatMap>
-       <!-- <div>
-                      <input 
-                      type="number"
-                      min=1 max=5
-                      style="width:60%; height: 20%"
-                      v-model="surveyData.question4_alt"
-                      :class="{invalid:surveyData.question4_alt < 1 || surveyData.question4_alt > 5}"
-                      > 
-                    </div> -->
 
         <div style="border: 4px solid black; padding: 5px">
             <ul>
-              <li>Zuckerrüben sind immer mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen und Landwirtinnen und Landwirte brauchen Alternativen. Bei der Suche nach Alternativen ist es oft hilfreich zu schauen, was Berufskolleginnen und -kollegen in der Region machen. </li>
+              <li>Die Zuckerrübenproduktion ist mehr und mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen. Landwirtinnen und Landwirte brauchen Alternativen. Hier ist es oft hilfreich zu schauen, was BerufskollegInnen in der Region machen.</li>
               <br>
-              <li>Wir von der Uni Bonn möchten wissen, wie Sie sich zu diesem Thema mit Ihren Berufskolleginnen und -kollegen austauschen. </li>
-               <ul>
-                  <li>Wie wird Unkraut in Zuckerrüben aktuell bekämpft?</li>
-                  <li>Welche Rolle spielen neue Techniken wie kameragesteuerter Hacken?</li>
-                  <li>Nutzen Landwirtinnen und Landwirte in räumlicher Nähe zueinander die gleichen Techniken?</li>
-                  <li style="font-weight: 1000">Egal wie Sie Ihr Unkraut bekämpfen – es interessiert uns!</li>
-               </ul>
+              <li>Wir von der Uni Bonn führen eine kurze (maximal 10 Minuten) Online-Umfrage zum Thema Unkrautbekämpfung in Zuckerrüben durch.  Ziel der Umfrage ist es, besser zu verstehen, welche Rolle der Austausch zwischen KollegInnen als Informationsquelle für Entscheidungen über neue Anbaupraktiken spielt.</li>
               <br>
-              <li>Als Landwirt/in haben Sie die Möglichkeit, <b>anonym</b> in unserer kurzen Umfrage anzugeben, wie Sie Unkraut bekämpfen. Auf einer Karte können Sie die aktuellen Ergebnisse der Umfrage einsehen und vergleichen, welche Techniken zur Unkrautbekämpfung wo in Deutschland verwendet werden.</li>
-                <br>
-              <li><mark style="color: #1adee8; background: none; font-size: 16px"><i>Unter je 100 Teilnehmenden werden drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></mark></li>
+              <li>Als LandwirtIn haben Sie online die Möglichkeit, anonym Angaben zu machen, wie Sie Unkraut bekämpfen. Hierbei interessieren wir uns nicht nur für LandwirtInnen die bereits Erfahrung mit mechanischer Unkrautbekämpfung haben. Für uns ist es ebenso wertvoll zu erfahren, warum LandwirtInnen diese Techniken nicht einsetzen oder ob sie planen, sie in Zukunft zu nutzen!</li>
+              <br>
+              <li>Sobald erste Befragungsergebnisse zu Verfügung stehen, können Sie hier auf einer Karte sehen, wo Landwirte schon an der Umfrage teilgenommen haben und vergleichen, welche Techniken zur Unkrautbekämpfung wo in Deutschland verwendet werden.</li>
+              <br>
+              <li><mark style="color: #1adee8; background: none; font-size: 16px"><i>Unter je 100 Teilnehmenden verlosen wir drei Gutscheine im Wert von 50 € für Engelbert Strauss.</i></mark></li>
             </ul>  
         </div>
          <div style="margin: 0px; padding: 5px; border:4px solid black">
@@ -365,7 +352,6 @@
             <thead>
               <tr>
                 <th scope="col">Gerät</th>
-                <th scope="col">Seit</th>
                 <th scope="col">Zusatzausstattung/ Investition/ Kommentare 
                   <i class="fa fa-question-circle" aria-hidden="true" 
                   data-toggle="tooltip" data-placement="bottom" 
@@ -378,11 +364,14 @@
             </thead>
             <tbody>
                 <tr v-for="(method, index) in surveyData.question2.technique" :key="index">
-                  <td>{{method}}
-                    <button style="width:23px; height:23px"  class="button close-icon" @click.prevent="deleteEntryTechnique(index)"></button>
-                  </td>  
-                  <td>          
-                    <div>
+                  <td>
+                    <div style="display:flex; flex-direction: row; justify-content: left; align-items: center">
+                    <label>{{method}}</label>
+                    <button style="width:23px; height:23px" class="button close-icon" @click.prevent="deleteEntryTechnique(index)"/>
+                    </div>
+                    <hr>        
+                    <div style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <label>Seit: &nbsp </label>
                       <input 
                       minlength="4" 
                       maxlength="4"  
@@ -392,17 +381,23 @@
                       type="text" 
                       required
                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                      style="width:40%; height: 10%"
+                      style="width:20%; height: 10%"
                       v-model="surveyData.question2.timeframe[index]"
                       > 
                     </div>
                   </td> 
                  <td>
-                     <div>
-                        <div>
-                          <label>a) Mit Kamera seit: </label>
-                        </div>
-                        <div>
+                    <div>
+                      <div>
+                        <input 
+                        type="checkbox"
+                        true-value="yes"
+                        v-model="surveyData.question2.camera.choice[index]"
+                        >
+                        <label>a) Mit Kamera</label>
+                      </div>
+                        <div v-if="surveyData.question2.camera.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <label>Seit: &nbsp </label>
                           <input 
                             minlength="4" 
                             maxlength="4"  
@@ -411,84 +406,109 @@
                             inputmode="numeric"                 
                             type="text" 
                             required
-                            style="width:40%; height: 10%"
+                            style="width:20%; height: 10%"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                          v-model="surveyData.question2.camera[index]"
-                          > 
-                        </div>
+                            v-model="surveyData.question2.camera.year[index]"
+                        > 
                       </div>
+                    </div>
                       <hr>
+                    <div>
                       <div>
-                        <div>
-                          <label>b) Mit GPS seit: </label>
-                        </div>
-                        <div>
+                        <input 
+                        type="checkbox"
+                        true-value="yes"
+                        v-model="surveyData.question2.gps.choice[index]"
+                        >
+                        <label>b) Mit GPS</label>
+                      </div>
+                        <div v-if="surveyData.question2.gps.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <label>Seit: &nbsp </label>
                           <input 
-                           minlength="4" 
-                            maxlength="4"  
-                            size="4"
-                            placeholder="Jahr"
-                            inputmode="numeric"                 
-                            type="text" 
-                            required
-                            style="width:40%; height: 10%"
-                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                          v-model="surveyData.question2.gps[index]"
-                          > 
-                        </div>
-                      </div>
-                      <hr>
-                      <div>
-                        <div>
-                          <label>c) Neuinvestition in: </label>
-                        </div>
-                        <div>
-                          <input
                             minlength="4" 
                             maxlength="4"  
                             size="4"
-                            placeholder="Jahr"                
+                            placeholder="Jahr"               
                             inputmode="numeric"                 
                             type="text" 
                             required
-                            style="width:40%; height: 10%"
+z                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            v-model="surveyData.question2.gps.year[index]"
+                        > 
+                      </div>
+                    </div>
+                      <hr>
+                    <div>
+                      <div>
+                        <input 
+                        type="checkbox"
+                        true-value="yes"
+                        v-model="surveyData.question2.newInvest.choice[index]"
+                        >
+                        <label>c) Neuinvestition</label>
+                      </div>
+                        <div v-if="surveyData.question2.newInvest.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <label>In: &nbsp </label>
+                          <input 
+                            minlength="4" 
+                            maxlength="4"  
+                            size="4"
+                            placeholder="Jahr"               
+                            inputmode="numeric"                 
+                            type="text" 
+                            required
+                            style="width:40%; height:10%"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                          v-model="surveyData.question2.newInvest[index]"
-                          > 
-                        </div>
+                            v-model="surveyData.question2.newInvest.year[index]"
+                        > 
                       </div>
+                    </div>
                       <hr>
                       <div>
-                      <label for="one">d) Autonom fahrend seit: </label>
-                      <input
-                      minlength="4" 
-                      maxlength="4"  
-                      size="4"
-                      placeholder="Jahr"                
-                      inputmode="numeric"                 
-                      type="text" 
-                      required
-                      style="width:40%; height: 10%"
-                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                      v-model="surveyData.question2.autonom[index]"
-                      />
+                      <div>
+                        <input 
+                        type="checkbox"
+                        true-value="yes"
+                        v-model="surveyData.question2.autonom.choice[index]"
+                        >
+                        <label>d) Autonom fahrend</label>
                       </div>
+                        <div v-if="surveyData.question2.autonom.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <label>Seit: &nbsp </label>
+                          <input 
+                            minlength="4" 
+                            maxlength="4"  
+                            size="4"
+                            placeholder="Jahr"               
+                            inputmode="numeric"                 
+                            type="text" 
+                            required
+                            style="width:40%; height:10%"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            v-model="surveyData.question2.autonom.year[index]"
+                        > 
+                      </div>
+                    </div>                      
                       <hr>
                       <div>
-                        <div>
-                          <label>e) Kommentar: </label>
-                        </div>
-                        <div>
+                      <div>
+                        <input 
+                        type="checkbox"
+                        true-value="yes"
+                        v-model="surveyData.question2.comment.choice[index]"
+                        >
+                        <label>e) Kommentar </label>
+                      </div>
+                        <div v-if="surveyData.question2.comment.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                           <input style="height:30%; width: 70%"
                           type="text"
-                          v-model="surveyData.question2.comment[index]"
+                          v-model="surveyData.question2.comment.text[index]"
                           placeholder="Hier einfügen"
                           required>
-                        </div>
                       </div>
+                    </div>  
                       <hr>
                        <div>
-                      <label for="one">f) Keine Angabe</label>
                       <input
                       id="one"
                       type="checkbox"
@@ -496,50 +516,52 @@
                       false-value="no"
                       v-model="surveyData.question2.not_available[index]"
                       />
+                      <label for="one">f) Keine Angabe</label>
                       </div>
                   </td>
                   <td>
                     <input
                       type="radio"
                       value="own"
-                      v-model="surveyData.question2.mashine[index]"
+                      v-model="surveyData.question2.machine[index]"
                       />
                       <label>Eigene Maschine</label>
                       <br />
                       <input 
                       type="radio" 
                       value="shared"
-                      v-model="surveyData.question2.mashine[index]" 
+                      v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Teile mit Nachbarn</label>
                       <br />
                       <input 
                       type="radio" 
                       value="maschinenring"
-                      v-model="surveyData.question2.mashine[index]" 
+                      v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Maschinenring</label>
                       <br />
                       <input 
                       type="radio" 
                       value="lohnunternehmer"
-                      v-model="surveyData.question2.mashine[index]" 
+                      v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Lohnunternehmer</label>
                       <br />
-                      <hr>
-                      <div>
-                        <div>
-                          <label>Andere: </label>
-                        </div>
-                        <div>
+                      <input 
+                      type="radio" 
+                      value="other"
+                      v-model="surveyData.question2.machine[index]" 
+                      />
+                      <label>Andere </label>
+                      <div v-if="surveyData.question2.machine[index] == 'other'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                           <input style="height:30%; width: 70%"
                           type="text"
                           v-model="surveyData.question2.other_machine[index]"
                           placeholder="Hier einfügen"
                           required>
-                        </div>
                       </div>
+                      
                 </td>
               </tr>   
             </tbody>
@@ -609,15 +631,24 @@
            </modal>
            <br>          
               <legend for="question4">
-                 Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
+                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
                 <br>
                 <br>
                 Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, von denen wir wissen, dass dort in den letzten drei Wirtschaftsjahren (2019-2021) Zuckerrüben angebaut wurden. Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen (gilt vor allem für Hamburg und das Saarland) mit Hilfe eines kleinen Traktor-Symbols zu markieren.
                 <br>
                 <br>
-                Die Daten für NRW, Niedersachsen und Brandenburg stammen aus der frei zugänglichen Invekos-Datenbank (mehr dazu <a href="https://www.zi-daten.de/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">hier</a>) und die Daten für die anderen Bundesländer aus Fernerkundungsdaten (automatisch erkannte Feldumrandungen aus Satellitenbildern etc.).
-                Es kann daher zu Abweichungen in der Umrandung der Felder kommen, wählen Sie daher einfach den/ die am besten passendsten Schlag/ Schläge aus. 
-                Die Umrandung wird erst sichtbar, wenn sie an die Felder heranzoomen. Wenn Sie keine Flächen anklicken möchten, können Sie diese Frage auch überspringen und im nächsten Schritt Ihre Postleitzahl angeben.
+                Aus der <a href="https://www.zi-daten.de/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Invekos-Datenbank</a> haben wir die Daten in Form sogenannter shape-files für 
+                <a href="https://www.opengeodata.nrw.de/produkte/umwelt_klima/bodennutzung/landwirtschaft/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">NRW</a>, 
+                <a href="https://sla.niedersachsen.de/agrarfoerderung/schlaginfo/?#3172@9.43242/52.88125r0@EPSG:25832" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Niedersachsen</a> 
+                und <a href="https://geoportal.brandenburg.de/detailansichtdienst/render?view=gdibb&url=https%3A%2F%2Fgeoportal.brandenburg.de%2Fgs-json%2Fxml%3Ffileid%3D996f8fd1-c662-4975-b680-3b611fcb5d1f" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Brandenburg</a> übernommen. 
+                Diese Daten sind innerhalb der <a href="https://www.govdata.de/dl-de/zero-2-0" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Datenlizenz Deutschland</a> frei verfügbar, 
+                wie im Rahmen der <a href="https://wiki.gdi-de.org/pages/viewpage.action?pageId=928219686" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">EU INSPIRE</a> Richtlinie vorgegeben. 
+                Die Daten für die anderen Bundesländer basieren auf Fernerkundungsdaten (automatisch erkannte Feldumrandungen aus eigenen Berechnungen basierend auf Satellitenbildern, diese stammen von <a href="https://www.copernicus.eu/en" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Copernicus</a>).
+                <br>
+                <br>                
+                Abweichungen zwischen den Umrandungen der Felder und Ihren tatsächlichen Feldern sind möglich. Wählen Sie in diesem Fall einfach den/die am besten passendsten Schlag/ Schläge aus.
+                Die Umrandung wird erst sichtbar, wenn sie näher auf der Karte heranzoomen. Für unsere Analysen sind Angaben zu den Feldern von großer Bedeutung, wenn Sie jedoch lieber keine Flächen anklicken möchten, 
+                können Sie diese Frage auch überspringen und im nächsten Schritt alternative Ihre Postleitzahl angeben.
               </legend>    
               <hr>
               <br />
@@ -681,7 +712,7 @@
             <br /> 
           </section>
           <button @click.prevent="prev()" @click="pageNumber-=1; setColor(); scrollToTop()">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1; scrollToTop()">Weiter</button>
+          <button @click.prevent="next()" @click="pageNumber+=1; handleTable(); scrollToTop()">Weiter</button>
           <button @click.prevent="skip_map2 = true">Überspringen</button>   
       </div>
       <div v-if="step === 6 && skip_map2 == true">
@@ -765,7 +796,7 @@
         </div>
       </section>
         <button @click.prevent="skip_map2 = false" @click="scrollToTop()">Zurück</button>
-        <button @click.prevent="next()" @click="pageNumber+=1; scrollToTop()">Weiter</button>
+        <button @click.prevent="next()" @click="pageNumber+=1; handleTable(); scrollToTop()">Weiter</button>
     </div>  
      <div style="border: 4px solid black">
         <!-- Maps component embedding -->
@@ -854,7 +885,6 @@
               a) Wie alt sind Sie?
           </legend>
               <hr>
-              <br />
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="15-24" v-model="surveyData.question7.age">
@@ -890,7 +920,6 @@
                value="keine Angabe" v-model="surveyData.question7.age">
               <label class="form-check-label">keine Angabe</label>
           </div>
-          <br />
           </div>
         </section>
 
@@ -899,8 +928,7 @@
           <legend for="question7">
               b) Wie groß ist Ihr Betrieb (in ha)?
           </legend>
-              <hr>
-              <br />
+          <hr>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="unter 5" v-model="surveyData.question7.size">
@@ -951,7 +979,6 @@
                value="keine Angabe" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
-          <br />
          </div>
         </section>
      
@@ -961,7 +988,6 @@
             c) Wie bewirtschaften Sie Ihren Betrieb?
           </legend>
               <hr>
-              <br />
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
                value="konventionell" v-model="surveyData.question7.farm">
@@ -987,7 +1013,6 @@
                value="keine Angabe" v-model="surveyData.question7.farm">
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
-          <br />
         </div>
       </section>
 
@@ -997,7 +1022,6 @@
             d) Wie ist Ihr Betrieb ausgerichtet?<br>
           </legend>
               <hr>
-              <br />
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
                 value="Vornehmlich Ackerbau" v-model="surveyData.question7.orientation.choice">
@@ -1038,16 +1062,15 @@
             </textarea>
             </div>
           </div>
-          <br />
         </section>
 
          <section>
           <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend for="question7">
-            e) Nehmen Sie in der aktuellen Förderperiode (2021 - 2027) an einer Agrarumwelt-Klimamaßnahme (freiwillige Maßnahme aus 2. Säule der GAP) teil?
+            e) Nehmen Sie in der aktuellen Förderperiode (2021 - 2027) an einer Agrarumwelt-Klimamaßnahme <br/>
+            (freiwillige Maßnahme aus 2. Säule der GAP) teil?
           </legend>
               <hr>
-              <br />
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
                 value="Ja" v-model="surveyData.question7.environment">
@@ -1064,7 +1087,6 @@
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
           </div>
-          <br />
         </section>
 
         <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
@@ -1252,17 +1274,17 @@ export default {
         question2: {
           technique: [],
           timeframe: [],
-          camera: [],
-          gps: [],
-          newInvest: [],
-          autonom: [],
-          comment: [],
+          camera: {choice: [], year: []},
+          gps: {choice: [], year: []},
+          newInvest: {choice: [], year: []},
+          autonom: {choice: [], year: []},
+          comment: {choice: [], text: []},
           not_available:[],
-          mashine: [],
-          other_machine: []
+          machine: [],
+          other_machine: [],
         },
+        question2_add: [],
         question2_alt: {select: [], comment: ''},
-        question2_add: null,
         question3: [],
         question4_5: {farms: [], shapes: []}, //here the farmer + neighbor coordinates are saved
         question4_alt: [],
@@ -1360,7 +1382,31 @@ export default {
         { value = '' }
     },
     scrollToTop() {
-    window.scrollTo(0,0);
+    window.scrollTo(0,0)
+    console.log(this.surveyData.question2.gps.choice.length)
+    console.log(this.surveyData.question2.technique.length)
+    console.log(this.surveyData.question6.column3)
+
+    },
+    handleTable: function() {
+    if (this.surveyData.question2.technique.length == 0)
+    {
+        this.step = 8
+    }
+    else
+    {
+      this.surveyData.question6.column1 = "5"
+
+      if (this.surveyData.question2.gps.choice.length != 0)
+      {
+          this.surveyData.question6.column2 = "5"
+      }
+
+      if (this.surveyData.question2.autonom.choice.length != 0)
+      {
+          this.surveyData.question6.column3 = "5"
+      }
+    }
     },
     setColor: function(){
       if (this.step === 5) {
@@ -1374,25 +1420,34 @@ export default {
     deleteEntryTechnique: function (index) {
       this.surveyData.question2.technique.splice(index, 1)
       this.surveyData.question2.timeframe.splice(index, 1)
-      this.surveyData.question2.camera.splice(index, 1)
-      this.surveyData.question2.gps.splice(index, 1)
-      this.surveyData.question2.newInvest.splice(index, 1)
-      this.surveyData.question2.autonom.splice(index, 1)
-      this.surveyData.question2.comment.splice(index, 1)
-      this.surveyData.question2.mashine.splice(index, 1)
+      this.surveyData.question2.camera.choice.splice(index, 1)
+      this.surveyData.question2.camera.year.splice(index, 1)
+      this.surveyData.question2.gps.choice.splice(index, 1)
+      this.surveyData.question2.gps.year.splice(index, 1)
+      this.surveyData.question2.newInvest.choice.splice(index, 1)
+      this.surveyData.question2.newInvest.year.splice(index, 1)
+      this.surveyData.question2.autonom.choice.splice(index, 1)
+      this.surveyData.question2.autonom.year.splice(index, 1)
+      this.surveyData.question2.comment.choice.splice(index, 1)
+      this.surveyData.question2.comment.text.splice(index, 1)
+      this.surveyData.question2.machine.splice(index, 1)         
+      this.surveyData.question2.not_available.splice(index, 1)
       this.surveyData.question2.other_machine.splice(index, 1)
     },
     deleteRowTechnique() {
       // delete row (index-0).
+
       this.surveyData.question2.technique = []
       this.surveyData.question2.timeframe = []
-      this.surveyData.question2.camera = []
-      this.surveyData.question2.gps = []
-      this.surveyData.question2.newInvest = []
-      this.surveyData.question2.autonom = []
-      this.surveyData.question2.comment = []
-      this.surveyData.question2.mashine = []
+      this.surveyData.question2.camera = {choice: [], year: []}
+      this.surveyData.question2.gps = {choice: [], year: []}
+      this.surveyData.question2.newInvest = {choice: [], year: []}
+      this.surveyData.question2.autonom = {choice: [], year: []}
+      this.surveyData.question2.comment = {choice: [], text: []}
+      this.surveyData.question2.not_available = []
+      this.surveyData.question2.machine = []
       this.surveyData.question2.other_machine = []
+      this.surveyData.question2_add = []
     },
     prev() {
       this.step--
