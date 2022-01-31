@@ -271,17 +271,17 @@
           </div>
 
           <input type="checkbox" name="pets" value="1" v-model="surveyData.question2_alt.select" > Zu hohe laufende Kosten<br>
-          <input type="checkbox" name="pets" value="1" v-model="surveyData.question2_alt.select" > Zu hohe Investitionskosten<br>
-          <input type="checkbox" name="pets" value="1" v-model="surveyData.question2_alt.select" > Zu hoher Zeitaufwand<br>
-          <input type="checkbox" name="pets" value="2" v-model="surveyData.question2_alt.select" > Geringe Zuverlässigkeit in der Unkrautbekämpfung<br>
-          <input type="checkbox" name="pets" value="3" v-model="surveyData.question2_alt.select" > Hohes Risiko die Kulturpflanze zu schädigen<br>
-          <input type="checkbox" name="pets" value="7" v-model="surveyData.question2_alt.select" > Nicht möglich auf meinem Betrieb (z. Bsp. durch Bodenbedingungen, Feldgrößen, …)<br>
-          <input type="checkbox" name="pets" value="9" v-model="surveyData.question2_alt.select" > Ich weiß nicht, ob die Technik bei mir funktioniert<br>         
-          <input type="checkbox" name="pets" value="11" v-model="surveyData.question2_alt.select" > Ich traue mir die Anwendung/Bedienung nur bedingt zu<br>
-          <input type="checkbox" name="pets" value="8" v-model="surveyData.question2_alt.select" > Meine Kollegen in der Region haben schlechte Erfahrungen gemacht und mir davon erzählt<br>
+          <input type="checkbox" name="pets" value="2" v-model="surveyData.question2_alt.select" > Zu hohe Investitionskosten<br>
+          <input type="checkbox" name="pets" value="3" v-model="surveyData.question2_alt.select" > Zu hoher Zeitaufwand<br>
+          <input type="checkbox" name="pets" value="4" v-model="surveyData.question2_alt.select" > Geringe Zuverlässigkeit in der Unkrautbekämpfung<br>
+          <input type="checkbox" name="pets" value="5" v-model="surveyData.question2_alt.select" > Hohes Risiko die Kulturpflanze zu schädigen<br>
+          <input type="checkbox" name="pets" value="6" v-model="surveyData.question2_alt.select" > Nicht möglich auf meinem Betrieb (z. Bsp. durch Bodenbedingungen, Feldgrößen, …)<br>
+          <input type="checkbox" name="pets" value="7" v-model="surveyData.question2_alt.select" > Ich weiß nicht, ob die Technik bei mir funktioniert<br>         
+          <input type="checkbox" name="pets" value="8" v-model="surveyData.question2_alt.select" > Ich traue mir die Anwendung/Bedienung nur bedingt zu<br>
+          <input type="checkbox" name="pets" value="9" v-model="surveyData.question2_alt.select" > Meine Kollegen in der Region haben schlechte Erfahrungen gemacht und mir davon erzählt<br>
           <input type="checkbox" name="pets" value="10" v-model="surveyData.question2_alt.select" > Ich kenne keine Kollegen in meiner Region der mir Tipps geben könnten<br>
-          <input type="checkbox" name="pets" value="12" v-model="surveyData.question2_alt.select" > Ich möchte noch warten bis die Technik ausgereifter ist<br>
-          <input type="checkbox" name="pets" value="13" v-model="surveyData.question2_alt.select" > Es gibt für mich keinen Grund für eine Umstellung meines Anbaus<br>
+          <input type="checkbox" name="pets" value="11" v-model="surveyData.question2_alt.select" > Ich möchte noch warten bis die Technik ausgereifter ist<br>
+          <input type="checkbox" name="pets" value="12" v-model="surveyData.question2_alt.select" > Es gibt für mich keinen Grund für eine Umstellung meines Anbaus<br>
           <br/>
           <div class="form-group">
             <label>Kommentar: </label>
