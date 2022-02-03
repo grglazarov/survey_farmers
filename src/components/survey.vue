@@ -1257,7 +1257,7 @@ export default {
     components: {markermapbox, modal, heatmapbox, multiselect},   
   data () {
     return {
-      step: 5,
+      step: 0,
       pageNumber: 0,
       isHidden: false,
       errors: [],
