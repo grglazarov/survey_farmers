@@ -3,7 +3,8 @@
     <div v-if="step === 0" class = heatMap>
 
         <div style="border: 4px solid black; padding: 5px">
-            <ul>
+          <legend style="font-size: 100%;">
+            <ul style="margin: 2px; padding: 10px">
               <li>Die Zuckerrübenproduktion ist mehr und mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen. Landwirtinnen und Landwirte brauchen Alternativen. Hier ist es oft hilfreich zu schauen, was BerufskollegInnen in der Region machen.</li>
               <br>
               <li>Wir von der Uni Bonn führen eine kurze (maximal 10 Minuten) Online-Umfrage zum Thema Unkrautbekämpfung in Zuckerrüben durch.  Ziel der Umfrage ist es, besser zu verstehen, welche Rolle der Austausch zwischen KollegInnen als Informationsquelle für Entscheidungen über neue Anbaupraktiken spielt.</li>
@@ -12,15 +13,16 @@
               <br>
               <li>Sobald erste Befragungsergebnisse zu Verfügung stehen, können Sie hier auf einer Karte sehen, wo Landwirte schon an der Umfrage teilgenommen haben und vergleichen, welche Techniken zur Unkrautbekämpfung wo in Deutschland verwendet werden.</li>
               <br>
-              <li><mark style="color: #1adee8; background: none; font-size: 16px"><i>Unter je 100 Teilnehmenden verlosen wir drei Gutscheine im Wert von 50 € für Engelbert Strauss.</i></mark></li>
+              <li><mark style="color: #1adee8; font-weight: normal; background: none; font-size: 120%"><i>Unter je 100 Teilnehmenden verlosen wir drei Gutscheine im Wert von 50 € für Engelbert Strauss.</i></mark></li>
             </ul>  
+          </legend>
         </div>
          <div style="margin: 0px; padding: 5px; border:4px solid black">
            <h2 style="text-align: center">Karte</h2>
                    
          <section>
-              <legend style="font-size: 15px">
-              <ul>
+              <legend style="font-size: 100%;">
+              <ul style="margin: 2px; padding: 10px">
                 <li>Wählen Sie eine Unkrautbekämpfungsmethode um zu sehen, wie die Verteilung in Deutschland ist.</li>
                 <li>Zur Orientierung sind die Zuckerrübenfabriken eingezeichnet.</li>
                 <li>Die Daten werden aggregiert und sind so auch für andere Teilnehmer der Umfrage zu sehen. Es können keine Rückschlüsse auf individuelle Betriebe gezogen werden.</li>
@@ -63,44 +65,44 @@
                         text-decoration: none;
                         display: inline-block;
                         font-size: 22px;
-                        margin: 4px 2px;" @click.prevent="next()" @click="scrollToTop()">zur Umfrage</button>
+                        margin: 4px 2px;" @click="step+=1; scrollToTop()">zur Umfrage</button>
     </div>
    </div>
       
     <div v-if="step === 1" class = firstPage>
             <section>
-
                     <div style="margin: 5px; padding: 5px; border: 4px solid black;">
                       <h2 style="text-align: center">Willkommen zu unserer Umfrage für Unkrautbekämpfung in Zuckerrüben!</h2>
-                        <p>
-                        Die Umfrage wird max. 10 Minuten in Anspruch nehmen. 
-                        Alle Ergebnisse werden anonymisiert analysiert. 
-                        Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. 
-                        Dazu können Sie im Anschluss an die Studie Ihre e-Mail Adresse angeben.
-                        </p>
-                        <p>
-                        Zur Hilfe haben wir in der Umfrage Tipps hinterlegt, die Sie über das ?-Symbol aufrufen können.
-                        </p>
-                        <p>
-                        Bei Fragen wenden Sie sich bitte an:
-                        <br>
-                        <br>
-                        Anna Massfeller
+                        <legend style="font-size: 100%;">
+                        <ul style="margin: 2px; padding: 10px">
+                        <li>Die Umfrage wird max. 10 Minuten in Anspruch nehmen.</li>
+                        <li>Alle Ergebnisse werden anonymisiert analysiert. </li>
+                        <li>Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. </li>
+                        <li>Dazu können Sie im Anschluss an die Studie Ihre e-Mail Adresse angeben.</li>
+                        <li>Zur Hilfe haben wir in der Umfrage Tipps hinterlegt, die Sie über das ?-Symbol aufrufen können.</li>
+                        <li>Bei Fragen wenden Sie sich bitte an:</li>
+                        <p style="margin-top: 10px; padding: 0px">
+                        <b>Anna Massfeller</b>
                         <br/>
+                        
                         Doktorandin am Institut für Lebensmittel- und Ressourcenökonomik, Universität Bonn
                         <br />
                         E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #1adee8">anna.massfeller@ilr.uni-bonn.de</a> 
-                      </p>
+                       </p>
+                       </ul>
+                      </legend>
                    </div>
                    <div style="margin: 5px; padding: 5px; border: 4px solid black;">
-                      <ul style="position: relative; margin: 2px; padding: 10px">
+                     <legend style="font-size: 100%;   text-align: left">
+                      <ul style="margin: 2px; padding: 10px">
                         <li>
-                        Die in der Umfrage gewählte männliche Form bezieht sich immer zugleich auf weibliche, diverse und männliche Personen.
+                        Die in der Umfrage gewählte männliche Form bezieht sich zugleich auf weibliche, diverse und männliche Personen.
                         </li>
                         <li>
                         Um die Umfrage zu öffnen, akzeptieren Sie bitte unsere Datensicherheitserklärung.
                         </li>
                       </ul>
+                     </legend>
                      <button v-on:click="isHidden = !isHidden" style="width: 220px; height: 45px;font-weight: bold;">Datensicherheitserklärung anzeigen</button>                     
                   </div>
                   <!-- margin:auto ;display:block -->
@@ -209,12 +211,11 @@
                 <h3>Datenschutzerklärung Akzeptieren:<input
                 type="checkbox"
                 true-value="yes"
-                false-value="no"
-                v-model="surveyData.consent"
+                v-model="surveyData.question0.consent"
                 /></h3>
             </section> 
-         <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
-         <button @click.prevent="next({consent: 'consent'})" @click="scrollToTop()">Weiter</button>
+         <button @click="step -=1; scrollToTop()">Zurück</button>
+         <button @click.prevent="next({consent: 'Datenschutzerklärung Akzeptieren'}, 'question0')" @click="scrollToTop()">Weiter</button>
         </div>
 
         <div v-if="step === 2">
@@ -237,26 +238,26 @@
                 <input
                   type="radio"
                   value="Ja"
-                  v-model="surveyData.question1"
+                  v-model="surveyData.question1.value"
                 />
                 <label for="one">Ja</label>
                 <br />
                 <input 
                 type="radio" 
                 value="Nein" 
-                v-model="surveyData.question1" 
+                v-model="surveyData.question1.value" 
                 />
                 <label for="one">Nein</label>
                 <br />
             </section>
               
           <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1; scrollToTop()">Weiter</button>
+          <button @click.prevent="next({value: 'Unkrautbekämpfung Frage'}, 'question1')" @click="scrollToTop()">Weiter</button>
            <br />  
               
         </div>
 
-    <div v-if="step === 3 && surveyData.question1 ==='Nein'">
+    <div v-if="step === 3 && surveyData.question1.value ==='Nein'">
           <h1>Frage {{ pageNumber }} / 8</h1>
           <modal 
           hideModal = true; helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
@@ -296,11 +297,11 @@
           </div>
             <br>
             <br>
-          <button @click.prevent="prev()" @click="pageNumber-=1; scrollToTop()">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1; scrollToTop()">Weiter</button>
+          <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+          <button @click.prevent="next({select: 'Mehrfachauswahlfrage'}, 'question2_alt')" @click="scrollToTop()">Weiter</button>
       </div>
 
-    <div v-if="step === 3 && surveyData.question1 ==='Ja'">
+    <div v-if="step === 3 && surveyData.question1.value ==='Ja'">
           <h1>Frage {{ pageNumber }} / 8</h1>
           <modal 
           hideModal = true; helpText="Bitte wählen Sie eine Maschine aus. Füllen Sie dann die entsprechenden Spalten in der Tabelle aus. 
@@ -381,7 +382,6 @@
                       type="text" 
                       required
                       oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                      style="width:20%; height: 10%"
                       v-model="surveyData.question2.timeframe[index]"
                       > 
                     </div>
@@ -406,7 +406,6 @@
                             inputmode="numeric"                 
                             type="text" 
                             required
-                            style="width:20%; height: 10%"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                             v-model="surveyData.question2.camera.year[index]"
                         > 
@@ -457,7 +456,6 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                             inputmode="numeric"                 
                             type="text" 
                             required
-                            style="width:40%; height:10%"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                             v-model="surveyData.question2.newInvest.year[index]"
                         > 
@@ -483,7 +481,6 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                             inputmode="numeric"                 
                             type="text" 
                             required
-                            style="width:40%; height:10%"
                             oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                             v-model="surveyData.question2.autonom.year[index]"
                         > 
@@ -522,28 +519,28 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                   <td>
                     <input
                       type="radio"
-                      value="own"
+                      value="Eigene"
                       v-model="surveyData.question2.machine[index]"
                       />
                       <label>Eigene Maschine</label>
                       <br />
                       <input 
                       type="radio" 
-                      value="shared"
+                      value="Geteilt"
                       v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Teile mit Nachbarn</label>
                       <br />
                       <input 
                       type="radio" 
-                      value="maschinenring"
+                      value="Maschinenring"
                       v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Maschinenring</label>
                       <br />
                       <input 
                       type="radio" 
-                      value="lohnunternehmer"
+                      value="Lohnunternehmer"
                       v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Lohnunternehmer</label>
@@ -567,8 +564,8 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
             </tbody>
           </table>
           <button @click.prevent="deleteRowTechnique()">Alle löschen</button>
-          <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1;scrollToTop()">Weiter</button>
+          <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+          <button @click.prevent="next({technique: 'Technik', timeframe: 'Seit Jahr', machine: 'Maschine'}, 'question2')" @click="scrollToTop()">Weiter</button>
         </div>
 
       
@@ -591,35 +588,35 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                 <input
                   type="radio"
                   value="0"
-                  v-model="surveyData.question3"
+                  v-model="surveyData.question3.value"
                 />
                 <label for="one">0</label>
                 <br />
                 <input 
                 type="radio" 
                 value="1-5" 
-                v-model="surveyData.question3" 
+                v-model="surveyData.question3.value" 
                 />
                 <label for="one">1-5</label>
                 <br />
                 <input 
                 type="radio" 
                 value="6-10" 
-                v-model="surveyData.question3" 
+                v-model="surveyData.question3.value" 
                 />
                 <label for="one">6-10</label>
                 <br />
                 <input 
                 type="radio" 
                 value="mehr als 10" 
-                v-model="surveyData.question3" 
+                v-model="surveyData.question3.value" 
                 />
                 <label for="one">mehr als 10</label>
                 <br />
             </section>
 
-              <button @click.prevent="prev()" @click="pageNumber-=1; scrollToTop()">Zurück</button>
-              <button @click.prevent="next();" @click="pageNumber+=1; setColor(); scrollToTop()">Weiter</button>      
+              <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+              <button @click.prevent="next({value: 'Kontakt zu Landwirten'}, 'question3');" @click="setColor(); scrollToTop()">Weiter</button>      
         </div>
 
       <div v-if="step === 5 || step === 6">
@@ -654,8 +651,8 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               <br />
            
           <div>
-              <button @click.prevent="prev()" @click="pageNumber-=1; scrollToTop()">Zurück</button>
-              <button @click.prevent="next()" @click="pageNumber+=1; setColor(); scrollToTop()">Weiter</button>
+              <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+              <button @click.prevent="next()" @click="setColor(); scrollToTop()">Weiter</button>
               <button @click.prevent="skip_map = true">Überspringen</button>
           </div>
       </div>
@@ -682,14 +679,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                     type="text" 
                     required
                     oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                    v-model="surveyData.question4_alt" 
+                    v-model="surveyData.question4_alt.value" 
                     >
                 </div>
                 <br/>
                 <br/>
            <div>
               <button @click.prevent="skip_map = false" @click="scrollToTop()">Zurück</button>
-              <button @click.prevent="next()" @click="pageNumber+=1; setColor(); scrollToTop()">Weiter</button>
+              <button @click.prevent="next({value: 'Postleitzahl'}, 'question4_alt'); skip_map = false" @click="setColor(); scrollToTop()">Weiter</button>
           </div>
       </div>
 
@@ -702,17 +699,19 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           <section>
             <legend>
               Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren), auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
-              <mark style="color: #1adee8; background: none">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</mark> 
+              <mark style="color: #1adee8; background: none">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</mark> Bitte klicken Sie diese Felder auf der Karte an.
               <br>
               <br>
-              Bitte klicken Sie diese Felder auf der Karte an.
-              Wenn Sie nicht genau wissen, wo die Flächen liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben. 
+              In unserer Analyse werten wir die Daten hinsichtlich der Distanzen zwischen eigenen und anderen Feldern aus. Es wird keine Auswertung individueller Betriebe oder Felder vorgenommen. Für uns ist es nur interessant wie die Felder anderer Landwirte, auf denen Sie mechanische Unkrautbekämpfung gesehen haben, räumlich verteilt sind, aber nicht, zu welchem Betrieb sie gehören.
+              <br>
+              <br>
+              Wenn Sie die Felder nicht anklicken möchten oder nicht genau wissen, wo die Flächen liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben.
             </legend>
             <hr>  
             <br /> 
           </section>
-          <button @click.prevent="prev()" @click="pageNumber-=1; setColor(); scrollToTop()">Zurück</button>
-          <button @click.prevent="next()" @click="pageNumber+=1; handleTable(); scrollToTop()">Weiter</button>
+          <button @click.prevent="prev()" @click="setColor(); scrollToTop()">Zurück</button>
+          <button @click.prevent="next()" @click="scrollToTop()">Weiter</button>
           <button @click.prevent="skip_map2 = true">Überspringen</button>   
       </div>
       <div v-if="step === 6 && skip_map2 == true">
@@ -796,13 +795,11 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         </div>
       </section>
         <button @click.prevent="skip_map2 = false" @click="scrollToTop()">Zurück</button>
-        <button @click.prevent="next()" @click="pageNumber+=1; handleTable(); scrollToTop()">Weiter</button>
+        <button @click.prevent="next({distance: 'Frage 5 a)', fields: 'Frage 5 b)'}, 'question5_alt'); skip_map = false" @click="scrollToTop()">Weiter</button>
     </div>  
-     <div style="border: 4px solid black">
+     <div v-show="skip_map == false && skip_map2 == false" style="border: 4px solid black">
         <!-- Maps component embedding -->
-        <keep-alive>
           <markermapbox v-bind:marked-farm="currentFarm" @map_clicked="setGeolocation"/>
-        </keep-alive>
     </div>
   </div>
 
@@ -869,14 +866,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               </tbody>
             </table>
           </div>
-      <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
-      <button @click.prevent="next()" @click="pageNumber+=1;scrollToTop()">Weiter</button>
+      <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+      <button @click.prevent="next({column1: 'Spalte 1', column2: 'Spalte 2', column3: 'Spalte 3'}, 'question6')" @click="scrollToTop()">Weiter</button>
   </div>
     
     <div v-if="step === 8">
         <h1>Frage {{ pageNumber }} / 8</h1>
         <modal 
-        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage und werden, wie die gesamte Umfrage, anonymisiert erfasst.">
+        hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage und werden, wie die gesamte Umfrage, anonymisiert erfasst. Die Betriebsgröße bezieht sich auf die gesamte landwirtschaftlich genutzte Fläche (Eigen und Pacht).">
         </modal>
         <h2 style="text-align: center">Persönliche und betriebliche Angaben</h2>     
         <section>
@@ -1044,7 +1041,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           </div>
            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="keine Angabe" v-model="surveyData.question7.choice">
+               value="keine Angabe" v-model="surveyData.question7.orientation.choice">
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
             <div class="form-check form-check-inline">
@@ -1067,8 +1064,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
          <section>
           <div style="margin: 5px; padding: 5px; border: 4px solid black;">
           <legend for="question7">
-            e) Nehmen Sie in der aktuellen Förderperiode (2021 - 2027) an einer Agrarumwelt-Klimamaßnahme <br/>
-            (freiwillige Maßnahme aus 2. Säule der GAP) teil?
+            e) Nehmen Sie in der aktuellen Förderperiode (2021 - 2027) an einer Agrarumwelt-Klimamaßnahme (freiwillige Maßnahme aus 2. Säule der GAP) teil?
           </legend>
               <hr>
             <div class="form-check form-check-inline">
@@ -1089,8 +1085,8 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           </div>
         </section>
 
-        <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
-        <button @click.prevent="next()" @click="pageNumber+=1;scrollToTop()">Weiter</button>
+        <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+        <button @click.prevent="next({age: 'Alter', size: 'Größe (ha)', farm: 'Bewirtschaftung', environment: 'Umwelt/Klima'}, 'question7')" @click="scrollToTop()">Weiter</button>
     </div>
 
     <div v-if="step === 9">
@@ -1108,7 +1104,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           <div class="form-group">
             <textarea class="form-control"
                       style="width: 500px"
-                      v-model="surveyData.question8"
+                      v-model="surveyData.question8.value"
                       placeholder="Fragen oder Kommentare hier hinfügen"
                       required
                       id="question8"
@@ -1118,14 +1114,15 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           <br />
         </section>
 
-        <button @click.prevent="prev()" @click="pageNumber-=1;scrollToTop()">Zurück</button>
-        <button @click.prevent="next()" @click="scrollToTop()">Weiter</button>
+        <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+        <button @click="step+=1;scrollToTop()">Weiter</button>
     </div>
  
     <div v-if="step === 10">
       <h1>Ende</h1>
       <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
+        <legend>
             <p>
             Vielen Dank, dass Sie sich die Zeit genommen haben, an der Umfrage teilzunehmen.
             </p>
@@ -1138,24 +1135,25 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
             <p>
             Wenn Sie möchten, senden wir Ihnen auch die zusammengefassten Ergebnisse der Studie zu.
             </p>
+        </legend>
       </section>
       </div>
        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
       <section>
-        <p>
+        <legend>
             Möchten Sie die zusammengefassten Ergebnisse der Studie per Mail erhalten?
-        </p>
+        </legend>
         <input
           type="radio"
           value="Ja"
-          v-model="surveyData.question9"
+          v-model="surveyData.question9.value"
         />
         <label>Ja</label>
         <br />
         <input 
         type="radio" 
         value="Nein" 
-        v-model="surveyData.question9" 
+        v-model="surveyData.question9.value" 
         />
         <label>Nein</label>
         <br />
@@ -1163,41 +1161,41 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
       <br />
 
       <section>
-        <p>
+        <legend>
             Möchten Sie an dem Gewinnspiel teilnehmen?
-        </p>
+        </legend>
           <input
             type="radio"
             name="question10"
             id="question10"
             value="Ja"
-            v-model="surveyData.question10"
+            v-model="surveyData.question10.value"
           />
           <label for="one">Ja</label>
           <br />
           <input 
           type="radio" 
           value="Nein" 
-          v-model="surveyData.question10" 
+          v-model="surveyData.question10.value" 
           />
           <label for="one">Nein</label>
           <br />
           <br />
       </section> 
       </div>                     
-        <div style="margin: 5px; padding: 5px; border: 4px solid black;" v-if="surveyData.question9=='Ja' || surveyData.question10=='Ja'">  
-            <p>
+        <div style="margin: 5px; padding: 5px; border: 4px solid black;" v-if="surveyData.question9.value=='Ja' || surveyData.question10.value=='Ja'">  
+            <legend>
             Bitte geben Sie hier Ihre E-Mail-Adresse an. Diese Daten werden gesondert gespeichert und es besteht keine Verbindung zu Ihren Antworten in der Umfrage.
-            </p>           
+            </legend>           
             <br />
             <div class="mb-3">
                 <label for="farmerEmail" class="form-label"><b>E-mail Adresse:</b></label>
-                <input v-model="surveyData.farmerEmail" type="email" class="form-control" aria-describedby="emailHelp" id="farmerEmail" placeholder="mueller@gmx.de" required>
+                <input v-model="surveyData.farmerEmail.value" type="email" class="form-control" aria-describedby="emailHelp" id="farmerEmail" placeholder="mueller@gmx.de" required>
                 <small id="emailHelp" class="form-text text-muted">Wir werden Ihre E-Mail-Adresse nicht an Dritte weitergeben.</small>
             </div>
         </div>
       <div style="margin: 5px; padding: 5px; border: 4px solid black;">
-      <section>
+      <legend>
           Bei Fragen melden Sie sich bitte bei:
           <br />
           <br />
@@ -1205,31 +1203,34 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           <br />
           E-mail: <a href="mailto:anna.massfeller@ilr.uni-bonn.de" style="color: #1adee8">anna.massfeller@ilr.uni-bonn.de</a>
           </i>
-      </section>
+      </legend>
       </div>
-  <button @click.prevent="prev()">Zurück</button>
-  <button @click.prevent="submit()">Abgeben</button>
+  <button @click="step-=1">Zurück</button>
+  <button @click.prevent="next({value: 'put email'}, 'farmerEmail'); submit()">Abgeben</button>
   </div>
 
-       <div v-if="step === 'done'">
-          <h1>Fertig!</h1>
-          <p>Vielen Dank für die Teilnahme an der Umfrage. Ihre Daten wurden nun gespeichert.</p>
-          <br>
-          {{ backendResponse }}
-          <br>
-        </div>
+    <div v-if="step === 'done'">
+      <h1>Fertig!</h1>
+      <p style="text-align: center">Vielen Dank für die Teilnahme an der Umfrage. Ihre Daten wurden nun gespeichert.</p>
+      <br>
+      <!-- {{ backendResponse }} -->
+      <br>
+    </div>
 
-        <div v-if="step === 'error'">
-          <h1>Oh, nein!</h1>
-          <p>Es ist etwas schiefgegangen. Entschuldigung für die Unannehmlichkeit!</p>
-          <br>
-          <button @click.prevent="step = 1">Neu starten</button>
-        </div>
+    <div v-if="step === 'error'">
+      <h1>Oh, nein!</h1>
+      <p style="text-align:center">Es ist etwas schiefgegangen. Entschuldigung für die Unannehmlichkeit!</p>
+      <br>
+      <button @click.prevent="step = 10">Erneut versuchen</button>
+    </div>
 
       <p v-if="errors && errors.length">
-        <b>Um fortfahren zu können, müssen Sie die erforderlichen Felder ausfüllen!</b>
+        <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+        <ul>
+          <li v-for="error in errors" :key="error">{{ error }}</li>
+        </ul>
       </p>
-      <br /><br />Debug: {{surveyData}}
+      <!-- <br /><br />Debug: {{surveyData}} -->
 
     </div>
     </template>
@@ -1255,7 +1256,7 @@ export default {
   data () {
     return {
       step: 0,
-      pageNumber: 1,
+      pageNumber: 0,
       isHidden: false,
       errors: [],
       zip: null,
@@ -1269,8 +1270,8 @@ export default {
       currentFarm: '',
       surveyData: {
         _id: new Date().toISOString(),
-        consent: null,
-        question1: 'Ja',
+        question0: {consent: null},
+        question1: {value: null},
         question2: {
           technique: [],
           timeframe: [],
@@ -1285,19 +1286,19 @@ export default {
         },
         question2_add: [],
         question2_alt: {select: [], comment: ''},
-        question3: [],
-        question4_5: {farms: [], shapes: []}, //here the farmer + neighbor coordinates are saved
-        question4_alt: [],
+        question3: {value: null},
+        question4_5: {farms: null, shapes: []}, //here the farmer + neighbor coordinates are saved
+        question4_alt: {value: null},
         question5_alt: {
-          distance: [],
-          fields: []
+          distance: null,
+          fields: null
         },
-        question6: {column1: [], column2: [], column3: []},
+        question6: {column1: null, column2: null, column3: null},
         question7: {age: null, size: null, farm: null, orientation: {choice: null, comment: ''}, environment: null},
-        question8: '',
-        question9: null,
-        question10: null,
-        farmerEmail: null
+        question8: {value: null},
+        question9: {value: null},
+        question10: {value: null},
+        farmerEmail: {value: null},
       }
     }
   },
@@ -1392,7 +1393,7 @@ export default {
     if (this.surveyData.question2.technique.length == 0)
     {
         this.step = 8
-    }
+     }
     else
     {
       this.surveyData.question6.column1 = "5"
@@ -1408,6 +1409,12 @@ export default {
       }
     }
     },
+    handleTableBack: function() {
+    if (this.surveyData.question2.technique.length == 0)
+    {
+        this.step = 6
+     }
+     },
     setColor: function(){
       if (this.step === 5) {
           this.currentFarm = 'own'
@@ -1450,22 +1457,25 @@ export default {
       this.surveyData.question2_add = []
     },
     prev() {
-      this.step--
+      this.step-=1
+      this.pageNumber-=1
+
     },
     // those are question fields in the form, each of which is check if filled
-    next(formFieldsToCheck) {
+    next(formFieldsToCheck, questionNumber) {
       if (formFieldsToCheck) {
         this.errors = []
         for (const field in formFieldsToCheck) {
-          if (!this.surveyData[field] || !this.surveyData[field].length) {
+          if (!this.surveyData[questionNumber][field] || !this.surveyData[questionNumber][field].length) {
             this.errors.push(
-              `Please fill out the ${formFieldsToCheck[field]} question before continuing`
+              `${formFieldsToCheck[field]}`
             )
           }
         }
       }
       if (!this.errors.length) {
-        this.step++
+        this.pageNumber+=1
+        this.step+=1
       }
     },
 
@@ -1607,10 +1617,9 @@ h1 {
 legend {
   font-weight: normal;
   text-align: justify;    
-  text-justify: inter-word;
-  text-align-last: left;
+  hyphens: auto;
   font-family: Helvetica, Sans-Serif;
-  font-size:18px; 
+  font-size:120%; 
   color: #dbdbdb;
 }
 
