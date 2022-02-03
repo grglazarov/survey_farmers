@@ -1232,7 +1232,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           <li v-for="error in errors" :key="error">{{ error }}</li>
         </ul>
       </p>
-      <br /><br />Debug: {{surveyData}}
+      <!-- <br /><br />Debug: {{surveyData}} -->
 
     </div>
     </template>
