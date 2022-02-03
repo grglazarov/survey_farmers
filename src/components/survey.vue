@@ -214,8 +214,14 @@
                 v-model="surveyData.question0.consent"
                 /></h3>
             </section> 
-         <button @click="step -=1; scrollToTop()">Zurück</button>
+         <button @click="step -=1; scrollToTop(); errors = []">Zurück</button>
          <button @click.prevent="next({consent: 'Datenschutzerklärung Akzeptieren'}, 'question0')" @click="scrollToTop()">Weiter</button>
+            <p v-if="step == 1 && errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
         </div>
 
         <div v-if="step === 2">
@@ -251,8 +257,14 @@
                 <br />
             </section>
               
-          <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+          <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
           <button @click.prevent="next({value: 'Unkrautbekämpfung Frage'}, 'question1')" @click="scrollToTop()">Weiter</button>
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
            <br />  
               
         </div>
@@ -297,8 +309,14 @@
           </div>
             <br>
             <br>
-          <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+          <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
           <button @click.prevent="next({select: 'Mehrfachauswahlfrage'}, 'question2_alt')" @click="scrollToTop()">Weiter</button>
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
       </div>
 
     <div v-if="step === 3 && surveyData.question1.value ==='Ja'">
@@ -564,8 +582,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
             </tbody>
           </table>
           <button @click.prevent="deleteRowTechnique()">Alle löschen</button>
-          <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
-          <button @click.prevent="next({technique: 'Technik', timeframe: 'Seit Jahr', machine: 'Maschine'}, 'question2')" @click="scrollToTop()">Weiter</button>
+          <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
+          <button @click.prevent="next({technique: 'Technik', timeframe: 'Seit Jahr', machine: 'Maschine'}, 'question2')" @click="scrollToTop(); handleTable()">Weiter</button>
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
         </div>
 
       
@@ -615,8 +639,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                 <br />
             </section>
 
-              <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+              <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
               <button @click.prevent="next({value: 'Kontakt zu Landwirten'}, 'question3');" @click="setColor(); scrollToTop()">Weiter</button>      
+                <p v-if="errors && errors.length">
+                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                  <ul>
+                    <li v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </p>
         </div>
 
       <div v-if="step === 5 || step === 6">
@@ -651,9 +681,15 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               <br />
            
           <div>
-              <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+              <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
               <button @click.prevent="next()" @click="setColor(); scrollToTop()">Weiter</button>
               <button @click.prevent="skip_map = true">Überspringen</button>
+                <p v-if="errors && errors.length">
+                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                  <ul>
+                    <li v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </p>
           </div>
       </div>
 
@@ -685,8 +721,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                 <br/>
                 <br/>
            <div>
-              <button @click.prevent="skip_map = false" @click="scrollToTop()">Zurück</button>
+              <button @click.prevent="skip_map = false" @click="scrollToTop(); errors = []">Zurück</button>
               <button @click.prevent="next({value: 'Postleitzahl'}, 'question4_alt'); " @click="setColor(); scrollToTop()">Weiter</button>
+                <p v-if="errors && errors.length">
+                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                  <ul>
+                    <li v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </p>
           </div>
       </div>
 
@@ -710,7 +752,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
             <hr>  
             <br /> 
           </section>
-          <button @click.prevent="prev()" @click="setColor(); scrollToTop()">Zurück</button>
+          <button @click.prevent="prev()" @click="setColor(); scrollToTop(); errors = []">Zurück</button>
           <button @click.prevent="next()" @click="scrollToTop()">Weiter</button>
           <button @click.prevent="skip_map2 = true">Überspringen</button>   
       </div>
@@ -794,8 +836,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           </div>
         </div>
       </section>
-        <button @click.prevent="skip_map2 = false" @click="scrollToTop()">Zurück</button>
+        <button @click.prevent="skip_map2 = false" @click="scrollToTop(); errors = []">Zurück</button>
         <button @click.prevent="next({distance: 'Frage 5 a)', fields: 'Frage 5 b)'}, 'question5_alt');" @click="scrollToTop()">Weiter</button>
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
     </div>  
      <div v-show="skip_map == false && skip_map2 == false" style="border: 4px solid black">
         <!-- Maps component embedding -->
@@ -868,8 +916,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               </tbody>
             </table>
           </div>
-      <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+      <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
       <button @click.prevent="next({column1: 'Spalte 1', column2: 'Spalte 2', column3: 'Spalte 3'}, 'question6')" @click="scrollToTop()">Weiter</button>
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
   </div>
     
     <div v-if="step === 8">
@@ -1087,8 +1141,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           </div>
         </section>
 
-        <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+        <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
         <button @click.prevent="next({age: 'Alter', size: 'Größe (ha)', farm: 'Bewirtschaftung', environment: 'Umwelt/Klima'}, 'question7')" @click="scrollToTop()">Weiter</button>
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
     </div>
 
     <div v-if="step === 9">
@@ -1116,7 +1176,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           <br />
         </section>
 
-        <button @click.prevent="prev()" @click="scrollToTop()">Zurück</button>
+        <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
         <button @click="step+=1;scrollToTop()">Weiter</button>
     </div>
  
@@ -1207,7 +1267,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           </i>
       </legend>
       </div>
-  <button @click="step-=1">Zurück</button>
+  <button @click="step-=1; errors = []">Zurück</button>
   <button @click.prevent="next({value: 'put email'}, 'farmerEmail'); submit()">Abgeben</button>
   </div>
 
@@ -1226,12 +1286,6 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
       <button @click.prevent="step = 10">Erneut versuchen</button>
     </div>
 
-      <p v-if="errors && errors.length">
-        <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-        <ul>
-          <li v-for="error in errors" :key="error">{{ error }}</li>
-        </ul>
-      </p>
       <!-- <br /><br />Debug: {{surveyData}} -->
 
     </div>
@@ -1380,23 +1434,11 @@ export default {
         console.log("error" + err);
       });
     },
-    checkValue: function(value){
-        if(value > 2022 || value < 1970) 
-        { value = '' }
-    },
     scrollToTop() {
-    window.scrollTo(0,0)
-    console.log(this.surveyData.question2.gps.choice.length)
-    console.log(this.surveyData.question2.technique.length)
-    console.log(this.surveyData.question6.column3)
-
+      window.scrollTo(0,0)
     },
     handleTable: function() {
-    if (this.surveyData.question2.technique.length == 0)
-    {
-        this.step = 8
-     }
-    else
+    if (this.surveyData.question2.technique.length != 0)
     {
       this.surveyData.question6.column1 = "5"
 
@@ -1411,12 +1453,6 @@ export default {
       }
     }
     },
-    handleTableBack: function() {
-    if (this.surveyData.question2.technique.length == 0)
-    {
-        this.step = 6
-     }
-     },
     setColor: function(){
       if (this.step === 5) {
           this.currentFarm = 'own'
