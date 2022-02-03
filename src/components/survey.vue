@@ -686,7 +686,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                 <br/>
            <div>
               <button @click.prevent="skip_map = false" @click="scrollToTop()">Zurück</button>
-              <button @click.prevent="next({value: 'Postleitzahl'}, 'question4_alt'); skip_map = false" @click="setColor(); scrollToTop()">Weiter</button>
+              <button @click.prevent="next({value: 'Postleitzahl'}, 'question4_alt'); " @click="setColor(); scrollToTop()">Weiter</button>
           </div>
       </div>
 
@@ -795,11 +795,13 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         </div>
       </section>
         <button @click.prevent="skip_map2 = false" @click="scrollToTop()">Zurück</button>
-        <button @click.prevent="next({distance: 'Frage 5 a)', fields: 'Frage 5 b)'}, 'question5_alt'); skip_map = false" @click="scrollToTop()">Weiter</button>
+        <button @click.prevent="next({distance: 'Frage 5 a)', fields: 'Frage 5 b)'}, 'question5_alt');" @click="scrollToTop()">Weiter</button>
     </div>  
      <div v-show="skip_map == false && skip_map2 == false" style="border: 4px solid black">
         <!-- Maps component embedding -->
+        <keep-alive>
           <markermapbox v-bind:marked-farm="currentFarm" @map_clicked="setGeolocation"/>
+        </keep-alive>
     </div>
   </div>
 
@@ -1230,7 +1232,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           <li v-for="error in errors" :key="error">{{ error }}</li>
         </ul>
       </p>
-      <!-- <br /><br />Debug: {{surveyData}} -->
+      <br /><br />Debug: {{surveyData}}
 
     </div>
     </template>
@@ -1255,7 +1257,7 @@ export default {
     components: {markermapbox, modal, heatmapbox, multiselect},   
   data () {
     return {
-      step: 0,
+      step: 5,
       pageNumber: 0,
       isHidden: false,
       errors: [],
@@ -1476,6 +1478,8 @@ export default {
       if (!this.errors.length) {
         this.pageNumber+=1
         this.step+=1
+        this.skip_map = false
+        this.skip_map2 = false
       }
     },
 
