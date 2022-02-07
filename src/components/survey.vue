@@ -1,7 +1,6 @@
 <template>
     <div>
     <div v-if="step === 0" class = heatMap>
-
         <div style="border: 4px solid black; padding: 5px">
           <legend style="font-size: 100%;">
             <ul style="margin: 2px; padding: 10px">
@@ -80,6 +79,7 @@
                         <li>Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. </li>
                         <li>Dazu können Sie im Anschluss an die Studie Ihre e-Mail Adresse angeben.</li>
                         <li>Zur Hilfe haben wir in der Umfrage Tipps hinterlegt, die Sie über das ?-Symbol aufrufen können.</li>
+                        <li>Die in der Umfrage gewählte männliche Form bezieht sich zugleich auf weibliche, diverse und männliche Personen.</li>
                         <li>Bei Fragen wenden Sie sich bitte an:</li>
                         <p style="margin-top: 10px; padding: 0px">
                         <b>Anna Massfeller</b>
@@ -93,24 +93,26 @@
                       </legend>
                    </div>
                    <div style="margin: 5px; padding: 5px; border: 4px solid black;">
-                     <legend style="font-size: 100%;   text-align: left">
-                      <ul style="margin: 2px; padding: 10px">
-                        <li>
-                        Die in der Umfrage gewählte männliche Form bezieht sich zugleich auf weibliche, diverse und männliche Personen.
-                        </li>
-                        <li>
+                     <legend style="font-size: 110%;   text-align: center">
                         Um die Umfrage zu öffnen, akzeptieren Sie bitte unsere Datensicherheitserklärung.
-                        </li>
-                      </ul>
                      </legend>
-                     <button v-on:click="isHidden = !isHidden" style="width: 220px; height: 45px;font-weight: bold;">Datensicherheitserklärung anzeigen</button>                     
+                     <div style="text-align: center">
+                     <button class="btn btn--primary mx-auto" style="text-align:center; width: 40%; heigth: 70%; font-weight: bold;" @click="$refs.modalName.openModal()">Datensicherheitserklärung anzeigen</button>
+                      <h4 style="font-size: 120%, font-weight: bold">Datenschutzerklärung Akzeptieren:<input
+                      type="checkbox"
+                      true-value="yes"
+                      v-model="surveyData.question0.consent"
+                      /></h4>
+                    </div>
                   </div>
-                  <!-- margin:auto ;display:block -->
-                      <div v-if="isHidden">
-                      <div style="border:3px solid black; margin:10px; padding:10px" lang="de-DE" >
-                      <br>
-                      <h3 class="western" align="center">Einverständniserklärung in die Erhebung und Verarbeitung von Daten</h3>
-                <br/>
+                      <div v-if="isHidden">   
+                     </div>
+     <gdpr ref="modalName">
+      <template v-slot:header>
+        <h2 class="western" align="center" style="color:black">Einverständniserklärung in die Erhebung und Verarbeitung von Daten</h2>
+      </template>
+      <template v-slot:body>
+          <div style=" color:white; margin:2px; padding:2px" lang="de-DE" >
                 <p align="center" style="font-size: 12pt"><i>Durch</i></p>
                 <br/>
                 <p align="center" style="font-size: 12pt"><b>- Institut für Lebensmittel-
@@ -206,13 +208,17 @@
                   <br>
               </li>
               </ul>
-                </div>
-                </div>
-                <h3>Datenschutzerklärung Akzeptieren:<input
-                type="checkbox"
-                true-value="yes"
-                v-model="surveyData.question0.consent"
-                /></h3>
+          </div>
+      </template>
+
+      <template v-slot:footer>
+        <div class="d-flex align-items-center justify-content-between">
+          <button class="btn btn--secondary" @click="$refs.modalName.closeModal()">Abbrechen</button>
+          <button class="btn btn--primary" @click="$refs.modalName.closeModal(); surveyData.question0.consent = null ">Ablehnen</button>
+          <button class="btn btn--primary" @click="$refs.modalName.closeModal(); surveyData.question0.consent = 'yes'">Akzeptieren</button>
+        </div>
+      </template>
+    </gdpr>
             </section> 
          <button @click="step -=1; scrollToTop(); errors = []">Zurück</button>
          <button @click.prevent="next({consent: 'Datenschutzerklärung Akzeptieren'}, 'question0')" @click="scrollToTop()">Weiter</button>
@@ -1297,6 +1303,7 @@ import markermapbox from '@/components/markermapbox.vue'
 import modal from './modal.vue'
 import heatmapbox from './heatmapbox.vue'
 import multiselect from 'vue-multiselect'
+import gdpr from './gdpr.vue'
 
 var PouchDB = require('pouchdb');
 let pouchDb = PouchDB.default.defaults();
@@ -1308,12 +1315,11 @@ db.info().then(info => console.log(info));
 
 export default {
     name: 'survey',
-    components: {markermapbox, modal, heatmapbox, multiselect},   
+    components: {markermapbox, modal, heatmapbox, multiselect, gdpr},   
   data () {
     return {
       step: 0,
       pageNumber: 0,
-      isHidden: false,
       errors: [],
       zip: null,
       skip_map: false,
