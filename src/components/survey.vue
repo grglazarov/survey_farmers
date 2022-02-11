@@ -1,7 +1,8 @@
 <template>
     <div>
     <div v-if="step === 0" class = heatMap>
-        <div style="border: 4px solid black; padding: 5px">
+        <div style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;"> 
+          <!-- border: 4px solid black;  -->
           <legend style="font-size: 100%;">
             <ul style="margin: 2px; padding: 10px">
               <li>Die Zuckerrübenproduktion ist mehr und mehr von Wirkstoffverlusten in Pflanzenschutzmitteln betroffen. Landwirtinnen und Landwirte brauchen Alternativen. Hier ist es oft hilfreich zu schauen, was BerufskollegInnen in der Region machen.</li>
@@ -16,7 +17,8 @@
             </ul>  
           </legend>
         </div>
-         <div style="margin: 0px; padding: 5px; border:4px solid black">
+         <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
+           <!-- border:4px solid black -->
            <h2 style="text-align: center">Karte</h2>
                    
          <section>
@@ -46,31 +48,28 @@
             </select>
             </section>
         </div>
-       <div style="border: 4px solid black">
+       <div style="border: 3px solid white">
       <keep-alive>
             <heatmapbox v-bind:heatmap-data="heatmap_coords" :selected-technique="chosen_technique">
             </heatmapbox>
       </keep-alive>
      </div>
-      <div style="padding: 5px">
+     <br>
+      <div style="padding: 5px; text-align: center">
     <button style="background-color: #182f4e;
                         color: white;
-                        left: 250px;
-                        height:100px;
-                        position: relative;
-                        width:290px;absolute
-                        padding: 15px 32px;
+                        height:80px;
+                        width:30%;
                         text-align: center;
-                        text-decoration: none;
-                        display: inline-block;
-                        font-size: 22px;
-                        margin: 4px 2px;" @click="step+=1; scrollToTop()">zur Umfrage</button>
+                        font-size: 22px;"
+                        @click="step+=1; scrollToTop()">zur Umfrage</button>
     </div>
    </div>
       
     <div v-if="step === 1" class = firstPage>
             <section>
-                    <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+                    <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
+                      <!-- border: 4px solid black; -->
                       <h2 style="text-align: center">Willkommen zu unserer Umfrage für Unkrautbekämpfung in Zuckerrüben!</h2>
                         <legend style="font-size: 100%;">
                         <ul style="margin: 2px; padding: 10px">
@@ -92,12 +91,13 @@
                        </ul>
                       </legend>
                    </div>
-                   <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+                   <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
+                     <!-- border: 4px solid black; -->
                      <legend style="font-size: 110%;   text-align: center">
                         Um die Umfrage zu öffnen, akzeptieren Sie bitte unsere Datensicherheitserklärung.
                      </legend>
                      <div style="text-align: center">
-                     <button class="btn btn--primary mx-auto" style="text-align:center; width: 40%; heigth: 70%; font-weight: bold;" @click="$refs.modalName.openModal()">Datensicherheitserklärung anzeigen</button>
+                     <button style="text-align:center; font-size: 16px; height: 60px; width: 40%; font-weight: bold;" @click="$refs.modalName.openModal()">Datensicherheitserklärung</button>
                       <h4 style="font-size: 120%, font-weight: bold">Datenschutzerklärung Akzeptieren:<input
                       type="checkbox"
                       true-value="yes"
@@ -105,8 +105,6 @@
                       /></h4>
                     </div>
                   </div>
-                      <div v-if="isHidden">   
-                     </div>
      <gdpr ref="modalName">
       <template v-slot:header>
         <h2 class="western" align="center" style="color:black">Einverständniserklärung in die Erhebung und Verarbeitung von Daten</h2>
@@ -211,23 +209,25 @@
           </div>
       </template>
 
-      <template v-slot:footer>
-        <div class="d-flex align-items-center justify-content-between">
-          <button class="btn btn--secondary" @click="$refs.modalName.closeModal()">Abbrechen</button>
-          <button class="btn btn--primary" @click="$refs.modalName.closeModal(); surveyData.question0.consent = null ">Ablehnen</button>
-          <button class="btn btn--primary" @click="$refs.modalName.closeModal(); surveyData.question0.consent = 'yes'">Akzeptieren</button>
-        </div>
-      </template>
-    </gdpr>
-            </section> 
+          <template v-slot:footer>
+            <div class="d-flex align-items-center justify-content-between">
+              <button class="btn btn--secondary" @click="$refs.modalName.closeModal()">Abbrechen</button>
+              <button class="btn btn--primary" @click="$refs.modalName.closeModal(); surveyData.question0.consent = null ">Ablehnen</button>
+              <button class="btn btn--primary" @click="$refs.modalName.closeModal(); surveyData.question0.consent = 'yes'">Akzeptieren</button>
+            </div>
+          </template>
+        </gdpr>
+     </section> 
+       <div style="text-align: center">            
          <button @click="step -=1; scrollToTop(); errors = []">Zurück</button>
          <button @click.prevent="next({consent: 'Datenschutzerklärung Akzeptieren'}, 'question0')" @click="scrollToTop()">Weiter</button>
             <p v-if="step == 1 && errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
+        </div>
         </div>
 
         <div v-if="step === 2">
@@ -262,17 +262,19 @@
                 <label for="one">Nein</label>
                 <br />
             </section>
-              
+            <br>
+            <br>
+        <div style="text-align: center">     
           <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
-          <button @click.prevent="next({value: 'Unkrautbekämpfung Frage'}, 'question1')" @click="scrollToTop()">Weiter</button>
+          <button @click.prevent="next({value: 'Frage 1'}, 'question1')" @click="scrollToTop()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
            <br />  
-              
+         </div>       
         </div>
 
     <div v-if="step === 3 && surveyData.question1.value ==='Nein'">
@@ -315,14 +317,16 @@
           </div>
             <br>
             <br>
+          <div style="text-align: center">            
           <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
-          <button @click.prevent="next({select: 'Mehrfachauswahlfrage'}, 'question2_alt')" @click="scrollToTop()">Weiter</button>
+          <button @click.prevent="next({select: 'Frage 2'}, 'question2_alt')" @click="scrollToTop()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
+            </div>
       </div>
 
     <div v-if="step === 3 && surveyData.question1.value ==='Ja'">
@@ -373,7 +377,7 @@
           </section>
           <br/>
           <table class="table table-success table-striped table-bordered" id="techniqueTable" 
-          align="center" style="border:2px solid black; border-style: solid">
+          align="center" style="margin: 5px; padding: 8px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
             <thead>
               <tr>
                 <th scope="col">Gerät</th>
@@ -587,15 +591,19 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               </tr>   
             </tbody>
           </table>
+          <br>
+          <br>
+         <div style="text-align: center">            
           <button @click.prevent="deleteRowTechnique()">Alle löschen</button>
           <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
-          <button @click.prevent="next({technique: 'Technik', timeframe: 'Seit Jahr', machine: 'Maschine'}, 'question2')" @click="scrollToTop(); handleTable()">Weiter</button>
+          <button @click.prevent="next({technique: 'Technik', timeframe: 'Seit welchem Jahr (Spalte 1)', machine: 'Besitzverhältnis (Spalte 3)'}, 'question2')" @click="scrollToTop(); handleTable()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
+          </div>
         </div>
 
       
@@ -644,16 +652,18 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                 <label for="one">mehr als 10</label>
                 <br />
             </section>
-
+              <br>
+            <div style="text-align: center">            
               <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
-              <button @click.prevent="next({value: 'Kontakt zu Landwirten'}, 'question3');" @click="setColor(); scrollToTop()">Weiter</button>      
+              <button @click.prevent="next({value: 'Frage 3'}, 'question3');" @click="setColor(); scrollToTop()">Weiter</button>      
                 <p v-if="errors && errors.length">
                   <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
                   <ul>
-                    <li v-for="error in errors" :key="error">{{ error }}</li>
+                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
                   </ul>
                 </p>
-        </div>
+            </div>
+         </div>
 
       <div v-if="step === 5 || step === 6">
        <div v-if="step === 5 && skip_map == false">
@@ -663,40 +673,11 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               indem Sie die linke Maustaste gedrückt halten. Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich. Sie können im Suchfeld oben rechts in der Ecke der Karte nach Orten suchen.">
            </modal>
            <br>          
-              <legend for="question4">
-                Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
-                <br>
-                <br>
-                Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, von denen wir wissen, dass dort in den letzten drei Wirtschaftsjahren (2019-2021) Zuckerrüben angebaut wurden. Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen (gilt vor allem für Hamburg und das Saarland) mit Hilfe eines kleinen Traktor-Symbols zu markieren.
-                <br>
-                <br>
-                Aus der <a href="https://www.zi-daten.de/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Invekos-Datenbank</a> haben wir die Daten in Form sogenannter shape-files für 
-                <a href="https://www.opengeodata.nrw.de/produkte/umwelt_klima/bodennutzung/landwirtschaft/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">NRW</a>, 
-                <a href="https://sla.niedersachsen.de/agrarfoerderung/schlaginfo/?#3172@9.43242/52.88125r0@EPSG:25832" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Niedersachsen</a> 
-                und <a href="https://geoportal.brandenburg.de/detailansichtdienst/render?view=gdibb&url=https%3A%2F%2Fgeoportal.brandenburg.de%2Fgs-json%2Fxml%3Ffileid%3D996f8fd1-c662-4975-b680-3b611fcb5d1f" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Brandenburg</a> übernommen. 
-                Diese Daten sind innerhalb der <a href="https://www.govdata.de/dl-de/zero-2-0" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Datenlizenz Deutschland</a> frei verfügbar, 
-                wie im Rahmen der <a href="https://wiki.gdi-de.org/pages/viewpage.action?pageId=928219686" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">EU INSPIRE</a> Richtlinie vorgegeben. 
-                Die Daten für die anderen Bundesländer basieren auf Fernerkundungsdaten (automatisch erkannte Feldumrandungen aus eigenen Berechnungen basierend auf Satellitenbildern, diese stammen von <a href="https://www.copernicus.eu/en" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Copernicus</a>).
-                <br>
-                <br>                
-                Abweichungen zwischen den Umrandungen der Felder und Ihren tatsächlichen Feldern sind möglich. Wählen Sie in diesem Fall einfach den/die am besten passendsten Schlag/ Schläge aus.
-                Die Umrandung wird erst sichtbar, wenn sie näher auf der Karte heranzoomen. Für unsere Analysen sind Angaben zu den Feldern von großer Bedeutung, wenn Sie jedoch lieber keine Flächen anklicken möchten, 
-                können Sie diese Frage auch überspringen und im nächsten Schritt alternative Ihre Postleitzahl angeben.
-              </legend>    
-              <hr>
-              <br />
-           
-          <div>
-              <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
-              <button @click.prevent="next()" @click="setColor(); scrollToTop()">Weiter</button>
-              <button @click.prevent="skip_map = true">Überspringen</button>
-                <p v-if="errors && errors.length">
-                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                  <ul>
-                    <li v-for="error in errors" :key="error">{{ error }}</li>
-                  </ul>
-                </p>
-          </div>
+          <legend for="question4">
+            Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
+            <br>
+            <hr>
+          </legend>
       </div>
 
       <div v-if="step === 5 && skip_map == true">
@@ -713,26 +694,26 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               <hr>
               <br />
               <div> 
-                    <input  
-                    minlength="5" 
-                    maxlength="5"  
-                    size="5"                
-                    inputmode="numeric"                 
-                    type="text" 
-                    required
-                    oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
-                    v-model="surveyData.question4_alt.value" 
-                    >
+                  <input  
+                  minlength="5" 
+                  maxlength="5"  
+                  size="5"                
+                  inputmode="numeric"                 
+                  type="text" 
+                  required
+                  oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                  v-model="surveyData.question4_alt.value" 
+                  >
                 </div>
                 <br/>
                 <br/>
-           <div>
+             <div style="text-align: center">            
               <button @click.prevent="skip_map = false" @click="scrollToTop(); errors = []">Zurück</button>
               <button @click.prevent="next({value: 'Postleitzahl'}, 'question4_alt'); " @click="setColor(); scrollToTop()">Weiter</button>
                 <p v-if="errors && errors.length">
                   <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
                   <ul>
-                    <li v-for="error in errors" :key="error">{{ error }}</li>
+                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
                   </ul>
                 </p>
           </div>
@@ -744,24 +725,14 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
             hideModal = true; helpText="Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
           </modal>
           <br>          
-          <section>
-            <legend>
-              Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren), auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
-              <mark style="color: #1adee8; background: none">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</mark> Bitte klicken Sie diese Felder auf der Karte an.
-              <br>
-              <br>
-              In unserer Analyse werten wir die Daten hinsichtlich der Distanzen zwischen eigenen und anderen Feldern aus. Es wird keine Auswertung individueller Betriebe oder Felder vorgenommen. Für uns ist es nur interessant wie die Felder anderer Landwirte, auf denen Sie mechanische Unkrautbekämpfung gesehen haben, räumlich verteilt sind, aber nicht, zu welchem Betrieb sie gehören.
-              <br>
-              <br>
-              Wenn Sie die Felder nicht anklicken möchten oder nicht genau wissen, wo die Flächen liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben.
-            </legend>
-            <hr>  
-            <br /> 
-          </section>
-          <button @click.prevent="prev()" @click="setColor(); scrollToTop(); errors = []">Zurück</button>
-          <button @click.prevent="next()" @click="scrollToTop()">Weiter</button>
-          <button @click.prevent="skip_map2 = true">Überspringen</button>   
+          <legend>
+            Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren), auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
+            <mark style="color: #1adee8; background: none">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</mark> Bitte klicken Sie diese Felder auf der Karte an.
+            <br>
+            <hr>
+          </legend>
       </div>
+
       <div v-if="step === 6 && skip_map2 == true">
       <h1>Frage {{ pageNumber }} / 8</h1>
       <modal 
@@ -769,7 +740,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
       </modal>
       <br>      
       <section>
-        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+        <div style="margin: 0px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
           <legend>
            a) Wie viele Felder kennen Sie, auf denen Unkraut mechanisch oder chemisch-mechanisch kombiniert bekämpft wird?             
         </legend>
@@ -804,7 +775,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
       </section>
         
       <section>
-        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+        <div style="margin: 0px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
         <legend for="question5_alt">
         b) In welchem Umkreis liegen diese Felder?
         </legend>
@@ -842,21 +813,78 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           </div>
         </div>
       </section>
+      <br>
+      <br>
+      <div style="text-align: center">            
         <button @click.prevent="skip_map2 = false" @click="scrollToTop(); errors = []">Zurück</button>
-        <button @click.prevent="next({distance: 'Frage 5 a)', fields: 'Frage 5 b)'}, 'question5_alt');" @click="scrollToTop()">Weiter</button>
+        <button @click.prevent="next({fields: 'Frage 5 a)', distance: 'Frage 5 b)'}, 'question5_alt');" @click="scrollToTop()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-    </div>  
-     <div v-show="skip_map == false && skip_map2 == false" style="border: 4px solid black">
-        <!-- Maps component embedding -->
-        <keep-alive>
-          <markermapbox v-bind:marked-farm="currentFarm" @map_clicked="setGeolocation"/>
-        </keep-alive>
-    </div>
+        </div>
+    </div>   
+        <div v-show="skip_map == false && skip_map2 == false" style="border: 3px solid white">
+            <!-- Maps component embedding -->
+            <keep-alive>
+              <markermapbox v-bind:marked-farm="currentFarm" @map_clicked="setGeolocation"/>
+            </keep-alive>
+        </div>
+            <div v-if="step === 5 && skip_map == false">
+              <legend>
+                <hr>
+                Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, von denen wir wissen, dass dort in den letzten drei Wirtschaftsjahren (2019-2021) Zuckerrüben angebaut wurden. Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen (gilt vor allem für Hamburg und das Saarland) mit Hilfe eines kleinen Traktor-Symbols zu markieren.
+                <br>
+                <br>
+                Aus der <a href="https://www.zi-daten.de/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Invekos-Datenbank</a> haben wir die Daten in Form sogenannter shape-files für 
+                <a href="https://www.opengeodata.nrw.de/produkte/umwelt_klima/bodennutzung/landwirtschaft/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">NRW</a>, 
+                <a href="https://sla.niedersachsen.de/agrarfoerderung/schlaginfo/?#3172@9.43242/52.88125r0@EPSG:25832" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Niedersachsen</a> 
+                und <a href="https://geoportal.brandenburg.de/detailansichtdienst/render?view=gdibb&url=https%3A%2F%2Fgeoportal.brandenburg.de%2Fgs-json%2Fxml%3Ffileid%3D996f8fd1-c662-4975-b680-3b611fcb5d1f" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Brandenburg</a> übernommen. 
+                Diese Daten sind innerhalb der <a href="https://www.govdata.de/dl-de/zero-2-0" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Datenlizenz Deutschland</a> frei verfügbar, 
+                wie im Rahmen der <a href="https://wiki.gdi-de.org/pages/viewpage.action?pageId=928219686" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">EU INSPIRE</a> Richtlinie vorgegeben. 
+                Die Daten für die anderen Bundesländer basieren auf Fernerkundungsdaten (automatisch erkannte Feldumrandungen aus eigenen Berechnungen basierend auf Satellitenbildern, diese stammen von <a href="https://www.copernicus.eu/en" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Copernicus</a>).
+                <br>
+                <br>                
+                Abweichungen zwischen den Umrandungen der Felder und Ihren tatsächlichen Feldern sind möglich. Wählen Sie in diesem Fall einfach den/die am besten passendsten Schlag/ Schläge aus.
+                Die Umrandung wird erst sichtbar, wenn sie näher auf der Karte heranzoomen. Für unsere Analysen sind Angaben zu den Feldern von großer Bedeutung, wenn Sie jedoch lieber keine Flächen anklicken möchten, 
+                können Sie diese Frage auch überspringen und im nächsten Schritt alternative Ihre Postleitzahl angeben.
+              </legend>    
+              <hr>
+             <div style="text-align: center">            
+              <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
+              <button @click.prevent="next()" @click="setColor(); scrollToTop()">Weiter</button>
+              <button @click.prevent="skip_map = true" @click="surveyData.question4_5 = {farms: [], shapes: {'type': 'FeatureCollection', 'features': []}}">Überspringen</button>
+                <p v-if="errors && errors.length">
+                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                  <ul>
+                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </p>
+          </div>
+        </div>
+          <div v-if="step === 6  && skip_map2 == false">
+            <legend>
+              <hr>
+              In unserer Analyse werten wir die Daten hinsichtlich der Distanzen zwischen eigenen und anderen Feldern aus. Es wird keine Auswertung individueller Betriebe oder Felder vorgenommen. Für uns ist es nur interessant wie die Felder anderer Landwirte, auf denen Sie mechanische Unkrautbekämpfung gesehen haben, räumlich verteilt sind, aber nicht, zu welchem Betrieb sie gehören.
+              <br>
+              <br>
+              Wenn Sie die Felder nicht anklicken möchten oder nicht genau wissen, wo die Flächen liegen, können Sie diese Frage auch überspringen und im nächsten Schritt eine ungefähre Anzahl und Entfernung angeben.
+            </legend>
+            <hr>  
+          <div style="text-align: center">            
+          <button @click.prevent="prev()" @click="setColor(); scrollToTop(); errors = []">Zurück</button>
+          <button @click.prevent="next()" @click="scrollToTop()">Weiter</button>
+          <button @click.prevent="skip_map2 = true" @click="surveyData.question4_5 = {farms: [], shapes: {'type': 'FeatureCollection', 'features': []}}">Überspringen</button> 
+              <p v-if="errors && errors.length">
+                <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                <ul>
+                  <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+                </ul>
+              </p>
+        </div>
+      </div> 
   </div>
 
    <div v-if="step === 7">
@@ -922,14 +950,18 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               </tbody>
             </table>
           </div>
+        <br>
+        <br>
+      <div style="text-align: center">            
       <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
       <button @click.prevent="next({column1: 'Spalte 1', column2: 'Spalte 2', column3: 'Spalte 3'}, 'question6')" @click="scrollToTop()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
+      </div>
   </div>
     
     <div v-if="step === 8">
@@ -939,7 +971,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         </modal>
         <h2 style="text-align: center">Persönliche und betriebliche Angaben</h2>     
         <section>
-        <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+        <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
           <legend for="question7">
               a) Wie alt sind Sie?
           </legend>
@@ -983,7 +1015,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         </section>
 
         <section>
-          <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+          <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
           <legend for="question7">
               b) Wie groß ist Ihr Betrieb (in ha)?
           </legend>
@@ -1042,7 +1074,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         </section>
      
         <section>
-          <div style="margin: 5px; padding: 5px; border: 4px solid black;">        
+          <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">        
           <legend for="question7">
             c) Wie bewirtschaften Sie Ihren Betrieb?
           </legend>
@@ -1076,7 +1108,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
       </section>
 
         <section>
-          <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+          <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
           <legend for="question7">
             d) Wie ist Ihr Betrieb ausgerichtet?<br>
           </legend>
@@ -1124,7 +1156,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         </section>
 
          <section>
-          <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+          <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
           <legend for="question7">
             e) Nehmen Sie in der aktuellen Förderperiode (2021 - 2027) an einer Agrarumwelt-Klimamaßnahme (freiwillige Maßnahme aus 2. Säule der GAP) teil?
           </legend>
@@ -1146,15 +1178,18 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           </div>
           </div>
         </section>
-
+        <br>
+        <br>
+        <div style="text-align: center">            
         <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
         <button @click.prevent="next({age: 'Alter', size: 'Größe (ha)', farm: 'Bewirtschaftung', environment: 'Umwelt/Klima'}, 'question7')" @click="scrollToTop()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
-                <li v-for="error in errors" :key="error">{{ error }}</li>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
+        </div>
     </div>
 
     <div v-if="step === 9">
@@ -1188,7 +1223,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
  
     <div v-if="step === 10">
       <h1>Ende</h1>
-      <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+      <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
       <section>
         <legend>
             <p>
@@ -1206,7 +1241,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         </legend>
       </section>
       </div>
-       <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+       <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
       <section>
         <legend>
             Möchten Sie die zusammengefassten Ergebnisse der Studie per Mail erhalten?
@@ -1251,7 +1286,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
           <br />
       </section> 
       </div>                     
-        <div style="margin: 5px; padding: 5px; border: 4px solid black;" v-if="surveyData.question9.value=='Ja' || surveyData.question10.value=='Ja'">  
+        <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;" v-if="surveyData.question9.value=='Ja' || surveyData.question10.value=='Ja'">  
             <legend>
             Bitte geben Sie hier Ihre E-Mail-Adresse an. Diese Daten werden gesondert gespeichert und es besteht keine Verbindung zu Ihren Antworten in der Umfrage.
             </legend>           
@@ -1262,7 +1297,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                 <small id="emailHelp" class="form-text text-muted">Wir werden Ihre E-Mail-Adresse nicht an Dritte weitergeben.</small>
             </div>
         </div>
-      <div style="margin: 5px; padding: 5px; border: 4px solid black;">
+      <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
       <legend>
           Bei Fragen melden Sie sich bitte bei:
           <br />
@@ -1292,7 +1327,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
       <button @click.prevent="step = 10">Erneut versuchen</button>
     </div>
 
-      <!-- <br /><br />Debug: {{surveyData}} -->
+      <br /><br />Debug: {{surveyData}}
 
     </div>
     </template>
@@ -1321,6 +1356,7 @@ export default {
       step: 0,
       pageNumber: 0,
       errors: [],
+      check: '',
       zip: null,
       skip_map: false,
       skip_map2: false,
@@ -1349,7 +1385,7 @@ export default {
         question2_add: [],
         question2_alt: {select: [], comment: ''},
         question3: {value: null},
-        question4_5: {farms: null, shapes: []}, //here the farmer + neighbor coordinates are saved
+        question4_5: {farms: [], shapes: {"type": "FeatureCollection", "features": []}}, //here the farmer + neighbor coordinates are saved
         question4_alt: {value: null},
         question5_alt: {
           distance: null,
@@ -1503,11 +1539,69 @@ export default {
     prev() {
       this.step-=1
       this.pageNumber-=1
-
     },
     // those are question fields in the form, each of which is check if filled
     next(formFieldsToCheck, questionNumber) {
-      if (formFieldsToCheck) {
+
+      if (this.step == 5 && this.skip_map == false) {
+        this.errors = []
+        console.log("question5")
+          if (!this.surveyData['question4_5'].farms.length == 0)
+          {
+            console.log("check1");
+            }
+          else if (!this.surveyData['question4_5'].shapes.features.length == 0)
+          {
+            console.log("check2");
+        }
+          else {
+            console.log("error")
+            this.errors.push(
+                'Bitte wählen Sie ein oder mehrere Felder oder klicken Sie “Überspringen”')
+              }  
+         }
+
+      else if (this.step == 6 && this.skip_map2 == false){
+          this.errors = []
+          this.check = ''
+          console.log("question6")
+          var farm_length = this.surveyData['question4_5'].farms.length
+          var shapes_length = this.surveyData['question4_5'].shapes.features.length
+
+          if (!farm_length == 0){
+            for (var i = 0; i < farm_length; i++) {
+            if ('others' in this.surveyData['question4_5'].farms[i]){
+                console.log("check3")
+                this.check = 'yes'
+                break;
+              }
+              else {
+                continue
+              }
+            }
+          }
+          if (!shapes_length == 0){
+            for (var j = 0; j < shapes_length; j++) { 
+            if (this.surveyData['question4_5'].shapes.features[j].properties.farm == 'others') {
+              console.log("check4")
+              this.check = 'yes'
+              break;
+              }
+              else {
+                continue
+              }
+            }
+          }
+         if (this.check == 'yes'){
+            console.log("yes")
+          }
+          else {
+            console.log("error")
+              this.errors.push(
+                'Bitte wählen Sie ein oder mehrere Felder oder klicken Sie “Überspringen”')
+        }
+      }
+      else {
         this.errors = []
         for (const field in formFieldsToCheck) {
           if (!this.surveyData[questionNumber][field] || !this.surveyData[questionNumber][field].length) {
@@ -1598,12 +1692,12 @@ export default {
 
 #techniqueTable td,
 #techniqueTable th {
-  border: 3px solid rgb(87, 89, 90);
-  padding: 8px;
+  margin: 5px; padding: 8px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; 
+
 }
 
 #techniqueTable tr:nth-child(even) {
-  background-color:  #182f4e;
+  background-color:  #1f2f48;
 }
 
 #techniqueTable tr:nth-child(odd) {
@@ -1618,14 +1712,14 @@ export default {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
-  background-color: #182f4e;
+  background-color: #224470;
   color: white;
 }
 
 table,
 th,
 td {
-  border: 2px solid black;
+   margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; 
 }
 
 

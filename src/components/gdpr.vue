@@ -88,7 +88,7 @@ export default {
   }
   &__body {
     padding: 10px 20px 10px;
-    background: #233a57;
+    background: #202b38;
     overflow: auto;
     display: flex;
     
