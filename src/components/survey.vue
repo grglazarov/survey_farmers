@@ -1356,7 +1356,7 @@
       <button @click.prevent="step = 10">Erneut versuchen</button>
     </div>
 
-      <br /><br />Debug: {{surveyData}}
+      <!-- <br /><br />Debug: {{surveyData}} -->
 
     </div>
     </template>
