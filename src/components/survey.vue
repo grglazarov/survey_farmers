@@ -899,11 +899,13 @@
         </template>
         <template v-slot:body>
             <div style=" color:white; height: 200px; font-size: 20px; margin:2px; padding:2px" lang="de-DE" >
-                Vielen Dank, dass Sie bisher gehalten haben! 
+                Danke, dass Sie bis jetzt durchgehalten haben!
                 <br>
-                Sie haben den ersten Teil der Umfrage erfolgreich ausgefüllt und Ihre bisherigen Antworten wurden gespeichert. Nun geht es weiter mit dem zweiten Teil.
                 <br>
-                3 Fragen noch und Sie sind fertig!
+                Sie haben den ersten Teil der Umfrage erfolgreich abgeschlossen und Ihre Antworten sowie die ausgewählten Felder auf der Karte wurden gespeichert. 
+                <br>
+                <br>
+                Jetzt geht es weiter mit dem zweiten Teil. Noch 3 Fragen und Sie sind fertig!
             </div>
         </template>
         <template v-slot:footer>
