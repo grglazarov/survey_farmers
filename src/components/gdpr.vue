@@ -1,6 +1,6 @@
 <template>
   <transition name="fade">
-    <div class="modal" v-if="show">
+    <div class="modal" v-if="showPopup">
       <div class="modal__backdrop" @click="closeModal()"/>
 
       <div class="modal__dialog">
@@ -23,18 +23,27 @@
 <script>
 export default {
   name: "Modal",
+  props: ["showPopup"],
   data() {
     return {
-      show: false
     };
   },
+  mounted () {
+    if (this.showPopup == true) {
+      document.querySelector("body").classList.add("overflow-hidden");
+    }
+    else {
+      document.querySelector("body").classList.remove("overflow-hidden");
+    }
+  },
+
   methods: {
     closeModal() {
-      this.show = false;
+      this.showPopup = false;
       document.querySelector("body").classList.remove("overflow-hidden");
     },
     openModal() {
-      this.show = true;
+      this.showPopup = true;
       document.querySelector("body").classList.add("overflow-hidden");
     }
   }

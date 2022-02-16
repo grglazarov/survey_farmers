@@ -97,7 +97,7 @@
                         Um die Umfrage zu öffnen, akzeptieren Sie bitte unsere Datensicherheitserklärung.
                      </legend>
                      <div style="text-align: center">
-                     <button style="text-align:center; font-size: 16px; height: 60px; width: 40%; font-weight: bold;" @click="$refs.modalName.openModal()">Datensicherheitserklärung</button>
+                     <button style="text-align:center; font-size: 16px; height: 60px; width: 40%; font-weight: bold;" @click="popup = true">Datensicherheitserklärung</button>
                       <h4 style="font-size: 120%, font-weight: bold">Datenschutzerklärung Akzeptieren:<input
                       type="checkbox"
                       true-value="yes"
@@ -105,11 +105,11 @@
                       /></h4>
                     </div>
                   </div>
-     <gdpr ref="modalName">
-      <template v-slot:header>
-        <h2 class="western" align="center" style="color:black">Einverständniserklärung in die Erhebung und Verarbeitung von Daten</h2>
-      </template>
-      <template v-slot:body>
+        <gdpr :show-popup = popup>
+          <template v-slot:header>
+            <h2 class="western" align="center" style="color:black">Einverständniserklärung in die Erhebung und Verarbeitung von Daten</h2>
+          </template>
+          <template v-slot:body>
           <div style=" color:white; margin:2px; padding:2px" lang="de-DE" >
                 <p align="center" style="font-size: 12pt"><i>Durch</i></p>
                 <br/>
@@ -211,9 +211,9 @@
 
           <template v-slot:footer>
             <div class="d-flex align-items-center justify-content-between">
-              <button class="btn btn--secondary" @click="$refs.modalName.closeModal()">Abbrechen</button>
-              <button class="btn btn--primary" @click="$refs.modalName.closeModal(); surveyData.question0.consent = null ">Ablehnen</button>
-              <button class="btn btn--primary" @click="$refs.modalName.closeModal(); surveyData.question0.consent = 'yes'">Akzeptieren</button>
+              <button class="btn btn--secondary" @click="popup = false">Abbrechen</button>
+              <button class="btn btn--primary" @click="popup = false; surveyData.question0.consent = null ">Ablehnen</button>
+              <button class="btn btn--primary" @click="popup = false; surveyData.question0.consent = 'yes'">Akzeptieren</button>
             </div>
           </template>
         </gdpr>
@@ -365,12 +365,13 @@
              <label style="font-size: 14px"  for="question2_add">Andere Techniken, die nicht in der Liste stehen, können Sie hier hinzufügen:&nbsp;&nbsp;</label>
             <div style="display:flex; flex-direction: row; justify-content: left  ; align-items: center">
             <input id="question2_add"
+                pattern=".{3,}"   
+                required 
                 type="text"
-                required
                 v-model="surveyData.question2_add"
                 placeholder="andere Technicken hier hinfügen"
-                pattern="[aA-Zz]">
-            <button @click.prevent="surveyData.question2.technique.push(surveyData.question2_add)">
+                minlength="3">            
+            <button @click="limitKeypress()">
             Hinzufügen
             </button>
             </div>
@@ -395,21 +396,19 @@
                 <tr v-for="(method, index) in surveyData.question2.technique" :key="index">
                   <td>
                     <div style="display:flex; flex-direction: row; justify-content: left; align-items: center">
-                    <label>{{method}}</label>
+                    <label style="font-size: 20px"><b>{{method}}</b></label>
                     <button style="width:23px; height:23px" class="button close-icon" @click.prevent="deleteEntryTechnique(index)"/>
                     </div>
                     <hr>        
                     <div style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                       <input 
-                      minlength="4" 
-                      maxlength="4"  
-                      size="4"
+                      size="8"
                       placeholder="Jahr"                
-                      inputmode="numeric"                 
-                      type="text" 
+                      type="number" 
+                      max="2022" 
                       required
-                      oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                      oninput="(validity.valid)||(this.value=''); this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                       v-model="surveyData.question2.timeframe[index]"
                       > 
                     </div>
@@ -419,12 +418,13 @@
                       <div>
                         <input 
                         type="checkbox"
-                        true-value="yes"
+                        true-value= 1
+                        false-value = ''
                         v-model="surveyData.question2.camera.choice[index]"
                         >
                         <label>a) Mit Kamera</label>
                       </div>
-                        <div v-if="surveyData.question2.camera.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <div v-if="surveyData.question2.camera.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                           <input 
                             minlength="4" 
@@ -444,12 +444,13 @@
                       <div>
                         <input 
                         type="checkbox"
-                        true-value="yes"
+                        true-value= 1
+                        false-value = ''                      
                         v-model="surveyData.question2.gps.choice[index]"
                         >
                         <label>b) Mit GPS</label>
                       </div>
-                        <div v-if="surveyData.question2.gps.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <div v-if="surveyData.question2.gps.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                           <input 
                             minlength="4" 
@@ -459,7 +460,7 @@
                             inputmode="numeric"                 
                             type="text" 
                             required
-z                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                             v-model="surveyData.question2.gps.year[index]"
                         > 
                       </div>
@@ -469,12 +470,13 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                       <div>
                         <input 
                         type="checkbox"
-                        true-value="yes"
+                        true-value= 1
+                        false-value = ''
                         v-model="surveyData.question2.newInvest.choice[index]"
                         >
                         <label>c) Neuinvestition</label>
                       </div>
-                        <div v-if="surveyData.question2.newInvest.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <div v-if="surveyData.question2.newInvest.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>In: &nbsp </label>
                           <input 
                             minlength="4" 
@@ -494,12 +496,13 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                       <div>
                         <input 
                         type="checkbox"
-                        true-value="yes"
+                        true-value= 1
+                        false-value = ''
                         v-model="surveyData.question2.autonom.choice[index]"
                         >
                         <label>d) Autonom fahrend</label>
                       </div>
-                        <div v-if="surveyData.question2.autonom.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <div v-if="surveyData.question2.autonom.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                           <input 
                             minlength="4" 
@@ -519,12 +522,13 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                       <div>
                         <input 
                         type="checkbox"
-                        true-value="yes"
+                        true-value= 1
+                        false-value = ''
                         v-model="surveyData.question2.comment.choice[index]"
                         >
                         <label>e) Kommentar </label>
                       </div>
-                        <div v-if="surveyData.question2.comment.choice[index] == 'yes'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                        <div v-if="surveyData.question2.comment.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                           <input style="height:30%; width: 70%"
                           type="text"
                           v-model="surveyData.question2.comment.text[index]"
@@ -537,8 +541,8 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                       <input
                       id="one"
                       type="checkbox"
-                      true-value="yes"
-                      false-value="no"
+                      true-value= 1
+                      false-value = ''
                       v-model="surveyData.question2.not_available[index]"
                       />
                       <label for="one">f) Keine Angabe</label>
@@ -547,46 +551,45 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                   <td>
                     <input
                       type="radio"
-                      value="Eigene"
+                      value = 0
                       v-model="surveyData.question2.machine[index]"
                       />
                       <label>Eigene Maschine</label>
                       <br />
                       <input 
-                      type="radio" 
-                      value="Geteilt"
+                      type= "radio" 
+                      value = 1
                       v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Teile mit Nachbarn</label>
                       <br />
                       <input 
                       type="radio" 
-                      value="Maschinenring"
+                      value = 2
                       v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Maschinenring</label>
                       <br />
                       <input 
                       type="radio" 
-                      value="Lohnunternehmer"
+                      value = 3 
                       v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Lohnunternehmer</label>
                       <br />
                       <input 
                       type="radio" 
-                      value="other"
+                      value = 4 
                       v-model="surveyData.question2.machine[index]" 
                       />
                       <label>Andere </label>
-                      <div v-if="surveyData.question2.machine[index] == 'other'" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
+                      <div v-if="surveyData.question2.machine[index] == 4" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                           <input style="height:30%; width: 70%"
                           type="text"
                           v-model="surveyData.question2.other_machine[index]"
                           placeholder="Hier einfügen"
                           required>
-                      </div>
-                      
+                      </div>                     
                 </td>
               </tr>   
             </tbody>
@@ -596,7 +599,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
          <div style="text-align: center">            
           <button @click.prevent="deleteRowTechnique()">Alle löschen</button>
           <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
-          <button @click.prevent="next({technique: 'Technik', timeframe: 'Seit welchem Jahr (Spalte 1)', machine: 'Besitzverhältnis (Spalte 3)'}, 'question2')" @click="scrollToTop(); handleTable()">Weiter</button>
+          <button @click.prevent="next()" @click="scrollToTop(); handleTable()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
@@ -697,7 +700,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
                   <input  
                   minlength="5" 
                   maxlength="5"  
-                  size="5"                
+                  size="5"               
                   inputmode="numeric"                 
                   type="text" 
                   required
@@ -817,7 +820,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
       <br>
       <div style="text-align: center">            
         <button @click.prevent="skip_map2 = false" @click="scrollToTop(); errors = []">Zurück</button>
-        <button @click.prevent="next({fields: 'Frage 5 a)', distance: 'Frage 5 b)'}, 'question5_alt');" @click="scrollToTop()">Weiter</button>
+        <button @click.prevent="next({fields: 'Frage 5 a)', distance: 'Frage 5 b)'}, 'question5_alt');" @click="scrollToTop(); popup = true">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
@@ -875,7 +878,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
             <hr>  
           <div style="text-align: center">            
           <button @click.prevent="prev()" @click="setColor(); scrollToTop(); errors = []">Zurück</button>
-          <button @click.prevent="next()" @click="scrollToTop()">Weiter</button>
+          <button @click.prevent="next()" @click="scrollToTop();">Weiter</button>
           <button @click.prevent="skip_map2 = true" @click="surveyData.question4_5 = {farms: [], shapes: {'type': 'FeatureCollection', 'features': []}}">Überspringen</button> 
               <p v-if="errors && errors.length">
                 <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
@@ -885,6 +888,30 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               </p>
         </div>
       </div> 
+  </div>
+
+  <div v-show="step === 7">
+    <gdpr :show-popup = popup>
+        <template v-slot:header>
+          <div style="text-align: center">
+          <h2 class="western" style="color:black;">Fast fertig!</h2>
+          </div>
+        </template>
+        <template v-slot:body>
+            <div style=" color:white; height: 200px; font-size: 20px; margin:2px; padding:2px" lang="de-DE" >
+                Vielen Dank, dass Sie bisher gehalten haben! 
+                <br>
+                Sie haben den ersten Teil der Umfrage erfolgreich ausgefüllt und Ihre bisherigen Antworten wurden gespeichert. Nun geht es weiter mit dem zweiten Teil.
+                <br>
+                3 Fragen noch und Sie sind fertig!
+            </div>
+        </template>
+        <template v-slot:footer>
+          <div style="text-align: center">
+            <button class="btn btn--primary" @click="popup = false">Fortfahren</button>
+          </div>
+        </template>
+    </gdpr>
   </div>
 
    <div v-if="step === 7">
@@ -953,7 +980,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         <br>
         <br>
       <div style="text-align: center">            
-      <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
+      <!-- <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button> -->
       <button @click.prevent="next({column1: 'Spalte 1', column2: 'Spalte 2', column3: 'Spalte 3'}, 'question6')" @click="scrollToTop()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
@@ -1115,38 +1142,38 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
               <hr>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Ackerbau" v-model="surveyData.question7.orientation.choice">
+                value="Vornehmlich Ackerbau" v-model="surveyData.question7.orientation">
                 <label style="display:inline-block" class="form-check-label">Vornehmlich Ackerbau</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Viehhaltung" v-model="surveyData.question7.orientation.choice">
+                value="Vornehmlich Viehhaltung" v-model="surveyData.question7.orientation">
                 <label style="display:inline-block" class="form-check-label">Vornehmlich Viehhaltung</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Sonderkulturen" v-model="surveyData.question7.orientation.choice">
+                value="Vornehmlich Sonderkulturen" v-model="surveyData.question7.orientation">
                 <label style="display:inline-block" class="form-check-label">Vornehmlich Sonderkulturen</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Gemischtbetrieb" v-model="surveyData.question7.orientation.choice">
+                value="Gemischtbetrieb" v-model="surveyData.question7.orientation">
             <label style="display:inline-block" class="form-check-label">Gemischtbetrieb</label>
           </div>
            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="keine Angabe" v-model="surveyData.question7.orientation.choice">
+               value="keine Angabe" v-model="surveyData.question7.orientation">
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="andere" v-model="surveyData.question7.orientation.choice">
+                value="andere" v-model="surveyData.question7.orientation">
             <label style="display:inline-block" class="form-check-label">Andere/Kommentar</label>
           </div>
-              <div v-if="surveyData.question7.orientation.choice=='andere'">  
+              <div v-if="surveyData.question7.orientation=='andere'">  
             <textarea class="form-control"
                       style="width: 400px; height: 80px"
-                      v-model="surveyData.question7.orientation.comment"
+                      v-model="surveyData.question7.comment"
                       placeholder="Andere hier einfügen"
                       required
                       >
@@ -1182,7 +1209,7 @@ z                            oninput="this.value = this.value.replace(/[^0-9.]/g
         <br>
         <div style="text-align: center">            
         <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
-        <button @click.prevent="next({age: 'Alter', size: 'Größe (ha)', farm: 'Bewirtschaftung', environment: 'Umwelt/Klima'}, 'question7')" @click="scrollToTop()">Weiter</button>
+        <button @click.prevent="next({age: 'Alter', size: 'Betriebsgröße (ha)', farm: 'Art der Bewirtschaftung', orientation: 'Betriebsausrichtung', environment: 'Teilnahme Agrarumwelt-Klimamaßnahme'}, 'question7')" @click="scrollToTop()">Weiter</button>
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
@@ -1358,6 +1385,7 @@ export default {
       errors: [],
       check: '',
       zip: null,
+      popup: false,
       skip_map: false,
       skip_map2: false,
       zip_to_geo: {},
@@ -1382,17 +1410,17 @@ export default {
           machine: [],
           other_machine: [],
         },
-        question2_add: [],
+        question2_add: '',
         question2_alt: {select: [], comment: ''},
         question3: {value: null},
         question4_5: {farms: [], shapes: {"type": "FeatureCollection", "features": []}}, //here the farmer + neighbor coordinates are saved
-        question4_alt: {value: null},
+        question4_alt: {value: ''},
         question5_alt: {
           distance: null,
           fields: null
         },
         question6: {column1: null, column2: null, column3: null},
-        question7: {age: null, size: null, farm: null, orientation: {choice: null, comment: ''}, environment: null},
+        question7: {age: null, size: null, farm: null, orientation: null, environment: null, comment: ''},
         question8: {value: null},
         question9: {value: null},
         question10: {value: null},
@@ -1479,6 +1507,12 @@ export default {
     scrollToTop() {
       window.scrollTo(0,0)
     },
+    limitKeypress: function() {    
+    if (this.surveyData.question2_add.toString().length >= 3) {
+          this.surveyData.question2.technique.push(this.surveyData.question2_add)
+      }
+    else this.surveyData.question2_add = ''
+    },
     handleTable: function() {
     if (this.surveyData.question2.technique.length != 0)
     {
@@ -1540,10 +1574,85 @@ export default {
       this.step-=1
       this.pageNumber-=1
     },
-    // those are question fields in the form, each of which is check if filled
     next(formFieldsToCheck, questionNumber) {
 
-      if (this.step == 5 && this.skip_map == false) {
+    if (this.step == 3 && this.surveyData.question1.value == "Ja") {
+          this.errors = []
+          var q2 = this.surveyData.question2
+
+          if (q2.technique.length > 0) {
+              console.log("technique");
+          }
+          else {
+              console.log("error")
+            this.errors.push(
+                'Technik')
+          }
+          if (q2.timeframe.toString().length == 4) {
+              console.log("timeframe");
+          }
+          else {
+              console.log("error")
+            this.errors.push(
+                'Seit welchem Jahr (Spalte 1). Geben Sie ein gültiges Jahr ein.')
+          }
+          if (q2.camera.choice == "1") {
+            if (q2.camera.year > 0) {
+              console.log("camera");
+            }
+          }
+          else if (q2.gps.choice == "1") {
+            if (q2.gps.year > 0) {
+              console.log("gps");
+            }
+          }
+          else if (q2.newInvest.choice == "1") {
+            if (q2.newInvest.year > 0) {
+              console.log("newInvest");
+            }
+          }
+          else if (q2.autonom.choice == "1") {
+            if (q2.autonom.year > 0) {
+              console.log("autonom");
+            }
+          }
+          else if (q2.comment.choice == "1") {
+            if (q2.comment.text != "") {
+              console.log("comment");
+            }
+          }
+          else if (q2.not_available == "1") {
+              console.log("not_available");
+            }
+          else {
+              console.log("error")
+            this.errors.push(
+                'Zusatzausstattung (Spalte 2). Wählen Sie mindestens eine Option.')
+          }
+
+          if (q2.machine.length > 0) {
+              console.log("machine");
+          }
+          else {
+              console.log("error")
+            this.errors.push(
+                'Besitzverhältnis (Spalte 3)')
+          } 
+      }
+
+      else if (this.step == 5 && this.skip_map == true) {
+          this.errors = []
+          if (this.surveyData['question4_alt'].value.toString().length == 5)
+          {
+            console.log("check question 4 alt")
+          }
+          else {
+            console.log("error")
+            this.errors.push(
+                'Bitte wählen Sie eine gültige 5-stellige Postleitzahl')
+            } 
+      }
+      else if (this.step == 5 && this.skip_map == false) {
         this.errors = []
         console.log("question5")
           if (!this.surveyData['question4_5'].farms.length == 0)
@@ -1558,9 +1667,9 @@ export default {
             console.log("error")
             this.errors.push(
                 'Bitte wählen Sie ein oder mehrere Felder oder klicken Sie “Überspringen”')
-              }  
-         }
-
+            }  
+        }
+    
       else if (this.step == 6 && this.skip_map2 == false){
           this.errors = []
           this.check = ''
@@ -1593,6 +1702,7 @@ export default {
             }
           }
          if (this.check == 'yes'){
+           this.popup = true
             console.log("yes")
           }
           else {
@@ -1692,7 +1802,7 @@ export default {
 
 #techniqueTable td,
 #techniqueTable th {
-  margin: 5px; padding: 8px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; 
+  margin: 5px; padding: 8px; border: 1px; border-style: solid; border-color: white; border-radius: 11px 11px 11px 11px; 
 
 }
 
