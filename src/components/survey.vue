@@ -342,7 +342,7 @@
                                       Sie können Maschinen hinzufügen, die nicht in der Liste stehen oder auch wieder entfernen.">
           </modal>
           <br>
-          <div style="text-align: center">            
+          <div style="text-align: left">            
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
@@ -1372,7 +1372,7 @@
       <button @click.prevent="step = 10">Erneut versuchen</button>
     </div>
 
-      <br /><br />Debug: {{surveyData}}
+      <!-- <br /><br />Debug: {{surveyData}} -->
 
     </div>
     </template>
@@ -1658,11 +1658,11 @@ export default {
                 if (q2.timeframe[l] == false){
                   console.log("time frame error")
                   this.errors.push(
-                  `(Spalte 1). Wählen Sie ein Jahr für ${q2.technique[l]}`)
+                  `Spalte 1. Wählen Sie ein Jahr für ${q2.technique[l]}`)
                 }
                 else if (q2.timeframe[l].toString().length != 4){
                   this.errors.push(
-                    `(Spalte 1). Wählen Sie ein gültiges Jahr für Technik ${q2.technique[l]}`)               
+                    `Spalte 1. Wählen Sie ein gültiges Jahr für Technik ${q2.technique[l]}`)               
                 } 
                 
                 if (q2.camera.choice[l] == 1){
