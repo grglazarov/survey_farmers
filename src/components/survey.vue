@@ -67,6 +67,14 @@
    </div>
       
     <div v-if="step === 1" class = firstPage>
+           <div style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">            
+            <p v-if="step == 1 && errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+           </div>
             <section>
                     <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
                       <!-- border: 4px solid black; -->
@@ -74,8 +82,7 @@
                         <legend style="font-size: 100%;">
                         <ul style="margin: 2px; padding: 10px">
                         <li>Die Umfrage wird max. 10 Minuten in Anspruch nehmen.</li>
-                        <li>Alle Ergebnisse werden anonymisiert analysiert. </li>
-                        <li>Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. </li>
+                        <li>Alle Ergebnisse werden anonymisiert analysiert. Wenn Sie möchten, senden wir Ihnen die zusammengefassten Ergebnisse der Studie zu. </li>
                         <li>Dazu können Sie im Anschluss an die Studie Ihre e-Mail Adresse angeben.</li>
                         <li>Zur Hilfe haben wir in der Umfrage Tipps hinterlegt, die Sie über das ?-Symbol aufrufen können.</li>
                         <li>Die in der Umfrage gewählte männliche Form bezieht sich zugleich auf weibliche, diverse und männliche Personen.</li>
@@ -221,12 +228,7 @@
        <div style="text-align: center">            
          <button @click="step -=1; scrollToTop(); errors = []">Zurück</button>
          <button @click.prevent="next({consent: 'Datenschutzerklärung Akzeptieren'}, 'question0')" @click="scrollToTop()">Weiter</button>
-            <p v-if="step == 1 && errors && errors.length">
-              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
-                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-              </ul>
-            </p>
+          <br />
         </div>
         </div>
 
@@ -238,6 +240,14 @@
             </modal>
             </div>
             <br>
+            <div >     
+             <p style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center" v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+            </div>
               <section>
                 <legend for="question1">
                   Betreiben Sie mechanische Unkrautbekämpfung in Ihren Zuckerrüben? 
@@ -249,14 +259,14 @@
                 <br />
                 <input
                   type="radio"
-                  value="Ja"
+                  value="1"
                   v-model="surveyData.question1.value"
                 />
                 <label for="one">Ja</label>
                 <br />
                 <input 
                 type="radio" 
-                value="Nein" 
+                value="0" 
                 v-model="surveyData.question1.value" 
                 />
                 <label for="one">Nein</label>
@@ -267,22 +277,24 @@
         <div style="text-align: center">     
           <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
           <button @click.prevent="next({value: 'Frage 1'}, 'question1')" @click="scrollToTop()">Weiter</button>
+           <br />  
+         </div>       
+        </div>
+
+    <div v-if="step === 3 && surveyData.question1.value ==='0'">
+          <h1>Frage {{ pageNumber }} / 8</h1>
+          <modal 
+          hideModal = true; helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
+          </modal>
+          <br>
+          <div style="text-align: center">            
             <p v-if="errors && errors.length">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
               <ul>
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-           <br />  
-         </div>       
-        </div>
-
-    <div v-if="step === 3 && surveyData.question1.value ==='Nein'">
-          <h1>Frage {{ pageNumber }} / 8</h1>
-          <modal 
-          hideModal = true; helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
-          </modal>
-          <br>
+          </div>
           <div>
             <legend for="question2_alt"> 
               Warum nutzen Sie keine mechanische Unkrautbekämpfung? Wählen Sie alle passenden Gründe aus.Sie haben außerdem die Möglichkeit weitere Gründe oder Erklärungen im Kommentarfeld einzutragen.
@@ -291,25 +303,25 @@
               <br />
           </div>
 
-          <input type="checkbox" name="pets" value="1" v-model="surveyData.question2_alt.select" > Zu hohe laufende Kosten<br>
-          <input type="checkbox" name="pets" value="2" v-model="surveyData.question2_alt.select" > Zu hohe Investitionskosten<br>
-          <input type="checkbox" name="pets" value="3" v-model="surveyData.question2_alt.select" > Zu hoher Zeitaufwand<br>
-          <input type="checkbox" name="pets" value="4" v-model="surveyData.question2_alt.select" > Geringe Zuverlässigkeit in der Unkrautbekämpfung<br>
-          <input type="checkbox" name="pets" value="5" v-model="surveyData.question2_alt.select" > Hohes Risiko die Kulturpflanze zu schädigen<br>
-          <input type="checkbox" name="pets" value="6" v-model="surveyData.question2_alt.select" > Nicht möglich auf meinem Betrieb (z. Bsp. durch Bodenbedingungen, Feldgrößen, …)<br>
-          <input type="checkbox" name="pets" value="7" v-model="surveyData.question2_alt.select" > Ich weiß nicht, ob die Technik bei mir funktioniert<br>         
-          <input type="checkbox" name="pets" value="8" v-model="surveyData.question2_alt.select" > Ich traue mir die Anwendung/Bedienung nur bedingt zu<br>
-          <input type="checkbox" name="pets" value="9" v-model="surveyData.question2_alt.select" > Meine Kollegen in der Region haben schlechte Erfahrungen gemacht und mir davon erzählt<br>
-          <input type="checkbox" name="pets" value="10" v-model="surveyData.question2_alt.select" > Ich kenne keine Kollegen in meiner Region der mir Tipps geben könnten<br>
-          <input type="checkbox" name="pets" value="11" v-model="surveyData.question2_alt.select" > Ich möchte noch warten bis die Technik ausgereifter ist<br>
-          <input type="checkbox" name="pets" value="12" v-model="surveyData.question2_alt.select" > Es gibt für mich keinen Grund für eine Umstellung meines Anbaus<br>
+          <input type="checkbox" name="pets" value="0" v-model="surveyData.question2_alt.select" > Zu hohe laufende Kosten<br>
+          <input type="checkbox" name="pets" value="1" v-model="surveyData.question2_alt.select" > Zu hohe Investitionskosten<br>
+          <input type="checkbox" name="pets" value="2" v-model="surveyData.question2_alt.select" > Zu hoher Zeitaufwand<br>
+          <input type="checkbox" name="pets" value="3" v-model="surveyData.question2_alt.select" > Geringe Zuverlässigkeit in der Unkrautbekämpfung<br>
+          <input type="checkbox" name="pets" value="4" v-model="surveyData.question2_alt.select" > Hohes Risiko die Kulturpflanze zu schädigen<br>
+          <input type="checkbox" name="pets" value="5" v-model="surveyData.question2_alt.select" > Nicht möglich auf meinem Betrieb (z. Bsp. durch Bodenbedingungen, Feldgrößen, …)<br>
+          <input type="checkbox" name="pets" value="6" v-model="surveyData.question2_alt.select" > Ich weiß nicht, ob die Technik bei mir funktioniert<br>         
+          <input type="checkbox" name="pets" value="7" v-model="surveyData.question2_alt.select" > Ich traue mir die Anwendung/Bedienung nur bedingt zu<br>
+          <input type="checkbox" name="pets" value="8" v-model="surveyData.question2_alt.select" > Meine Kollegen in der Region haben schlechte Erfahrungen gemacht und mir davon erzählt<br>
+          <input type="checkbox" name="pets" value="9" v-model="surveyData.question2_alt.select" > Ich kenne keine Kollegen in meiner Region der mir Tipps geben könnten<br>
+          <input type="checkbox" name="pets" value="10" v-model="surveyData.question2_alt.select" > Ich möchte noch warten bis die Technik ausgereifter ist<br>
+          <input type="checkbox" name="pets" value="11" v-model="surveyData.question2_alt.select" > Es gibt für mich keinen Grund für eine Umstellung meines Anbaus<br>
           <br/>
           <div class="form-group">
             <label>Kommentar: </label>
             <textarea class="form-control"
                       style="width: 500px"
                       v-model="surveyData.question2_alt.comment"
-                      placeholder="Eure Kommentare hier einfügen"
+                      placeholder="Kommentare hier einfügen"
                       required
                       id="question2_alt"
                       rows="3">
@@ -320,22 +332,24 @@
           <div style="text-align: center">            
           <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
           <button @click.prevent="next({select: 'Frage 2'}, 'question2_alt')" @click="scrollToTop()">Weiter</button>
-            <p v-if="errors && errors.length">
-              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
-                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-              </ul>
-            </p>
             </div>
       </div>
 
-    <div v-if="step === 3 && surveyData.question1.value ==='Ja'">
+    <div v-if="step === 3 && surveyData.question1.value ==='1'">
           <h1>Frage {{ pageNumber }} / 8</h1>
           <modal 
           hideModal = true; helpText="Bitte wählen Sie eine Maschine aus. Füllen Sie dann die entsprechenden Spalten in der Tabelle aus. 
                                       Sie können Maschinen hinzufügen, die nicht in der Liste stehen oder auch wieder entfernen.">
           </modal>
           <br>
+          <div style="text-align: center">            
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+          </div>
           <section>
             <legend for="question2"> 
               Seit wann nutzen Sie die folgenden Techniken? 
@@ -419,22 +433,20 @@
                         <input 
                         type="checkbox"
                         true-value= 1
-                        false-value = ''
+                        false-value = 0
                         v-model="surveyData.question2.camera.choice[index]"
                         >
                         <label>a) Mit Kamera</label>
                       </div>
                         <div v-if="surveyData.question2.camera.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
-                          <input 
-                            minlength="4" 
-                            maxlength="4"  
+                          <input   
                             size="4"
                             placeholder="Jahr"               
-                            inputmode="numeric"                 
-                            type="text" 
+                            type="number" 
                             required
-                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            max="2022" 
+                            oninput="(validity.valid)||(this.value=''); this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                             v-model="surveyData.question2.camera.year[index]"
                         > 
                       </div>
@@ -445,7 +457,7 @@
                         <input 
                         type="checkbox"
                         true-value= 1
-                        false-value = ''                      
+                        false-value= 0
                         v-model="surveyData.question2.gps.choice[index]"
                         >
                         <label>b) Mit GPS</label>
@@ -453,14 +465,12 @@
                         <div v-if="surveyData.question2.gps.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                           <input 
-                            minlength="4" 
-                            maxlength="4"  
                             size="4"
                             placeholder="Jahr"               
-                            inputmode="numeric"                 
-                            type="text" 
+                            type="number" 
                             required
-                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            max="2022" 
+                            oninput="(validity.valid)||(this.value=''); this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                             v-model="surveyData.question2.gps.year[index]"
                         > 
                       </div>
@@ -471,7 +481,7 @@
                         <input 
                         type="checkbox"
                         true-value= 1
-                        false-value = ''
+                        false-value = 0
                         v-model="surveyData.question2.newInvest.choice[index]"
                         >
                         <label>c) Neuinvestition</label>
@@ -479,14 +489,12 @@
                         <div v-if="surveyData.question2.newInvest.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>In: &nbsp </label>
                           <input 
-                            minlength="4" 
-                            maxlength="4"  
                             size="4"
                             placeholder="Jahr"               
-                            inputmode="numeric"                 
-                            type="text" 
+                            type="number" 
                             required
-                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            max="2022" 
+                            oninput="(validity.valid)||(this.value=''); this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                             v-model="surveyData.question2.newInvest.year[index]"
                         > 
                       </div>
@@ -497,7 +505,7 @@
                         <input 
                         type="checkbox"
                         true-value= 1
-                        false-value = ''
+                        false-value = 0
                         v-model="surveyData.question2.autonom.choice[index]"
                         >
                         <label>d) Autonom fahrend</label>
@@ -505,14 +513,12 @@
                         <div v-if="surveyData.question2.autonom.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                           <input 
-                            minlength="4" 
-                            maxlength="4"  
                             size="4"
                             placeholder="Jahr"               
-                            inputmode="numeric"                 
-                            type="text" 
+                            type="number" 
                             required
-                            oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
+                            max="2022" 
+                            oninput="(validity.valid)||(this.value=''); this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');"
                             v-model="surveyData.question2.autonom.year[index]"
                         > 
                       </div>
@@ -523,7 +529,7 @@
                         <input 
                         type="checkbox"
                         true-value= 1
-                        false-value = ''
+                        false-value = 0
                         v-model="surveyData.question2.comment.choice[index]"
                         >
                         <label>e) Kommentar </label>
@@ -542,7 +548,7 @@
                       id="one"
                       type="checkbox"
                       true-value= 1
-                      false-value = ''
+                      false-value = 0
                       v-model="surveyData.question2.not_available[index]"
                       />
                       <label for="one">f) Keine Angabe</label>
@@ -586,9 +592,10 @@
                       <div v-if="surveyData.question2.machine[index] == 4" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                           <input style="height:30%; width: 70%"
                           type="text"
-                          v-model="surveyData.question2.other_machine[index]"
                           placeholder="Hier einfügen"
-                          required>
+                          required
+                          v-model="surveyData.question2.other_machine[index]"
+                          >
                       </div>                     
                 </td>
               </tr>   
@@ -600,24 +607,25 @@
           <button @click.prevent="deleteRowTechnique()">Alle löschen</button>
           <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
           <button @click.prevent="next()" @click="scrollToTop(); handleTable()">Weiter</button>
-            <p v-if="errors && errors.length">
-              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
-                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-              </ul>
-            </p>
           </div>
         </div>
 
       
        <div v-if="step === 4">  
-
             <h1>Frage {{ pageNumber }} / 8</h1>
             <modal 
             hideModal = true; helpText="Hierbei sind nicht nur Zuckerrübenbauern gemeint. 
             Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
             </modal>
-            <br>            
+            <br>       
+             <div style="text-align: center">              
+                <p v-if="errors && errors.length">
+                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                  <ul>
+                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </p>
+            </div>     
             <section>
               <legend for="question3">
                   Mit wie vielen Landwirten, die mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung <mark style="color: #1adee8; background: none">(nicht nur in Zuckerrüben!)</mark> einsetzen, stehen Sie in persönlichem Kontakt?
@@ -635,21 +643,21 @@
                 <br />
                 <input 
                 type="radio" 
-                value="1-5" 
+                value="1" 
                 v-model="surveyData.question3.value" 
                 />
                 <label for="one">1-5</label>
                 <br />
                 <input 
                 type="radio" 
-                value="6-10" 
+                value="2" 
                 v-model="surveyData.question3.value" 
                 />
                 <label for="one">6-10</label>
                 <br />
                 <input 
                 type="radio" 
-                value="mehr als 10" 
+                value="3" 
                 v-model="surveyData.question3.value" 
                 />
                 <label for="one">mehr als 10</label>
@@ -659,12 +667,6 @@
             <div style="text-align: center">            
               <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
               <button @click.prevent="next({value: 'Frage 3'}, 'question3');" @click="setColor(); scrollToTop()">Weiter</button>      
-                <p v-if="errors && errors.length">
-                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                  <ul>
-                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-                  </ul>
-                </p>
             </div>
          </div>
 
@@ -675,7 +677,15 @@
               hideModal = true; helpText=" Bitte markieren Sie die entsprechende Lage auf der Karte. Sie können die Karte verschieben, 
               indem Sie die linke Maustaste gedrückt halten. Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich. Sie können im Suchfeld oben rechts in der Ecke der Karte nach Orten suchen.">
            </modal>
-           <br>          
+           <br>    
+             <div style="text-align: center">            
+                <p v-if="errors && errors.length">
+                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                  <ul>
+                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </p>
+          </div>      
           <legend for="question4">
             Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
             <br>
@@ -689,7 +699,15 @@
             hideModal = true; helpText="Diese Information wird anonym gespeichert und es können keine Rückschlüsse auf einzelne Betriebe gezogen werden. 
                                         Alle Daten werden später aggregiert und wie am Anfang auf der Karte zusammengefasst">
           </modal>
-          <br>          
+          <br> 
+            <div style="text-align: center">            
+                <p v-if="errors && errors.length">
+                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                  <ul>
+                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+                  </ul>
+                </p>
+          </div>         
           <legend for="question4_alt">
                <br/>
                Bitte geben Sie Ihre Postleitzahl an: 
@@ -713,12 +731,6 @@
              <div style="text-align: center">            
               <button @click.prevent="skip_map = false" @click="scrollToTop(); errors = []">Zurück</button>
               <button @click.prevent="next({value: 'Postleitzahl'}, 'question4_alt'); " @click="setColor(); scrollToTop()">Weiter</button>
-                <p v-if="errors && errors.length">
-                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                  <ul>
-                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-                  </ul>
-                </p>
           </div>
       </div>
 
@@ -727,7 +739,15 @@
            <modal 
             hideModal = true; helpText="Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
           </modal>
-          <br>          
+          <br>
+        <div style="text-align: center">            
+              <p v-if="errors && errors.length">
+                <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+                <ul>
+                  <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+                </ul>
+              </p>
+        </div>          
           <legend>
             Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren), auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
             <mark style="color: #1adee8; background: none">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</mark> Bitte klicken Sie diese Felder auf der Karte an.
@@ -741,7 +761,15 @@
       <modal 
       hideModal = true; helpText="Bitte geben Sie möglichst genau an, wo und wie viele Felder Sie zum Beispiel im Vorbeifahren beobachten.">
       </modal>
-      <br>      
+      <br>     
+      <div style="text-align: center">            
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+        </div> 
       <section>
         <div style="margin: 0px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
           <legend>
@@ -756,22 +784,22 @@
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="1-5" v-model="surveyData.question5_alt.fields">
+               value="1" v-model="surveyData.question5_alt.fields">
               <label class="form-check-label">1-5</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="6-10" v-model="surveyData.question5_alt.fields">
+               value="2" v-model="surveyData.question5_alt.fields">
               <label class="form-check-label">6-10</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="11-15" v-model="surveyData.question5_alt.fields">
+               value="3" v-model="surveyData.question5_alt.fields">
               <label class="form-check-label">11-15</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="mehr als 15" v-model="surveyData.question5_alt.fields">
+               value="4" v-model="surveyData.question5_alt.fields">
               <label class="form-check-label">mehr als 15</label>
           </div>              
         </div>              
@@ -786,32 +814,32 @@
         <br>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="0-5 km" v-model="surveyData.question5_alt.distance">
+               value="0" v-model="surveyData.question5_alt.distance">
               <label class="form-check-label">0-5 km</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="6-10 km" v-model="surveyData.question5_alt.distance">
+               value="1" v-model="surveyData.question5_alt.distance">
               <label class="form-check-label">6-10 km</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="11-15 km" v-model="surveyData.question5_alt.distance">
+               value="2" v-model="surveyData.question5_alt.distance">
               <label class="form-check-label">11-15 km</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="16-20 km" v-model="surveyData.question5_alt.distance">
+               value="3" v-model="surveyData.question5_alt.distance">
               <label class="form-check-label">16-20 km</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="21-30 km" v-model="surveyData.question5_alt.distance">
+               value="4" v-model="surveyData.question5_alt.distance">
               <label class="form-check-label">21-30 km</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="mehr als 30 km" v-model="surveyData.question5_alt.distance">
+               value="5" v-model="surveyData.question5_alt.distance">
               <label class="form-check-label">mehr als 30 km</label>
           </div>
         </div>
@@ -821,12 +849,6 @@
       <div style="text-align: center">            
         <button @click.prevent="skip_map2 = false" @click="scrollToTop(); errors = []">Zurück</button>
         <button @click.prevent="next({fields: 'Frage 5 a)', distance: 'Frage 5 b)'}, 'question5_alt');" @click="scrollToTop(); popup = true">Weiter</button>
-            <p v-if="errors && errors.length">
-              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
-                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-              </ul>
-            </p>
         </div>
     </div>   
         <div v-show="skip_map == false && skip_map2 == false" style="border: 3px solid white">
@@ -858,13 +880,7 @@
              <div style="text-align: center">            
               <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
               <button @click.prevent="next()" @click="setColor(); scrollToTop()">Weiter</button>
-              <button @click.prevent="skip_map = true" @click="surveyData.question4_5 = {farms: [], shapes: {'type': 'FeatureCollection', 'features': []}}">Überspringen</button>
-                <p v-if="errors && errors.length">
-                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                  <ul>
-                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-                  </ul>
-                </p>
+              <button @click.prevent="skip_map = true" @click="surveyData.question4_5 = {farms: [], shapes: {'type': 'FeatureCollection', 'features': []}}; scrollToTop(); errors = []">Überspringen</button>
           </div>
         </div>
           <div v-if="step === 6  && skip_map2 == false">
@@ -879,13 +895,7 @@
           <div style="text-align: center">            
           <button @click.prevent="prev()" @click="setColor(); scrollToTop(); errors = []">Zurück</button>
           <button @click.prevent="next()" @click="scrollToTop();">Weiter</button>
-          <button @click.prevent="skip_map2 = true" @click="surveyData.question4_5 = {farms: [], shapes: {'type': 'FeatureCollection', 'features': []}}">Überspringen</button> 
-              <p v-if="errors && errors.length">
-                <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                <ul>
-                  <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-                </ul>
-              </p>
+          <button @click.prevent="skip_map2 = true" @click="surveyData.question4_5 = {farms: [], shapes: {'type': 'FeatureCollection', 'features': []}}; scrollToTop(); errors = []">Überspringen</button> 
         </div>
       </div> 
   </div>
@@ -898,14 +908,11 @@
           </div>
         </template>
         <template v-slot:body>
-            <div style=" color:white; height: 200px; font-size: 20px; margin:2px; padding:2px" lang="de-DE" >
-                Danke, dass Sie bis jetzt durchgehalten haben!
+            <div style=" color:white; height: 180px; font-size: 20px; margin:2px; padding:2px" lang="de-DE" >
+                Sie haben den ersten Teil der Umfrage erfolgreich ausgefüllt und Ihre bisherigen Antworten wurden gespeichert. 
                 <br>
                 <br>
-                Sie haben den ersten Teil der Umfrage erfolgreich abgeschlossen und Ihre Antworten sowie die ausgewählten Felder auf der Karte wurden gespeichert. 
-                <br>
-                <br>
-                Jetzt geht es weiter mit dem zweiten Teil. Noch 3 Fragen und Sie sind fertig!
+                Nun geht es weiter mit dem zweiten Teil.
             </div>
         </template>
         <template v-slot:footer>
@@ -921,7 +928,15 @@
             <modal 
             hideModal = true; helpText="Help text here?">
            </modal>
-           <br>          
+           <br>
+        <div style="text-align: center">            
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+        </div>          
           <section>
           <legend>
            Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
@@ -943,37 +958,37 @@
               <tbody style="font-size:12px">
                 <tr>
                   <td>
-                    <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column1" />Ich plane nichts in diese Richtung</label>
+                    <label for="radio1"><input type="radio" value="0" v-model="surveyData.question6.column1" />Ich plane nichts in diese Richtung</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="2" v-model="surveyData.question6.column1" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
+                    <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column1" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
                     <hr>
-                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column1" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
+                    <label for="radio1"><input type="radio" value="2" v-model="surveyData.question6.column1" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column1" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
+                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column1" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column1" />Ich setze diese Technik schon ein</label>
+                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column1" />Ich setze diese Technik schon ein</label>
                   </td>
                   <td>
-                    <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column2" />Ich plane nichts in diese Richtung</label>
+                    <label for="radio1"><input type="radio" value="0" v-model="surveyData.question6.column2" />Ich plane nichts in diese Richtung</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="2" v-model="surveyData.question6.column2" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
+                    <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column2" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
                     <hr>
-                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column2" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
+                    <label for="radio1"><input type="radio" value="2" v-model="surveyData.question6.column2" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column2" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
+                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column2" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column2" />Ich setze diese Technik schon ein</label>
+                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column2" />Ich setze diese Technik schon ein</label>
                   </td>
                   <td>
-                    <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column3" />Ich plane nichts in diese Richtung</label>
+                    <label for="radio1"><input type="radio" value="0" v-model="surveyData.question6.column3" />Ich plane nichts in diese Richtung</label>
                     <hr>
-                    <label for="radio1"><input type="radio"  value="2" v-model="surveyData.question6.column3" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
+                    <label for="radio1"><input type="radio" value="1" v-model="surveyData.question6.column3" />Ich plane mich zu informieren und aktuelle Diskussionen und die Fachliteratur zu dem Thema zu verfolgen</label>  
                     <hr>
-                    <label for="radio1"><input type="radio"  value="3" v-model="surveyData.question6.column3" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
+                    <label for="radio1"><input type="radio" value="2" v-model="surveyData.question6.column3" />Ich plane aktiv innerhalb der nächsten 5 Jahren Angebote einzuholen und Beratungsmöglichkeiten anzunehmen</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column3" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
+                    <label for="radio1"><input type="radio" value="3" v-model="surveyData.question6.column3" />Ich plane diese Technik innerhalb der nächsten 5 Jahren einzusetzen (Eigene Anschaffung, Lohnunternehmer, ...)</label>
                     <hr>
-                    <label for="radio1"><input type="radio" value="5" v-model="surveyData.question6.column3" />Ich setze diese Technik schon ein</label>
+                    <label for="radio1"><input type="radio" value="4" v-model="surveyData.question6.column3" />Ich setze diese Technik schon ein</label>
                   </td>
                 </tr>
               </tbody>
@@ -984,12 +999,6 @@
       <div style="text-align: center">            
       <!-- <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button> -->
       <button @click.prevent="next({column1: 'Spalte 1', column2: 'Spalte 2', column3: 'Spalte 3'}, 'question6')" @click="scrollToTop()">Weiter</button>
-            <p v-if="errors && errors.length">
-              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
-                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-              </ul>
-            </p>
       </div>
   </div>
     
@@ -998,6 +1007,14 @@
         <modal 
         hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage und werden, wie die gesamte Umfrage, anonymisiert erfasst. Die Betriebsgröße bezieht sich auf die gesamte landwirtschaftlich genutzte Fläche (Eigen und Pacht).">
         </modal>
+        <div style="text-align: center">            
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+        </div>
         <h2 style="text-align: center">Persönliche und betriebliche Angaben</h2>     
         <section>
         <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
@@ -1007,37 +1024,37 @@
               <hr>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="15-24" v-model="surveyData.question7.age">
+               value="0" v-model="surveyData.question7.age">
               <label class="form-check-label">15-24</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="25-34" v-model="surveyData.question7.age">
+               value="1" v-model="surveyData.question7.age">
               <label class="form-check-label">25-34</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="35–44" v-model="surveyData.question7.age">
+               value="2" v-model="surveyData.question7.age">
               <label class="form-check-label">35–44</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="45-54" v-model="surveyData.question7.age">
+               value="3" v-model="surveyData.question7.age">
               <label class="form-check-label">45-54</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="55-64" v-model="surveyData.question7.age">
+               value="4" v-model="surveyData.question7.age">
               <label class="form-check-label">55-64</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="65 und mehr" v-model="surveyData.question7.age">
+               value="5" v-model="surveyData.question7.age">
               <label class="form-check-label">65 und mehr</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="keine Angabe" v-model="surveyData.question7.age">
+               value="6" v-model="surveyData.question7.age">
               <label class="form-check-label">keine Angabe</label>
           </div>
           </div>
@@ -1051,52 +1068,52 @@
           <hr>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="unter 5" v-model="surveyData.question7.size">
+               value="0" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">unter 5</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="5-9" v-model="surveyData.question7.size">
+               value="1" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">5-9</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="10-19" v-model="surveyData.question7.size">
+               value="2" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">10-19</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="20-49" v-model="surveyData.question7.size">
+               value="3" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">20-49</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="50-99" v-model="surveyData.question7.size">
+               value="4" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">50-99</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="100-199" v-model="surveyData.question7.size">
+               value="5" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">100-199</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="200–499" v-model="surveyData.question7.size">
+               value="6" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">200–499</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="500-999" v-model="surveyData.question7.size">
+               value="7" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">500-999</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="1000 und mehr" v-model="surveyData.question7.size">
+               value="8" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">1000 und mehr</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="keine Angabe" v-model="surveyData.question7.size">
+               value="9" v-model="surveyData.question7.size">
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
          </div>
@@ -1110,27 +1127,27 @@
               <hr>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="konventionell" v-model="surveyData.question7.farm">
+               value="0" v-model="surveyData.question7.farm">
               <label style="display:inline-block" class="form-check-label">konventionell</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="gesamter Betrieb ökologisch" v-model="surveyData.question7.farm">
+               value="1" v-model="surveyData.question7.farm">
               <label style="display:inline-block" class="form-check-label">gesamter Betrieb ökologisch</label>
           </div>
           <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="Ackerbau ökologisch" v-model="surveyData.question7.farm">
+               value="2" v-model="surveyData.question7.farm">
               <label style="display:inline-block" class="form-check-label">Ackerbau ökologisch</label>
           </div>
            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="andere Bereiche ökologisch" v-model="surveyData.question7.farm">
+               value="3" v-model="surveyData.question7.farm">
               <label style="display:inline-block" class="form-check-label">andere Bereiche ökologisch</label>
           </div>
            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="keine Angabe" v-model="surveyData.question7.farm">
+               value="4" v-model="surveyData.question7.farm">
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
         </div>
@@ -1144,35 +1161,35 @@
               <hr>
               <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Ackerbau" v-model="surveyData.question7.orientation">
+                value="0" v-model="surveyData.question7.orientation">
                 <label style="display:inline-block" class="form-check-label">Vornehmlich Ackerbau</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Viehhaltung" v-model="surveyData.question7.orientation">
+                value="1" v-model="surveyData.question7.orientation">
                 <label style="display:inline-block" class="form-check-label">Vornehmlich Viehhaltung</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Vornehmlich Sonderkulturen" v-model="surveyData.question7.orientation">
+                value="2" v-model="surveyData.question7.orientation">
                 <label style="display:inline-block" class="form-check-label">Vornehmlich Sonderkulturen</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Gemischtbetrieb" v-model="surveyData.question7.orientation">
+                value="3" v-model="surveyData.question7.orientation">
             <label style="display:inline-block" class="form-check-label">Gemischtbetrieb</label>
           </div>
            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="keine Angabe" v-model="surveyData.question7.orientation">
+               value="4" v-model="surveyData.question7.orientation">
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="andere" v-model="surveyData.question7.orientation">
+                value="5" v-model="surveyData.question7.orientation">
             <label style="display:inline-block" class="form-check-label">Andere/Kommentar</label>
           </div>
-              <div v-if="surveyData.question7.orientation=='andere'">  
+              <div v-if="surveyData.question7.orientation=='5'">  
             <textarea class="form-control"
                       style="width: 400px; height: 80px"
                       v-model="surveyData.question7.comment"
@@ -1192,17 +1209,17 @@
               <hr>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Ja" v-model="surveyData.question7.environment">
+                value="0" v-model="surveyData.question7.environment">
                 <label style="display:inline-block" class="form-check-label">Ja</label>
             </div>
             <div class="form-check form-check-inline">
                 <input class="form-check-input" type="radio" 
-                value="Nein" v-model="surveyData.question7.environment">
+                value="1" v-model="surveyData.question7.environment">
             <label style="display:inline-block" class="form-check-label">Nein</label>
           </div>
            <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" 
-               value="keine Angabe" v-model="surveyData.question7.environment">
+               value="2" v-model="surveyData.question7.environment">
               <label style="display:inline-block" class="form-check-label">keine Angabe</label>
           </div>
           </div>
@@ -1212,12 +1229,6 @@
         <div style="text-align: center">            
         <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
         <button @click.prevent="next({age: 'Alter', size: 'Betriebsgröße (ha)', farm: 'Art der Bewirtschaftung', orientation: 'Betriebsausrichtung', environment: 'Teilnahme Agrarumwelt-Klimamaßnahme'}, 'question7')" @click="scrollToTop()">Weiter</button>
-            <p v-if="errors && errors.length">
-              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
-                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-              </ul>
-            </p>
         </div>
     </div>
 
@@ -1245,13 +1256,20 @@
           </div>
           <br />
         </section>
-
         <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
         <button @click="step+=1;scrollToTop()">Weiter</button>
     </div>
  
     <div v-if="step === 10">
       <h1>Ende</h1>
+          <div style="text-align: center">            
+            <p v-if="errors && errors.length">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul>
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+        </div>
       <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
       <section>
         <legend>
@@ -1277,14 +1295,14 @@
         </legend>
         <input
           type="radio"
-          value="Ja"
+          value="1"
           v-model="surveyData.question9.value"
         />
         <label>Ja</label>
         <br />
         <input 
         type="radio" 
-        value="Nein" 
+        value="0" 
         v-model="surveyData.question9.value" 
         />
         <label>Nein</label>
@@ -1298,16 +1316,14 @@
         </legend>
           <input
             type="radio"
-            name="question10"
-            id="question10"
-            value="Ja"
+            value="1"
             v-model="surveyData.question10.value"
           />
           <label for="one">Ja</label>
           <br />
           <input 
           type="radio" 
-          value="Nein" 
+          value="0" 
           v-model="surveyData.question10.value" 
           />
           <label for="one">Nein</label>
@@ -1315,7 +1331,7 @@
           <br />
       </section> 
       </div>                     
-        <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;" v-if="surveyData.question9.value=='Ja' || surveyData.question10.value=='Ja'">  
+        <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;" v-if="surveyData.question9.value=='1' || surveyData.question10.value=='1'">  
             <legend>
             Bitte geben Sie hier Ihre E-Mail-Adresse an. Diese Daten werden gesondert gespeichert und es besteht keine Verbindung zu Ihren Antworten in der Umfrage.
             </legend>           
@@ -1338,7 +1354,7 @@
       </legend>
       </div>
   <button @click="step-=1; errors = []">Zurück</button>
-  <button @click.prevent="next({value: 'put email'}, 'farmerEmail'); submit()">Abgeben</button>
+  <button @click.prevent="next()" @click="scrollToTop();">Abgeben</button>
   </div>
 
     <div v-if="step === 'done'">
@@ -1356,7 +1372,7 @@
       <button @click.prevent="step = 10">Erneut versuchen</button>
     </div>
 
-      <!-- <br /><br />Debug: {{surveyData}} -->
+      <br /><br />Debug: {{surveyData}}
 
     </div>
     </template>
@@ -1380,6 +1396,52 @@ db.info().then(info => console.log(info));
 export default {
     name: 'survey',
     components: {markermapbox, modal, heatmapbox, multiselect, gdpr},   
+    watch: {
+    surveyData: {
+      deep: true,
+      handler (prop) {
+        if (prop.question2.technique) {
+          // for each technology selected
+          prop.question2.technique.forEach((name, i) => {
+            // check if the timeframe and comment arrays
+            // have a non-null value. If so -> replace with default
+            if (!this.surveyData.question2.timeframe[i]) {
+              this.surveyData.question2.timeframe[i] = false
+            }
+            if (!this.surveyData.question2.camera.choice[i]) {
+              this.surveyData.question2.camera.choice[i] = 0
+              this.surveyData.question2.camera.year[i] = false
+            }
+            if (!this.surveyData.question2.gps.choice[i]) {
+              this.surveyData.question2.gps.choice[i] = 0
+              this.surveyData.question2.gps.year[i] = false
+            }
+            if (!this.surveyData.question2.newInvest.choice[i]) {
+              this.surveyData.question2.newInvest.choice[i] = 0
+              this.surveyData.question2.newInvest.year[i] = false
+            }
+            if (!this.surveyData.question2.autonom.choice[i]) {
+              this.surveyData.question2.autonom.choice[i] = 0
+              this.surveyData.question2.autonom.year[i] = false
+            }
+            if (!this.surveyData.question2.comment.choice[i]) {
+              this.surveyData.question2.comment.choice[i] = 0
+              this.surveyData.question2.comment.text[i] = ''
+            }   
+            if (!this.surveyData.question2.not_available[i]) {
+              this.surveyData.question2.not_available[i] = 0
+            }     
+            if (!this.surveyData.question2.machine[i]) {
+              this.surveyData.question2.machine[i] = false
+            }
+            if (!this.surveyData.question2.other_machine[i]) {
+              this.surveyData.question2.other_machine[i] = ''
+            }                 
+          })
+        }
+      }
+    }
+  },
   data () {
     return {
       step: 0,
@@ -1484,9 +1546,12 @@ export default {
           for (var k = 0; k < farm_entries.length; k++) {
 
             if (farm_entries[k].own) {
-            console.log("farm", farm_entries[k].own)
-            heatmap_data[i].coords.push(farm_entries[k].own)  
-          }
+              console.log("farm", farm_entries[k].own)
+              heatmap_data[i].coords.push(farm_entries[k].own)  
+            }
+            else if (farm_entries[k].others) {
+              heatmap_data[i].coords.push(farm_entries[k].others)  
+            }
           }
         }
       console.log("whole_data", heatmap_data)
@@ -1509,6 +1574,11 @@ export default {
     scrollToTop() {
       window.scrollTo(0,0)
     },
+    validateEmail: function(email) 
+    {
+        var re = /\S+@\S+\.\S+/;
+        return re.test(email);
+    },
     limitKeypress: function() {    
     if (this.surveyData.question2_add.toString().length >= 3) {
           this.surveyData.question2.technique.push(this.surveyData.question2_add)
@@ -1518,16 +1588,16 @@ export default {
     handleTable: function() {
     if (this.surveyData.question2.technique.length != 0)
     {
-      this.surveyData.question6.column1 = "5"
+      this.surveyData.question6.column1 = "4"
 
       if (this.surveyData.question2.gps.choice.length != 0)
       {
-          this.surveyData.question6.column2 = "5"
+          this.surveyData.question6.column2 = "4"
       }
 
       if (this.surveyData.question2.autonom.choice.length != 0)
       {
-          this.surveyData.question6.column3 = "5"
+          this.surveyData.question6.column3 = "4"
       }
     }
     },
@@ -1578,68 +1648,61 @@ export default {
     },
     next(formFieldsToCheck, questionNumber) {
 
-    if (this.step == 3 && this.surveyData.question1.value == "Ja") {
+    if (this.step == 3 && this.surveyData.question1.value == "1") {
           this.errors = []
           var q2 = this.surveyData.question2
 
           if (q2.technique.length > 0) {
-              console.log("technique");
+              console.log("technique length >= 1");
+            for (var l = 0; l < q2.technique.length; l++) {
+                if (q2.timeframe[l] == false){
+                  console.log("time frame error")
+                  this.errors.push(
+                  `(Spalte 1). Wählen Sie ein Jahr für ${q2.technique[l]}`)
+                }
+                else if (q2.timeframe[l].toString().length != 4){
+                  this.errors.push(
+                    `(Spalte 1). Wählen Sie ein gültiges Jahr für Technik ${q2.technique[l]}`)               
+                } 
+                
+                if (q2.camera.choice[l] == 1){
+                  console.log("camera   found")
+                }
+                else if (q2.gps.choice[l] == 1){
+                  console.log("gps   found")
+                }
+                else if (q2.newInvest.choice[l] == 1){
+                  console.log("inv   found")
+                }
+                else if (q2.autonom.choice[l] == 1){
+                  console.log("autonom   found")
+                }
+                else if (q2.comment.choice[l] == 1){
+                  console.log("comment   found")
+                }
+                else if (q2.not_available[l] == 1){
+                  console.log("not_available   found")
+                }
+                else {
+                console.log("error")
+                  this.errors.push(
+                `Spalte 2 - Zusatzausstattung. Wählen Sie mindestens eine Option für Technik ${q2.technique[l]}`)
+                }
+                if (!q2.machine[l] == false) {
+                  console.log("machine");
+                }
+                else {
+                    console.log("error")
+                  this.errors.push(
+                      `Spalte 3 - Besitzverhältnis. Wählen Sie eine Option für Technik ${q2.technique[l]}`)
+                } 
+             }
           }
           else {
               console.log("error")
             this.errors.push(
                 'Technik')
           }
-          if (q2.timeframe.toString().length == 4) {
-              console.log("timeframe");
-          }
-          else {
-              console.log("error")
-            this.errors.push(
-                'Seit welchem Jahr (Spalte 1). Geben Sie ein gültiges Jahr ein.')
-          }
-          if (q2.camera.choice == "1") {
-            if (q2.camera.year > 0) {
-              console.log("camera");
-            }
-          }
-          else if (q2.gps.choice == "1") {
-            if (q2.gps.year > 0) {
-              console.log("gps");
-            }
-          }
-          else if (q2.newInvest.choice == "1") {
-            if (q2.newInvest.year > 0) {
-              console.log("newInvest");
-            }
-          }
-          else if (q2.autonom.choice == "1") {
-            if (q2.autonom.year > 0) {
-              console.log("autonom");
-            }
-          }
-          else if (q2.comment.choice == "1") {
-            if (q2.comment.text != "") {
-              console.log("comment");
-            }
-          }
-          else if (q2.not_available == "1") {
-              console.log("not_available");
-            }
-          else {
-              console.log("error")
-            this.errors.push(
-                'Zusatzausstattung (Spalte 2). Wählen Sie mindestens eine Option.')
-          }
-
-          if (q2.machine.length > 0) {
-              console.log("machine");
-          }
-          else {
-              console.log("error")
-            this.errors.push(
-                'Besitzverhältnis (Spalte 3)')
-          } 
       }
 
       else if (this.step == 5 && this.skip_map == true) {
@@ -1712,6 +1775,22 @@ export default {
               this.errors.push(
                 'Bitte wählen Sie ein oder mehrere Felder oder klicken Sie “Überspringen”')
         }
+      }
+      else if (this.step == 10){
+        this.errors = []
+        console.log(this.surveyData.question9.value)
+         if ((this.surveyData.question9.value == null) || (this.surveyData.question10.value == null)){
+           this.errors.push(
+                'Bitte geben Sie eine Antwort über die Ergebnisse und den Gewinnspiel')
+          } 
+         else if ((this.validateEmail(this.surveyData.farmerEmail.value) == false && this.surveyData.question9.value == "1") || (this.validateEmail(this.surveyData.farmerEmail.value) == false && this.surveyData.question10.value == "1")) {
+           console.log("error")
+            this.errors.push(
+                'Bitte geben Sie eine gültige E-mail-Adresse ein')
+         } 
+         else {
+           this.submit()
+         }
       }
       else {
         this.errors = []
