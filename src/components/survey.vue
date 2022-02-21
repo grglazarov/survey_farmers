@@ -67,10 +67,10 @@
    </div>
       
     <div v-if="step === 1" class = firstPage>
-           <div style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">            
-            <p v-if="step == 1 && errors && errors.length">
+           <div>            
+            <p v-if="step == 1 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
+              <ul  style="text-align: left">
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
@@ -239,15 +239,15 @@
              hideModal = true; helpText="Sie müssen diese Frage beantworten um fortfahren zu können.">
             </modal>
             </div>
-            <br>
-            <div >     
-             <p style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center" v-if="errors && errors.length">
+            <br>  
+           <div>            
+            <p v-if="step == 2 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
+              <ul  style="text-align: left">
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-            </div>
+           </div>
               <section>
                 <legend for="question1">
                   Betreiben Sie mechanische Unkrautbekämpfung in Ihren Zuckerrüben? 
@@ -287,14 +287,14 @@
           hideModal = true; helpText="Bitte geben Sie uns einige Hintergundinformationen zu Ihrer Entscheidung.">
           </modal>
           <br>
-          <div style="text-align: center">            
-            <p v-if="errors && errors.length">
+           <div>            
+            <p v-if="step == 3 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
+              <ul  style="text-align: left">
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-          </div>
+           </div>
           <div>
             <legend for="question2_alt"> 
               Warum nutzen Sie keine mechanische Unkrautbekämpfung? Wählen Sie alle passenden Gründe aus.Sie haben außerdem die Möglichkeit weitere Gründe oder Erklärungen im Kommentarfeld einzutragen.
@@ -342,14 +342,14 @@
                                       Sie können Maschinen hinzufügen, die nicht in der Liste stehen oder auch wieder entfernen.">
           </modal>
           <br>
-          <div style="text-align: left">            
-            <p v-if="errors && errors.length">
+           <div>            
+            <p v-if="step == 3 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
+              <ul  style="text-align: left">
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-          </div>
+           </div>
           <section>
             <legend for="question2"> 
               Seit wann nutzen Sie die folgenden Techniken? 
@@ -441,7 +441,7 @@
                         <div v-if="surveyData.question2.camera.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                           <input   
-                            size="4"
+                            size="8"
                             placeholder="Jahr"               
                             type="number" 
                             required
@@ -465,7 +465,7 @@
                         <div v-if="surveyData.question2.gps.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                           <input 
-                            size="4"
+                            size="8"
                             placeholder="Jahr"               
                             type="number" 
                             required
@@ -489,7 +489,7 @@
                         <div v-if="surveyData.question2.newInvest.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>In: &nbsp </label>
                           <input 
-                            size="4"
+                            size="8"
                             placeholder="Jahr"               
                             type="number" 
                             required
@@ -513,7 +513,7 @@
                         <div v-if="surveyData.question2.autonom.choice[index] == 1" style="display:flex; flex-direction: row; justify-content: left; align-items: center">  
                         <label>Seit: &nbsp </label>
                           <input 
-                            size="4"
+                            size="8"
                             placeholder="Jahr"               
                             type="number" 
                             required
@@ -618,14 +618,14 @@
             Die Handhacke zählt in diesem Fall NICHT als mechanische Unkrautbekämpfung">
             </modal>
             <br>       
-             <div style="text-align: center">              
-                <p v-if="errors && errors.length">
-                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                  <ul>
-                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-                  </ul>
-                </p>
-            </div>     
+           <div>            
+            <p v-if="step == 4 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul  style="text-align: left">
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+           </div> 
             <section>
               <legend for="question3">
                   Mit wie vielen Landwirten, die mechanische oder chemisch-mechanisch kombinierte Unkrautbekämpfung <mark style="color: #1adee8; background: none">(nicht nur in Zuckerrüben!)</mark> einsetzen, stehen Sie in persönlichem Kontakt?
@@ -678,14 +678,14 @@
               indem Sie die linke Maustaste gedrückt halten. Für unsere Auswertung ist eine möglichst präzise Angabe hilfreich. Sie können im Suchfeld oben rechts in der Ecke der Karte nach Orten suchen.">
            </modal>
            <br>    
-             <div style="text-align: center">            
-                <p v-if="errors && errors.length">
-                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                  <ul>
-                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-                  </ul>
-                </p>
-          </div>      
+           <div>            
+            <p v-if="step == 5 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul  style="text-align: left">
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+           </div>
           <legend for="question4">
             Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
             <br>
@@ -700,14 +700,14 @@
                                         Alle Daten werden später aggregiert und wie am Anfang auf der Karte zusammengefasst">
           </modal>
           <br> 
-            <div style="text-align: center">            
-                <p v-if="errors && errors.length">
-                  <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                  <ul>
-                    <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-                  </ul>
-                </p>
-          </div>         
+           <div>            
+            <p v-if="step == 5 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul  style="text-align: left">
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+           </div>  
           <legend for="question4_alt">
                <br/>
                Bitte geben Sie Ihre Postleitzahl an: 
@@ -740,14 +740,14 @@
             hideModal = true; helpText="Bewegen Sie die Karte in dem Sie den linken Mauszeiger gedrückt halten.">
           </modal>
           <br>
-        <div style="text-align: center">            
-              <p v-if="errors && errors.length">
-                <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-                <ul>
-                  <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
-                </ul>
-              </p>
-        </div>          
+           <div>            
+            <p v-if="step == 6 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
+              <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
+              <ul  style="text-align: left">
+                <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
+              </ul>
+            </p>
+           </div>         
           <legend>
             Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren), auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
             <mark style="color: #1adee8; background: none">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</mark> Bitte klicken Sie diese Felder auf der Karte an.
@@ -762,14 +762,14 @@
       hideModal = true; helpText="Bitte geben Sie möglichst genau an, wo und wie viele Felder Sie zum Beispiel im Vorbeifahren beobachten.">
       </modal>
       <br>     
-      <div style="text-align: center">            
-            <p v-if="errors && errors.length">
+           <div>            
+            <p v-if="step == 6 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
+              <ul  style="text-align: left">
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-        </div> 
+           </div>
       <section>
         <div style="margin: 0px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
           <legend>
@@ -929,14 +929,14 @@
             hideModal = true; helpText="Help text here?">
            </modal>
            <br>
-        <div style="text-align: center">            
-            <p v-if="errors && errors.length">
+           <div>            
+            <p v-if="step == 7 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
+              <ul  style="text-align: left">
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-        </div>          
+           </div>  
           <section>
           <legend>
            Können Sie sich vorstellen in Zukunft mechanische Unkrautbekämpfung einzusetzen?
@@ -1007,14 +1007,14 @@
         <modal 
         hideModal = true; helpText="Diese Daten dienen zur Erfassung der Repräsentativität unserer Umfrage und werden, wie die gesamte Umfrage, anonymisiert erfasst. Die Betriebsgröße bezieht sich auf die gesamte landwirtschaftlich genutzte Fläche (Eigen und Pacht).">
         </modal>
-        <div style="text-align: center">            
-            <p v-if="errors && errors.length">
+           <div>            
+            <p v-if="step == 8 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
+              <ul  style="text-align: left">
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-        </div>
+           </div>
         <h2 style="text-align: center">Persönliche und betriebliche Angaben</h2>     
         <section>
         <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
@@ -1228,7 +1228,7 @@
         <br>
         <div style="text-align: center">            
         <button @click.prevent="prev()" @click="scrollToTop(); errors = []">Zurück</button>
-        <button @click.prevent="next({age: 'Alter', size: 'Betriebsgröße (ha)', farm: 'Art der Bewirtschaftung', orientation: 'Betriebsausrichtung', environment: 'Teilnahme Agrarumwelt-Klimamaßnahme'}, 'question7')" @click="scrollToTop()">Weiter</button>
+        <button @click.prevent="next({age: 'a) Alter', size: 'b) Betriebsgröße (ha)', farm: 'c) Art der Bewirtschaftung', orientation: 'd) Betriebsausrichtung', environment: 'e) Teilnahme Agrarumwelt-Klimamaßnahme'}, 'question7')" @click="scrollToTop()">Weiter</button>
         </div>
     </div>
 
@@ -1262,14 +1262,14 @@
  
     <div v-if="step === 10">
       <h1>Ende</h1>
-          <div style="text-align: center">            
-            <p v-if="errors && errors.length">
+           <div>            
+            <p v-if="step == 10 && errors && errors.length" style="padding: 5px; margin: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px; text-align: center">
               <b>Um fortfahren zu können, müssen Sie alle erforderlichen Felder ausfüllen:</b>
-              <ul>
+              <ul  style="text-align: left">
                 <li style="color: #e32c03" v-for="error in errors" :key="error">{{ error }}</li>
               </ul>
             </p>
-        </div>
+           </div>
       <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
       <section>
         <legend>
@@ -1372,7 +1372,7 @@
       <button @click.prevent="step = 10">Erneut versuchen</button>
     </div>
 
-      <!-- <br /><br />Debug: {{surveyData}} -->
+      <br /><br />Debug: {{surveyData}}
 
     </div>
     </template>
@@ -1658,11 +1658,11 @@ export default {
                 if (q2.timeframe[l] == false){
                   console.log("time frame error")
                   this.errors.push(
-                  `Spalte 1. Wählen Sie ein Jahr für ${q2.technique[l]}`)
+                  `Spalte 1 - Gerät. Wählen Sie ein Jahr für den Technik ${q2.technique[l]}`)
                 }
                 else if (q2.timeframe[l].toString().length != 4){
                   this.errors.push(
-                    `Spalte 1. Wählen Sie ein gültiges Jahr für Technik ${q2.technique[l]}`)               
+                    `Spalte 1 - Gerät. Wählen Sie ein gültiges Jahr für den Technik ${q2.technique[l]}`)               
                 } 
                 
                 if (q2.camera.choice[l] == 1){
@@ -1686,7 +1686,7 @@ export default {
                 else {
                 console.log("error")
                   this.errors.push(
-                `Spalte 2 - Zusatzausstattung. Wählen Sie mindestens eine Option für Technik ${q2.technique[l]}`)
+                `Spalte 2 - Zusatzausstattung. Wählen Sie mindestens eine Option für den Technik ${q2.technique[l]}`)
                 }
                 if (!q2.machine[l] == false) {
                   console.log("machine");
@@ -1694,7 +1694,7 @@ export default {
                 else {
                     console.log("error")
                   this.errors.push(
-                      `Spalte 3 - Besitzverhältnis. Wählen Sie eine Option für Technik ${q2.technique[l]}`)
+                      `Spalte 3 - Besitzverhältnis. Wählen Sie eine Option für den Technik ${q2.technique[l]}`)
                 } 
              }
           }
@@ -1781,7 +1781,7 @@ export default {
         console.log(this.surveyData.question9.value)
          if ((this.surveyData.question9.value == null) || (this.surveyData.question10.value == null)){
            this.errors.push(
-                'Bitte geben Sie eine Antwort über die Ergebnisse und den Gewinnspiel')
+                'Bitte geben Sie an, ob Sie die Ergebnisse per E-Mail erhalten und an dem Gewinnspiel teilnehmen möchten')
           } 
          else if ((this.validateEmail(this.surveyData.farmerEmail.value) == false && this.surveyData.question9.value == "1") || (this.validateEmail(this.surveyData.farmerEmail.value) == false && this.surveyData.question10.value == "1")) {
            console.log("error")
