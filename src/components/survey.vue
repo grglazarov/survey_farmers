@@ -17,8 +17,7 @@
             </ul>  
           </legend>
         </div>
-         <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
-           <!-- border:4px solid black -->
+         <!-- <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
            <h2 style="text-align: center">Karte</h2>
                    
          <section>
@@ -53,7 +52,7 @@
             <heatmapbox v-bind:heatmap-data="heatmap_coords" :selected-technique="chosen_technique">
             </heatmapbox>
       </keep-alive>
-     </div>
+     </div> -->
      <br>
       <div style="padding: 5px; text-align: center">
     <button style="background-color: #182f4e;
@@ -1372,7 +1371,7 @@
       <button @click.prevent="step = 10">Erneut versuchen</button>
     </div>
 
-      <br /><br />Debug: {{surveyData}}
+      <!-- <br /><br />Debug: {{surveyData}} -->
 
     </div>
     </template>
@@ -1572,6 +1571,7 @@ export default {
       });
     },
     scrollToTop() {
+      this.deleteDB()
       window.scrollTo(0,0)
     },
     validateEmail: function(email) 
