@@ -1570,7 +1570,6 @@ export default {
       });
     },
     scrollToTop() {
-      this.deleteDB()
       window.scrollTo(0,0)
     },
     validateEmail: function(email) 
