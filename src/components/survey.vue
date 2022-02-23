@@ -1656,11 +1656,11 @@ export default {
                 if (q2.timeframe[l] == false){
                   console.log("time frame error")
                   this.errors.push(
-                  `${q2.technique[l]}: Spalte 1 - wählen Sie ein Jahr für den Technik`)
+                  `${q2.technique[l]}: Spalte 1 - wählen Sie ein Jahr für die Technik`)
                 }
                 else if (q2.timeframe[l].toString().length != 4){
                   this.errors.push(
-                    `${q2.technique[l]}: Spalte 1 - wählen Sie ein gültiges Jahr für den Technik`)               
+                    `${q2.technique[l]}: Spalte 1 - wählen Sie ein gültiges Jahr für die Technik`)               
                 } 
                 
                 if (q2.camera.choice[l] == 1){
@@ -1684,7 +1684,7 @@ export default {
                 else {
                 console.log("error")
                   this.errors.push(
-                `${q2.technique[l]}: Spalte 2 - wählen Sie mindestens eine Option für den Technik`)
+                `${q2.technique[l]}: Spalte 2 - wählen Sie mindestens eine Option für die Technik`)
                 }
                 if (!q2.machine[l] == false) {
                   console.log("machine");
@@ -1692,7 +1692,7 @@ export default {
                 else {
                     console.log("error")
                   this.errors.push(
-                      `${q2.technique[l]}: Spalte 3 - wählen Sie eine Option für den Technik`)
+                      `${q2.technique[l]}: Spalte 3 - wählen Sie eine Option für die Technik`)
                 } 
              }
           }
