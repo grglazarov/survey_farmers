@@ -1388,7 +1388,7 @@ let pouchDb = PouchDB.default.defaults();
 let db = new pouchDb('https://fruchtfolge.agp.uni-bonn.de/db/survey_anna/', {
   skip_setup: true
 })
-db.info().then(info => console.log(info));
+// whole db info: db.info().then(info => console.log(info));
 
 
 export default {
@@ -1495,18 +1495,9 @@ export default {
     //-- PouchDB methods
 
     setGeolocation: function(markers, plots) {
-      for (var i = 0; i < markers.length; i++) {
-        console.log("marker" + i + markers[i]["own"]);
-      }
+
       this.surveyData.question4_5.farms = markers
-
-
-      for (var j = 0; j < plots.features.length; j++) {
-        console.log("Plot" + j + plots.features[j].geometry.coordinates)
-
-      }
       this.surveyData.question4_5.shapes = plots
-
     },
 
     getGeolocation: function() {
@@ -1516,13 +1507,11 @@ export default {
         descending: true
       }).then(function(result) {
         var jsonData = result.rows
-        console.log(jsonData.length)
         for (var i = 0; i < jsonData.length; i++) {
 
           // *** insert the techniques ***
           
           var techniques = jsonData[i].doc.question2.technique
-          console.log("techniques", techniques)
           heatmap_data.push({
             technique: techniques,
             coords: []
@@ -1534,7 +1523,6 @@ export default {
           for (var j = 0; j < plot_entries.length; j++) {
             var plots = plot_entries[j].geometry.coordinates[0][0][0]
             var plots_coords = {'lng': plots[0], 'lat': plots[1]}
-            console.log("plot", plots_coords)
             heatmap_data[i].coords.push(plots_coords)  
           }
 
@@ -1544,7 +1532,6 @@ export default {
           for (var k = 0; k < farm_entries.length; k++) {
 
             if (farm_entries[k].own) {
-              console.log("farm", farm_entries[k].own)
               heatmap_data[i].coords.push(farm_entries[k].own)  
             }
             else if (farm_entries[k].others) {
@@ -1552,22 +1539,10 @@ export default {
             }
           }
         }
-      console.log("whole_data", heatmap_data)
       }).catch(function(err) {
         console.log("error" + err)
       })
       return heatmap_data
-    },
-    deleteDB: function() {
-      db.allDocs().then(function(result) {
-        return Promise.all(result.rows.map(function(row) {
-          return db.remove(row.id, row.value.rev);
-        }));
-      }).then(function() {
-        console.log("done");
-      }).catch(function(err) {
-        console.log("error" + err);
-      });
     },
     scrollToTop() {
       window.scrollTo(0,0)
@@ -1602,11 +1577,9 @@ export default {
     setColor: function(){
       if (this.step === 5) {
           this.currentFarm = 'own'
-          console.log(this.currentFarm)
       }
       if (this.step === 6) {
           this.currentFarm = "others"}
-          console.log(this.currentFarm)
       },
     deleteEntryTechnique: function (index) {
       this.surveyData.question2.technique.splice(index, 1)
@@ -1651,10 +1624,8 @@ export default {
           var q2 = this.surveyData.question2
 
           if (q2.technique.length > 0) {
-              console.log("technique length >= 1");
             for (var l = 0; l < q2.technique.length; l++) {
                 if (q2.timeframe[l] == false){
-                  console.log("time frame error")
                   this.errors.push(
                   `${q2.technique[l]}: Spalte 1 - wählen Sie ein Jahr für die Technik`)
                 }
@@ -1664,40 +1635,37 @@ export default {
                 } 
                 
                 if (q2.camera.choice[l] == 1){
-                  console.log("camera   found")
+                    //pass;
                 }
                 else if (q2.gps.choice[l] == 1){
-                  console.log("gps   found")
+                    //pass;
                 }
                 else if (q2.newInvest.choice[l] == 1){
-                  console.log("inv   found")
+                    //pass;
                 }
                 else if (q2.autonom.choice[l] == 1){
-                  console.log("autonom   found")
+                    //pass;
                 }
                 else if (q2.comment.choice[l] == 1){
-                  console.log("comment   found")
+                    //pass;
                 }
                 else if (q2.not_available[l] == 1){
-                  console.log("not_available   found")
+                    //pass;
                 }
                 else {
-                console.log("error")
                   this.errors.push(
                 `${q2.technique[l]}: Spalte 2 - wählen Sie mindestens eine Option für die Technik`)
                 }
                 if (!q2.machine[l] == false) {
-                  console.log("machine");
+                    //pass;
                 }
                 else {
-                    console.log("error")
                   this.errors.push(
                       `${q2.technique[l]}: Spalte 3 - wählen Sie eine Option für die Technik`)
                 } 
              }
           }
           else {
-              console.log("error")
             this.errors.push(
                 'Technik')
           }
@@ -1707,27 +1675,24 @@ export default {
           this.errors = []
           if (this.surveyData['question4_alt'].value.toString().length == 5)
           {
-            console.log("check question 4 alt")
+             //pass;
           }
           else {
-            console.log("error")
             this.errors.push(
                 'Bitte wählen Sie eine gültige 5-stellige Postleitzahl')
             } 
       }
       else if (this.step == 5 && this.skip_map == false) {
         this.errors = []
-        console.log("question5")
           if (!this.surveyData['question4_5'].farms.length == 0)
           {
-            console.log("check1");
+              //pass;
             }
           else if (!this.surveyData['question4_5'].shapes.features.length == 0)
           {
-            console.log("check2");
+              //pass;
         }
           else {
-            console.log("error")
             this.errors.push(
                 'Bitte wählen Sie ein oder mehrere Felder oder klicken Sie “Überspringen”')
             }  
@@ -1736,14 +1701,12 @@ export default {
       else if (this.step == 6 && this.skip_map2 == false){
           this.errors = []
           this.check = ''
-          console.log("question6")
           var farm_length = this.surveyData['question4_5'].farms.length
           var shapes_length = this.surveyData['question4_5'].shapes.features.length
 
           if (!farm_length == 0){
             for (var i = 0; i < farm_length; i++) {
             if ('others' in this.surveyData['question4_5'].farms[i]){
-                console.log("check3")
                 this.check = 'yes'
                 break;
               }
@@ -1755,7 +1718,6 @@ export default {
           if (!shapes_length == 0){
             for (var j = 0; j < shapes_length; j++) { 
             if (this.surveyData['question4_5'].shapes.features[j].properties.farm == 'others') {
-              console.log("check4")
               this.check = 'yes'
               break;
               }
@@ -1766,23 +1728,19 @@ export default {
           }
          if (this.check == 'yes'){
            this.popup = true
-            console.log("yes")
           }
           else {
-            console.log("error")
               this.errors.push(
                 'Bitte wählen Sie ein oder mehrere Felder oder klicken Sie “Überspringen”')
         }
       }
       else if (this.step == 10){
         this.errors = []
-        console.log(this.surveyData.question9.value)
          if ((this.surveyData.question9.value == null) || (this.surveyData.question10.value == null)){
            this.errors.push(
                 'Bitte geben Sie an, ob Sie die Ergebnisse per E-Mail erhalten und an dem Gewinnspiel teilnehmen möchten')
           } 
          else if ((this.validateEmail(this.surveyData.farmerEmail.value) == false && this.surveyData.question9.value == "1") || (this.validateEmail(this.surveyData.farmerEmail.value) == false && this.surveyData.question10.value == "1")) {
-           console.log("error")
             this.errors.push(
                 'Bitte geben Sie eine gültige E-mail-Adresse ein')
          } 
@@ -1830,7 +1788,7 @@ export default {
 
         this.backendResponse = await db.put(this.surveyData, function callback(err) {
           if (!err) {
-            console.log('Successfully posted a farmer feedback!');
+            console.log('Feedback erfolgreich gepostet!');
           }
         })
 
@@ -1841,27 +1799,13 @@ export default {
 
         console.log(this.backendResponse)
         this.step = 'done'
-        this.showDocs()
+//      this.showDocs()
       } catch (e) {
         // ToDo: Handle errors
         console.error(e)
         this.step = 'error'
       }
     },
-    async showDocs() {
-      try {
-        const {
-          rows
-        } = await db.allDocs({
-          include_docs: true,
-          descending: true
-        })
-        console.log(rows)
-        //console.log("total rows " + rows.total_rows);
-      } catch (e) {
-        console.error(e)
-      }
-    }
   },
   // calculates the heatmap on page load
   beforeMount() {

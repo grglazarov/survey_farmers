@@ -155,14 +155,12 @@ export default {
   })
 
     this.map.on("click", (event) => {
-      console.log(this.markedFarm)
     if (
       event.originalEvent.srcElement &&
       event.originalEvent.srcElement.classList &&
       Array.from(event.originalEvent.srcElement.classList).indexOf("marker") >
         -1
     ) {
-      console.log("return");
       return;
     }
     // check if user clicked on a pre-drawn field

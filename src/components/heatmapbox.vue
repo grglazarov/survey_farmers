@@ -305,7 +305,6 @@ export default {
         .addTo(map);
         }
       map.on('load', () => {
-        console.log('load')
         this.map = map
         let labels = [ 'country-label', 'state-label', 
         'settlement-label', 'settlement-subdivision-label', 
