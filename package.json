@@ -13,6 +13,7 @@
     "axios": "^0.21.1",
     "bindings": "^1.5.0",
     "core-js": "^3.9.1",
+    "dotenv": "^16.0.0",
     "lint": "^0.7.0",
     "mapbox-gl": "^2.6.1",
     "polygon-clipping": "^0.15.3",

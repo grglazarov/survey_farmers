@@ -750,6 +750,9 @@
             Welche Felder sind Ihnen bekannt (zum Beispiel durch Vorbeifahren), auf denen im letzten Wirtschaftsjahr (2021) mechanische oder chemisch-mechanisch kombiniert Unkrautbekämpfung angewandt wurde?
             <mark style="color: #1adee8; background: none">Hierbei sind nicht nur Zuckerrübenfelder gemeint!</mark> Bitte klicken Sie diese Felder auf der Karte an.
             <br>
+            <br>          
+            <b style="color: #FF7F50">&#10071 Bitte entfernen Sie die vorher angeklickten, orangefarbenen Felder / Marker nicht &#10071</b>
+            <br>
             <hr>
           </legend>
       </div>
@@ -924,7 +927,7 @@
    <div v-if="step === 7">
         <h1>Frage {{ pageNumber }} / 8</h1>
             <modal 
-            hideModal = true; helpText="Help text here?">
+            hideModal = true; helpText="Bitte wählen Sie für jede Technik (Beschrieben in der ersten Zeile) eine Option. Wenn Sie Ihren Betrieb in naher Zukunft an einen Nachfolger übergeben, wählen Sie einfach die Option, die Ihnen am wahrscheinlichsten erscheint.">
            </modal>
            <br>
            <div>            
@@ -1382,10 +1385,13 @@ import modal from './modal.vue'
 import heatmapbox from './heatmapbox.vue'
 import multiselect from 'vue-multiselect'
 import gdpr from './gdpr.vue'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 var PouchDB = require('pouchdb');
 let pouchDb = PouchDB.default.defaults();
-let db = new pouchDb('https://fruchtfolge.agp.uni-bonn.de/db/survey_anna/', {
+let db = new pouchDb(process.env.VUE_APP_DBKEY, {
   skip_setup: true
 })
 // whole db info: db.info().then(info => console.log(info));
@@ -1442,7 +1448,7 @@ export default {
   },
   data () {
     return {
-      step: 0,
+      step: 4,
       pageNumber: 0,
       errors: [],
       check: '',
