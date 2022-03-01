@@ -1448,7 +1448,7 @@ export default {
   },
   data () {
     return {
-      step: 4,
+      step: 0,
       pageNumber: 0,
       errors: [],
       check: '',
