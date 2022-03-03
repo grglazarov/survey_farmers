@@ -845,6 +845,11 @@
                value="5" v-model="surveyData.question5_alt.distance">
               <label class="form-check-label">mehr als 30 km</label>
           </div>
+          <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" 
+               value="6" v-model="surveyData.question5_alt.distance">
+              <label class="form-check-label">Ich kenne keine Felder</label>
+          </div>
         </div>
       </section>
       <br>
@@ -918,7 +923,7 @@
         </template>
         <template v-slot:footer>
           <div style="text-align: center">
-            <button class="btn btn--primary" @click="popup = false">Fortfahren</button>
+            <button style="height:60px; width:30%;" class="btn btn--primary" @click="popup = false">Speichern und weiter</button>
           </div>
         </template>
     </gdpr>
@@ -1448,7 +1453,7 @@ export default {
   },
   data () {
     return {
-      step: 0,
+      step: 6,
       pageNumber: 0,
       errors: [],
       check: '',
@@ -1527,9 +1532,11 @@ export default {
 
           var plot_entries = jsonData[i].doc.question4_5.shapes.features
           for (var j = 0; j < plot_entries.length; j++) {
-            var plots = plot_entries[j].geometry.coordinates[0][0][0]
-            var plots_coords = {'lng': plots[0], 'lat': plots[1]}
-            heatmap_data[i].coords.push(plots_coords)  
+            if (plot_entries[j].properties.farm == 'own'){
+              var plots = plot_entries[j].geometry.coordinates[0][0][0]
+              var plots_coords = {'lng': plots[0], 'lat': plots[1]}
+              heatmap_data[i].coords.push(plots_coords) 
+            }
           }
 
           // *** insert the chosen farm coordinates ***
@@ -1540,9 +1547,9 @@ export default {
             if (farm_entries[k].own) {
               heatmap_data[i].coords.push(farm_entries[k].own)  
             }
-            else if (farm_entries[k].others) {
-              heatmap_data[i].coords.push(farm_entries[k].others)  
-            }
+  //          else if (farm_entries[k].others) {
+  //            heatmap_data[i].coords.push(farm_entries[k].others)  
+  //          }
           }
         }
       }).catch(function(err) {
