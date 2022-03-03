@@ -17,7 +17,7 @@
             </ul>  
           </legend>
         </div>
-         <!-- <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
+         <div style="margin: 5px; padding: 5px; border: 1px; border-style: ridge; border-color: white; border-radius: 11px 11px 11px 11px;">
            <h2 style="text-align: center">Karte</h2>
                    
          <section>
@@ -52,7 +52,7 @@
             <heatmapbox v-bind:heatmap-data="heatmap_coords" :selected-technique="chosen_technique">
             </heatmapbox>
       </keep-alive>
-     </div> -->
+     </div>
      <br>
       <div style="padding: 5px; text-align: center">
     <button style="background-color: #182f4e;
@@ -687,6 +687,8 @@
           <legend for="question4">
             Auf welchen Feldern haben Sie im letzten Wirtschaftsjahr (2021) Zuckerrüben angebaut? Bitte klicken Sie die entsprechenden Felder an bzw. setzen Sie den Marker.
             <br>
+            <br>
+            Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, von denen wir wissen, dass dort in den letzten drei Wirtschaftsjahren (2019-2021) Zuckerrüben angebaut wurden. Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen (gilt vor allem für Hamburg und das Saarland) mit Hilfe eines kleinen Traktor-Symbols zu markieren.
             <hr>
           </legend>
       </div>
@@ -861,8 +863,6 @@
             <div v-if="step === 5 && skip_map == false">
               <legend>
                 <hr>
-                Um Ihnen die Auswahl zu erleichtern haben wir die Felder umrandet und jene gelb markiert, von denen wir wissen, dass dort in den letzten drei Wirtschaftsjahren (2019-2021) Zuckerrüben angebaut wurden. Sie haben außerdem die Möglichkeit auch nicht umrandete Flächen (gilt vor allem für Hamburg und das Saarland) mit Hilfe eines kleinen Traktor-Symbols zu markieren.
-                <br>
                 <br>
                 Aus der <a href="https://www.zi-daten.de/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">Invekos-Datenbank</a> haben wir die Daten in Form sogenannter shape-files für 
                 <a href="https://www.opengeodata.nrw.de/produkte/umwelt_klima/bodennutzung/landwirtschaft/" target="_blank" rel="noopener noreferrer" style="color: #1adee8; background: none;">NRW</a>, 
