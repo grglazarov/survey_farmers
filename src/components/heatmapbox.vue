@@ -243,7 +243,7 @@ export default {
                 }
             } 
         }
-        if (this.selectedTechnique == "Alle Techniken"){
+        if (this.selectedTechnique == "Alle Teilnehmer"){
             return locations_all
         }
         else {

@@ -31,7 +31,7 @@
             <select class="bootstrap-select" style="width: 15em; border: 2px black solid"
               v-model="chosen_technique">             
               <option value="choose">Bitte auswählen</option>
-              <option value="Alle Techniken">Alle Techniken</option>
+              <option value="Alle Teilnehmer">Alle Teilnehmer</option>
               <option value="Striegel">Striegel</option>
               <option value="Hackstriegel">Hackstriegel</option>
               <option value="Reihenstriegel">Reihenstriegel</option>
