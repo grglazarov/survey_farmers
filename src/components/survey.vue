@@ -730,7 +730,7 @@
                 <br/>
              <div style="text-align: center">            
               <button @click.prevent="skip_map = false" @click="scrollToTop(); errors = []">Zurück</button>
-              <button @click.prevent="next({value: 'Postleitzahl'}, 'question4_alt'); " @click="setColor(); scrollToTop()">Weiter</button>
+              <button @click.prevent="next({value: 'Postleitzahl'}, 'question4_alt');" @click="setColor(); scrollToTop(); surveyData.question4_own = {farms: [], shapes: {'type': 'FeatureCollection', 'features': []}}">Weiter</button>
           </div>
       </div>
 
@@ -1378,7 +1378,7 @@
       <button @click.prevent="step = 10">Erneut versuchen</button>
     </div>
 
-      <!-- <br /><br />Debug: {{surveyData}} -->
+      <br /><br />Debug: {{surveyData}}
 
     </div>
     </template>
@@ -1487,6 +1487,7 @@ export default {
         question2_alt: {select: [], comment: ''},
         question3: {value: null},
         question4_5: {farms: [], shapes: {"type": "FeatureCollection", "features": []}}, //here the farmer + neighbor coordinates are saved
+        question4_own: {farms: [], shapes: {"type": "FeatureCollection", "features": []}}, 
         question4_alt: {value: ''},
         question5_alt: {
           distance: null,
@@ -1697,6 +1698,12 @@ export default {
       }
       else if (this.step == 5 && this.skip_map == false) {
         this.errors = []
+        
+        let data_base = Object.assign([], this.surveyData.question4_5.farms)
+        let data_base2 = JSON.parse(JSON.stringify(this.surveyData.question4_5.shapes));
+        this.surveyData.question4_own.farms = data_base
+        this.surveyData.question4_own.shapes = data_base2
+
           if (!this.surveyData['question4_5'].farms.length == 0)
           {
               //pass;
