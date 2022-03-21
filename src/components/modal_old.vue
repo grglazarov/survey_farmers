@@ -12,10 +12,10 @@
     <p style="text-align: justify-all; font-family:sans-serif;font-size:12px; color: white">{{helpText}}</p>
       <hr />
       <!-- <center>
-        <button style="font-size:14px; color:#696969; align-items:center"
+        <button style="font-size:14px; color:#696968; align-items:center"
           class="hide-tool"
           v-on:click="isHidden = !isHidden"
-        >Ausblenden</button>
+        >Ausblenden </button>
       </center> -->
     </div>    
  </div>
