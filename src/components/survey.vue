@@ -11,9 +11,9 @@
               <br>
               <li>Als LandwirtIn haben Sie online die Möglichkeit, anonym Angaben zu machen, wie Sie Unkraut bekämpfen. Hierbei interessieren wir uns nicht nur für LandwirtInnen die bereits Erfahrung mit mechanischer Unkrautbekämpfung haben. Für uns ist es ebenso wertvoll zu erfahren, warum LandwirtInnen diese Techniken nicht einsetzen oder ob sie planen, sie in Zukunft zu nutzen!</li>
               <br>
-              <li>Sobald erste Befragungsergebnisse zu Verfügung stehen, können Sie hier auf einer Karte sehen, wo Landwirte schon an der Umfrage teilgenommen haben und vergleichen, welche Techniken zur Unkrautbekämpfung wo in Deutschland verwendet werden.</li>
+              <li>Die Umfrage ist nun geschlossen und erste Befragungsergebnisse stehen zur Verfügung. Ingesamt haben 312 LandwirtInnen die Umfrage komplett ausgefüllt. Sie können hier auf der Karte sehen, wo Landwirte an der Umfrage teilgenommen haben und vergleichen, welche Techniken zur Unkrautbekämpfung wo in Deutschland verwendet werden.</li>
               <br>
-              <li><mark style="color: #1adee8; font-weight: normal; background: none; font-size: 120%"><i>Unter je 100 Teilnehmenden verlosen wir drei Gutscheine im Wert von 50 € für Engelbert Strauss.</i></mark></li>
+              <li><mark style="color: #1adee8; font-weight: normal; background: none; font-size: 120%"><i>Unter je 100 Teilnehmenden haben wir drei Gutscheine im Wert von 50 € für Engelbert Strauss verlost.</i></mark></li>
             </ul>  
           </legend>
         </div>
@@ -55,13 +55,14 @@
      </div>
      <br>
       <div style="padding: 5px; text-align: center">
-    <button style="background-color: #182f4e;
-                        color: white;
-                        height:80px;
-                        width:30%;
+    <button style="background-color: #202b38;
+                      border: #202b38;
+                        color: #202b38;
+                        height:0.1px;
+                        width:0.1%;
                         text-align: center;
                         font-size: 22px;"
-                        @click="step+=1; scrollToTop()">zur Umfrage</button>
+                        @click="step+=1; scrollToTop()"></button>
     </div>
    </div>
       
